@@ -8,7 +8,7 @@ Note that this timeline is for **BASIC FUNCTIONALITY** and not full completion o
 | ------------- |------------ | ------------ | ------------ |
 |Feature 5 | Eric | 2022-10-25 | 2022-10-31 |
 |Feature 6| Enfei| 2022-11-01|2022-11-14|
-|Feature 2| Jefferson|2022-11-01|2022-11-07|
+|Feature 2| Jefferson|2022-11-01|2022-11-14|
 |Feature 1| Allison|2022-11-01|2022-11-05|
 |Feature 3| CK|2022-10-24|2022-11-01|
 |Feature 8a| Tang|2022-11-01|2022-11-11|
