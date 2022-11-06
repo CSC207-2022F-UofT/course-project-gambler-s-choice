@@ -1,4 +1,11 @@
 // Admin class
-public class Admin {
+public class Admin extends User{
 
+    public Admin(){
+
+    }
+
+    public void editBalance(){
+
+    }
 }
