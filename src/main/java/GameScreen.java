@@ -5,26 +5,21 @@ import java.awt.event.ActionListener;
 
 public class GameScreen extends JFrame {
 
-    private Container container;
-    private JButton checkButton;
-    private JButton betButton;
-    private JButton callButton;
-    private JButton foldButton;
-    private JButton menuButton;
-
-
     public GameScreen() {
         super("Gambler's Choice");
         setLayout(new BorderLayout());
-        container = getContentPane();
+        Container container = getContentPane();
 
         ImagePanel background = new ImagePanel("images/Poker Table.png", 0, 0, 1000, 800);
 
-        checkButton = new JButton("Check");
-        betButton = new JButton("Bet");
-        callButton = new JButton("Call");
-        foldButton = new JButton("Fold");
-        menuButton = new JButton("Menu");
+        JButton checkButton = new JButton("Check");
+        JButton betButton = new JButton("Bet");
+        JButton callButton = new JButton("Call");
+        JButton foldButton = new JButton("Fold");
+        JButton menuButton = new JButton("Menu");
+
+        JLabel betPrompt = new JLabel("Bet amount:");
+        JTextField betAmount = new JTextField();
 
         //TODO Replace with whatever we are using to determine card in hand (add image link directly to the card class)
         ImagePanel handCard1 = new ImagePanel("images/Playing Cards/3_of_hearts.png", 0, 0, 60, 100);
@@ -75,18 +70,21 @@ public class GameScreen extends JFrame {
         oppCard8.setBounds(250, 465, 60, 100);
         oppCard9.setBounds(700, 465, 60, 100);
         oppCard10.setBounds(765, 465, 60, 100);
+        betPrompt.setBounds(370, 640, 240, 40);
+        betAmount.setBounds(440, 640, 110, 40);
         checkButton.setPreferredSize(new Dimension(80,60));
         betButton.setPreferredSize(new Dimension(80,60));
         callButton.setPreferredSize(new Dimension(80,60));
         foldButton.setPreferredSize(new Dimension(80,60));
         menuButton.setPreferredSize(new Dimension(80,60));
 
-
         buttonPanel.add(checkButton);
         buttonPanel.add(betButton);
         buttonPanel.add(callButton);
         buttonPanel.add(foldButton);
         buttonPanel.add(menuButton);
+        backgroundPanel.add(betPrompt);
+        backgroundPanel.add(betAmount);
         backgroundPanel.add(oppCard1);
         backgroundPanel.add(oppCard2);
         backgroundPanel.add(oppCard3);
@@ -109,6 +107,7 @@ public class GameScreen extends JFrame {
         container.add(buttonPanel, BorderLayout.SOUTH);
 
         setSize(1000,800);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
