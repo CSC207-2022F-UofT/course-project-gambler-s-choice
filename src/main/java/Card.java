@@ -73,6 +73,17 @@ public class Card {
     }
 
     /**
+     * Compare the suit of the card to another card
+     * Returns true when they have the same suit, false otherwise
+     *
+     * @param card  the other card to be compared to
+     * @return whether this card's suit is the same
+     */
+    public boolean sameSuit(Card card) {
+        return this.getSuit().equalsIgnoreCase(card.getSuit());
+    }
+
+    /**
      * Helper method which returns the Rank as an integer
      * J, Q, K, A are 11, 12, 13, 14 respectively
      *
@@ -103,6 +114,13 @@ public class Card {
         return this.getRankAsInt() > card.getRankAsInt();
     }
 
+    /**
+     * Compare the rank of the card to another card
+     * Returns true when they have the same rank, false otherwise
+     *
+     * @param card  the card to be compared to
+     * @return whether they have the same rank
+     */
     public boolean sameRank(Card card) {
         return this.getRankAsInt() == card.getRankAsInt();
     }
