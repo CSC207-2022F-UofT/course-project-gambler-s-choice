@@ -102,4 +102,41 @@ public class Card {
     public boolean compareRank(Card card) {
         return this.getRankAsInt() > card.getRankAsInt();
     }
+
+    public String getPNG() {
+
+        String suit = "";
+        String rank = "";
+
+        // Dealing with suits
+        if (this.getSuit().equalsIgnoreCase("D")) {
+            suit = "diamonds";
+        } else if (this.getSuit().equalsIgnoreCase("C")) {
+            suit = "clubs";
+        } else if (this.getSuit().equalsIgnoreCase("H")) {
+            suit = "hearts";
+        } else {
+            suit = "spades";
+        }
+
+        // Dealing with rank
+        if (this.getRank().equalsIgnoreCase("A")) {
+            rank = "ace";
+        } else if (this.getRank().equalsIgnoreCase("J")) {
+            rank = "jack";
+        } else if (this.getRank().equalsIgnoreCase("Q")) {
+            rank = "queen";
+        } else if (this.getRank().equalsIgnoreCase("K")) {
+            rank = "king";
+        } else {
+            rank = this.getRank().toString();
+        }
+
+        return rank + "_of_" + suit + ".png";
+    }
+
+    public static void main(String[] args) {
+        Card card = new Card("H10");
+        System.out.println(card.getPNG());
+    }
 }
