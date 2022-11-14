@@ -103,6 +103,16 @@ public class Card {
         return this.getRankAsInt() > card.getRankAsInt();
     }
 
+    public boolean sameRank(Card card) {
+        return this.getRankAsInt() == card.getRankAsInt();
+    }
+
+    /**
+     * Returns a PNG representation of the card
+     * Used in the display of the card
+     *
+     * @return a string with the PNG link for the card
+     */
     public String getPNG() {
 
         String suit = "";
@@ -132,11 +142,6 @@ public class Card {
             rank = this.getRank().toString();
         }
 
-        return rank + "_of_" + suit + ".png";
-    }
-
-    public static void main(String[] args) {
-        Card card = new Card("H10");
-        System.out.println(card.getPNG());
+        return "images/Playing Cards/" + rank + "_of_" + suit + ".png";
     }
 }
