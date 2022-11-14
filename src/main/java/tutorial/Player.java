@@ -1,3 +1,5 @@
+package tutorial;
+
 public class Player {
     private int id;
     private double playerMoney;

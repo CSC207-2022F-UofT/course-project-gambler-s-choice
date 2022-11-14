@@ -1,3 +1,5 @@
+package tutorial;
+
 // Admin class
 public class Admin extends User{
 

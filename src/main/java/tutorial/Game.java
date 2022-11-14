@@ -1,3 +1,5 @@
+package tutorial;
+
 import java.util.*;
 
 public class Game {

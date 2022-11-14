@@ -1,3 +1,5 @@
+package tutorial;
+
 public class Card {
     private String suit;
     private int rank;
