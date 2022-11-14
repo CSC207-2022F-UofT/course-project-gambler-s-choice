@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class MainMenu{
     private JFrame frame;
-    private JLabel label;
+
     public MainMenu(){
 
         this.frame = new JFrame("Main Menu");
@@ -53,18 +53,19 @@ public class MainMenu{
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);*/
-        this.label = new JLabel();
-        this.label.setSize(1000,800);
-        scaleImage("images/Menu.jpg", this.label);//scales the image to the label
+        JLabel background = new JLabel();
+        background.setSize(1000,800);
+        scaleImage("images/Menu.jpg", background);//scales the image to the label
 
-
-
+        JLabel helpWindow = new JLabel();
+        helpWindow.setBounds(400,100, 400,400);
+        scaleImage("images/Menu.jpg", background);
         JButton helpButton = new JButton("Help");
 
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showInputDialog(null, "This is the message", "This is the default text");
+                JOptionPane.showMessageDialog(null, "This is the message");
             }
         });
 
@@ -80,18 +81,18 @@ public class MainMenu{
         exitButton.setBounds(coords.get(2));
         backButton.setBounds(coords.get(3));
 
-        this.label.add(backButton);
+        background.add(backButton);
 
-        this.label.add(helpButton);
+        background.add(helpButton);
 
-        this.label.add(logoutButton);
+        background.add(logoutButton);
 
-        this.label.add(exitButton);
-
-
+        background.add(exitButton);
 
 
-        frame.add(this.label);
+
+
+        frame.add(background);
         frame.setSize(1000,800);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
