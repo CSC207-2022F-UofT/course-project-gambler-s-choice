@@ -7,6 +7,9 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/.gitignore
+.idea/misc.xml
+.idea/vcs.xml
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -80,6 +83,10 @@ fabric.properties
 .gradle
 **/build/
 !src/**/build/
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat
 
 # Ignore Gradle GUI config
 gradle-app.setting
