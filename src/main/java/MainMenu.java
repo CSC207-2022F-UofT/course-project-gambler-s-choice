@@ -5,94 +5,64 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainMenu{
-    private JFrame frame;
 
-    public MainMenu(){
+    public MainMenu(JFrame frame){
 
-        this.frame = new JFrame("Main Menu");
-        /*
-        setLayout(new BorderLayout());
-        Container container = getContentPane();
-
-        BackgroundPanel background = new BackgroundPanel("images/Poker Table.jpg", 1000, 800);
-
-        JButton helpButton = new JButton("Help");
-        JButton logoutButton = new JButton("Log Out");
-        JButton exitButton = new JButton("Exit Game");
-        JButton backButton = new JButton("Go back");
-
-        helpButton.setSize(new Dimension(80,60));
-        logoutButton.setSize(new Dimension(80,60));
-        exitButton.setSize(new Dimension(80,60));
-        backButton.setSize(new Dimension(80,60));
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
-
-
-        buttonPanel.add(backButton);
-
-
-        buttonPanel.add(helpButton);
-
-        buttonPanel.add(logoutButton);
-
-        buttonPanel.add(exitButton);
-
-        background.add(buttonPanel);
-        container.add(buttonPanel, BorderLayout.WEST);
-
-        container.add(background);
-
-
-
-
-
-        setSize(1000,800);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);*/
         JLabel background = new JLabel();
         background.setSize(1000,800);
         scaleImage("images/Menu.jpg", background);//scales the image to the label
 
         JLabel helpWindow = new JLabel();
-        helpWindow.setBounds(400,100, 400,400);
-        scaleImage("images/Menu.jpg", background);
+        helpWindow.setBounds(200,30, 557,700);
+        scaleImage("images/poker hand rankings.jpg", helpWindow);// TEMP IMAGE I WILL CREATE AN IMAGE LATER
+
+        helpWindow.setVisible(false);
+
         JButton helpButton = new JButton("Help");
 
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "This is the message");
-            }
+        helpButton.addActionListener(e -> {
+            helpWindow.setVisible(!helpWindow.isVisible());
         });
 
         JButton logoutButton = new JButton("Log Out");
+
+        logoutButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU LOGGED OUT");
+        });
+
         JButton exitButton = new JButton("Exit Game");
-        JButton backButton = new JButton("Go back");
+
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
+
+        JButton gameButton = new JButton("Play Game");
+
+        gameButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU ARE BACK IN THE GAME");
+        });
+
 
         ArrayList <Rectangle> coords = calcCoord(10,10, 4, 100, 60, 10);
 
+        gameButton.setBounds(coords.get(0));
+        helpButton.setBounds(coords.get(1));
+        logoutButton.setBounds(coords.get(2));
+        exitButton.setBounds(coords.get(3));
 
-        helpButton.setBounds(coords.get(0));
-        logoutButton.setBounds(coords.get(1));
-        exitButton.setBounds(coords.get(2));
-        backButton.setBounds(coords.get(3));
 
-        background.add(backButton);
+        background.add(gameButton);
 
         background.add(helpButton);
 
         background.add(logoutButton);
 
         background.add(exitButton);
-
-
+        background.add(helpWindow);
 
 
         frame.add(background);
+
         frame.setSize(1000,800);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,11 +92,12 @@ public class MainMenu{
     }
 
     public static void main(String[] args){
+        JFrame frame = new JFrame("Main Menu");
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainMenu();
+                new MainMenu(frame);
             }
         });
 
