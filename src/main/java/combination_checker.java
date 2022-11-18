@@ -1,13 +1,34 @@
 import java.util.Arrays;
 
-public class combination_checker {
-    private boolean straight;
-    private boolean flush;
-    combination_checker(Card[] cards){
-        Arrays.sort(cards);
-        this.straight = isStraight2(cards);
-        this.flush = isFlush(cards);
+public class combination_checker implements Comparable<combination_checker>{
+    private final int Unique_compare_ID;
 
+    /**Set a unique ID of comparing for the item, ID will be 11 digit.
+     * first int represent the combination it is:
+     * 9 : Royal flush, 8: Straight flush, 7: Full house, ..., 0 : high card.
+     * the next ten-digits is the cord's rank, but rank in a special descending order,
+     * such that a pair is prior to single card.
+     * For example, "2AA22" will have ID: 71414140202.
+     * one more example,"AK447" will have ID: 20404141307. where the first index "2"
+     * means this is a pair combination, with 4 as the top pair.
+     *
+     *
+     * @param cards An arrays of 5 cards.
+     */
+    public combination_checker(Card[] cards){
+        Arrays.sort(cards);
+        this.Unique_compare_ID = get_ID(cards);
+    }
+
+    /**Compare two set of 5 cards, which one is stronger in the poker rule.
+     *
+     * @param other_hands the object to be compared.
+     * @return positive number if this hands is bigger than other,
+     * negative if this is smaller, 0 if it is a tie.
+     */
+    @Override
+    public int compareTo(combination_checker other_hands){
+        return this.Unique_compare_ID - other_hands.Unique_compare_ID;
     }
 
     /**Return whether the card has combination of one pair.
