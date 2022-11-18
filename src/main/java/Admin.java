@@ -5,8 +5,11 @@ public class Admin extends User{
 
     }
 
-    //test
-    public void editBalance(){
-
+    public void editBalance(User user, float amount){
+        user.addBalance(amount);
     }
+
+    //public void removePlayer(Game game, User user){
+
+    //}
 }
