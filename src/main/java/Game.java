@@ -1,3 +1,5 @@
+//TEMPORARY FILE WILL BE OVERWRITTEN BY ACTUAL GAME CLASS
+
 public class Game {
 
     private Player[] players;

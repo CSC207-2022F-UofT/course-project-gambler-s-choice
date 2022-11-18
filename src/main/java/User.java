@@ -1,4 +1,4 @@
-import org.junit.Test;
+//TEMPORARY FILE WILL BE OVERWRITTEN BY ACTUAL USER CLASS
 
 public class User {
     private float balance;

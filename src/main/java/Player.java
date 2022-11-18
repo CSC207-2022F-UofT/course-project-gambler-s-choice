@@ -1,3 +1,5 @@
+//TEMPORARY FILE WILL BE OVERWRITTEN BY ACTUAL PLAYER CLASS
+
 public class Player {
     private Card[] cards = new Card[2];
 
