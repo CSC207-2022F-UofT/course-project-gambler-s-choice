@@ -8,14 +8,17 @@ public class Player {
 
     public static int number = 0;
 
+    public int money;
+
     public Player() {
         this.fold = false;
         this.allIn = false;
         number++;
         this.num = number;
+        this.money = 0;
     }
 
-    public void addMoney(int amount) {}
+    public void addMoney(int amount) {money += amount;}
 
     public boolean getFold() { return this.fold; }
 

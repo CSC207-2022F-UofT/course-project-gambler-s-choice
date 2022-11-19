@@ -3,28 +3,28 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Pool {
-    private ArrayList<PartPool> pools;
-    private int poolCounter;
 
     // players and bets will be parallel arrays
     private final Player[] players;
-    private ArrayList<Player> playersEntitled;
     private int[] bets;
 
+    /**
+     * Class constructor for Pool
+     *
+     * @param players   the players who are playing this game
+     */
     public Pool(Player[] players) {
         this.players = players;
         this.bets = new int[players.length];
         this.resetBets();
-
-        this.pools = new ArrayList<>();
-        PartPool mainPool = new PartPool(players);
-        this.pools.add(mainPool);
-        this.poolCounter = 0;
-
-        this.playersEntitled = new ArrayList<>();
-        this.playersEntitled.addAll(List.of(players));
     }
 
+    /**
+     * Adds the money into the pool when a player makes a bet
+     *
+     * @param player    the player making the bet
+     * @param amount    the amount the player is betting
+     */
     public void addMoney(Player player, int amount) {
         int index = Arrays.asList(this.players).indexOf(player); // Find the index of player
         this.bets[index] += amount; // Add this money to the same index as players for bets array
@@ -36,66 +36,99 @@ public class Pool {
         }
     }
 
-    public void endRound() {
-        /* Deal with folding
-        For any players who have folded, add their bets into the current pool
-
-        Heuristic: keep looping until whole bets array is 0
-        Find the smallest value
-        3 cases:
-        If the player has not gone all in, add the money to the pool, and set bet[i] to 0
-            Sub-case 1: player folded: remove player entitlement from current pool
-            Sub-case 2: player not folded: do nothing
-        If the player has gone all in:
-            Add their money to the pool
-            Add everyone else's money to the pool by that players amount
-            Remove that player from entitlement
-            Create a new pool with only entitled players
-         */
-
-        // TODO Refactor this method so that its not a large nested loop
-        int index = smallestIndexNonZero(this.bets);
-        while (index != -1) {
-            // Player not gone all in
-            if (!this.players[index].getAllIn()) {
-                this.pools.get(this.poolCounter).addMoney(this.bets[index]);
-                this.bets[index] = 0;
-
-                // If player is folded
-                if (this.players[index].getFold()) {
-
-                    // Remove player from entitlement
-                    this.playersEntitled.remove(this.players[index]);
-                    this.pools.get(this.poolCounter).removePlayer(this.players[index]);
-                }
-            } else { // Player has gone all in
-                int amount = this.bets[index];
-                // Loop through every bet, and subtract this amount from the bet
-                for (int i = 0; i < this.bets.length; i++) {
-                    if (this.bets[i] != 0) {
-                        this.bets[i] -= amount;
-                        this.pools.get(this.poolCounter).addMoney(amount);
-                    }
-                }
-
-                // Remove player from entitlement
-                this.playersEntitled.remove(this.players[index]);
-                // Create new pool
-                this.poolCounter++;
-                PartPool sidePool = new PartPool((ArrayList<Player>) this.playersEntitled.clone());
-                // Add this pool to the list of pools
-                this.pools.add(sidePool);
+    /**
+     * Calculates the winnings for the players
+     * The index of the input array corresponds to the players
+     * So ranking[0] is the rank of players[0], ranking[1] is the rank of players[1], etc.
+     * The number within the array should range from 1 to the length of the array
+     * Ex. If the array length is 6, the numbers should range from 1 to 6
+     * This corresponds to the fact that you can't have a 7th place player in a 6 player game
+     * This method will add money to the player's balance and then empty the pool
+     *
+     * @param ranking   an array of the same length as the number of players denoting the ranking
+     *                  of each player
+     */
+    public void calculateWinnings(int[] ranking) {
+        // Loop from 1 to length of ranking
+        for (int i = 1; i <= ranking.length; i++) {
+            int[] ithPlace = indexEqualTo(i, ranking);
+            int[] betSublist = new int[ithPlace.length];
+            for (int j = 0; j < ithPlace.length; j++) {
+                betSublist[j] = this.bets[ithPlace[j]];
             }
-
-            index = smallestIndexNonZero(this.bets);
-            /*
-            Note: this loop should terminate
-            Every iteration, a player's bet is set to 0
-            It will exit once every player's bet is set to 0
-             */
+            this.calculateWinningsHelper(ithPlace, betSublist);
         }
 
+        this.resetBets(); // Redundant since calculateWinnings should do this
+    }
 
+    private void calculateWinningsHelper(int[] ithPlace, int[] betSublist) {
+        ArrayList<Integer> winners = new ArrayList<>();
+        for (int i = 0; i < ithPlace.length; i++) {
+            winners.add(ithPlace[i]);
+        }
+
+        int index = smallestIndexNonZero(betSublist);
+        while (index != -1) {
+            int moneyPool = 0;
+            int amount = betSublist[index];
+
+            // Subtract from bet sublist
+            for (int i = 0; i < betSublist.length; i++) {
+                if (betSublist[i] != 0) {
+                    betSublist[i] -= amount;
+                }
+            }
+
+            // Subtract money from actual bet list
+            for (int i = 0; i < this.bets.length; i++) {
+                if (this.bets[i] < amount) {
+                    moneyPool += this.bets[i];
+                    this.bets[i] = 0;
+                } else {
+                    this.bets[i] -= amount;
+                    moneyPool += amount;
+                }
+            }
+
+            // Add everyone's money to this pool
+            this.distributeWinnings(winners, moneyPool);
+
+            // Since that player has their winnings, remove them from list
+            winners.remove(Integer.valueOf(ithPlace[index]));
+
+            index = smallestIndexNonZero(betSublist);
+        }
+    }
+
+    private void distributeWinnings(ArrayList<Integer> winners, int amount) {
+        if (winners.size() > 0) { // Only run when winners in non-empty
+            int winnings = amount / winners.size();
+            int remainder = amount % winners.size();
+
+            /*
+            Divides evenly the money between players
+            Slightly favours first player
+            Example; if 9 dollars is the amount, first player wins 5 dollars, 2nd player wins 4
+             */
+            for (int winner: winners) {
+                this.players[winner].addMoney(winnings);
+                if (remainder != 0) {
+                    this.players[winner].addMoney(1);
+                    remainder -= 1;
+                }
+            }
+        }
+    }
+
+    private static int[] indexEqualTo(int value, int[] intArray) {
+        ArrayList<Integer> toReturn = new ArrayList<>();
+        for (int i = 0; i < intArray.length; i++) {
+            if (intArray[i] == value) {
+                toReturn.add(i);
+            }
+        }
+        return toReturn.stream().mapToInt(i -> i).toArray(); // Converts from ArrayList<Integer> to int[]
     }
 
     /**
@@ -131,20 +164,15 @@ public class Pool {
         pool.addMoney(player2, 10);
         pool.addMoney(player3, 15);
 
-        player1.allIn = true;
-        player2.allIn = true;
-        System.out.println(pool.bets[0]);
-        System.out.println(pool.bets[1]);
-        System.out.println(pool.bets[2]);
+        // Calculate winnings
+        pool.calculateWinnings(new int[]{1, 2, 3});
+        System.out.println(player1.money);
+        System.out.println(player2.money);
+        System.out.println(player3.money);
+
         System.out.println();
-
-        // Seeing what happens when we end the round
-        pool.endRound();
-
         System.out.println(pool.bets[0]);
         System.out.println(pool.bets[1]);
         System.out.println(pool.bets[2]);
-        System.out.println(pool.pools.get(1).getAmount());
-        System.out.println(pool.pools.get(1).getPlayersEntitled());
     }
 }
