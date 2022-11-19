@@ -1,35 +1,49 @@
 import java.util.Arrays;
 
 public class combination_checker implements Comparable<combination_checker>{
-    private final int Unique_compare_ID;
-
-    /**Set a unique ID of comparing for the item, ID will be 11 digit.
-     * first int represent the combination it is:
-     * 9 : Royal flush, 8: Straight flush, 7: Full house, ..., 0 : high card.
-     * the next ten-digits is the cord's rank, but rank in a special descending order,
-     * such that a pair is prior to single card.
-     * For example, "2AA22" will have ID: 71414140202.
-     * one more example,"AK447" will have ID: 20404141307. where the first index "2"
-     * means this is a pair combination, with 4 as the top pair.
-     *
-     *
-     * @param cards An arrays of 5 cards.
-     */
+    public final int compare_ID;
+    
     public combination_checker(Card[] cards){
+        this.compare_ID = get_compare_ID(cards);
+    }
+    
+    public int get_compare_ID(Card[] cards){
         Arrays.sort(cards);
-        this.Unique_compare_ID = get_ID(cards);
+        // Royal flush = 9, Straight flush = 8,  four of a kind = 7, full house = 6,
+        // flush = 5, Straight = 4, three of a kind = 3, two pair = 2, pair = 1, High card = 0
+        if(isStraight2(cards) && isFlush(cards) && (cards[0].getRankAsInt() == 10)) {
+            return 9;
+        } else if (isFlush(cards) && isStraight2(cards)) {
+            return 8;
+        } else if (is_four_of_one_kind(cards)) {
+            return 7;
+        } else if (is_fullhouse(cards)) {
+            return 6;
+        } else if (isFlush(cards)) {
+            return 5;
+        } else if (isStraight2(cards)) {
+            return 4;
+        } else if (is_three_of_one_kind(cards)) {
+            return 3;
+        } else if (is_two_pairs(cards)) {
+            return 2;
+        } else if (is_one_pairs(cards)) {
+            return 1;
+        } else { return 0;}
     }
 
-    /**Compare two set of 5 cards, which one is stronger in the poker rule.
+    /**Compare two set of 5 cards by their rank on combination.
+     * for example, two pair is greater than one pair. However, we only compare the
+     * combination, no card rank comparing.
      *
      * @param other_hands the object to be compared.
-     * @return positive number if this hands is bigger than other,
-     * negative if this is smaller, 0 if it is a tie.
+     * @return
      */
     @Override
-    public int compareTo(combination_checker other_hands){
-        return this.Unique_compare_ID - other_hands.Unique_compare_ID;
+    public int compareTo(combination_checker other_hands) {
+        return this.compare_ID - other_hands.compare_ID;
     }
+
 
     /**Return whether the card has combination of one pair.
      *
