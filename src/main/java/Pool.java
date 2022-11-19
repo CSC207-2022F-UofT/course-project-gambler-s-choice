@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Pool {
 
     // players and bets will be parallel arrays
-    private final Player[] players;
+    private final PlayerInterface[] players;
     private int[] bets;
 
     /**
@@ -13,7 +12,7 @@ public class Pool {
      *
      * @param players   the players who are playing this game
      */
-    public Pool(Player[] players) {
+    public Pool(PlayerInterface[] players) {
         this.players = players;
         this.bets = new int[players.length];
         this.resetBets();
@@ -25,15 +24,13 @@ public class Pool {
      * @param player    the player making the bet
      * @param amount    the amount the player is betting
      */
-    public void addMoney(Player player, int amount) {
+    public void addMoney(PlayerInterface player, int amount) {
         int index = Arrays.asList(this.players).indexOf(player); // Find the index of player
         this.bets[index] += amount; // Add this money to the same index as players for bets array
     }
 
     private void resetBets() {
-        for(int i = 0; i < this.bets.length; i++) {
-            this.bets[i] = 0;
-        }
+        Arrays.fill(this.bets, 0);
     }
 
     /**
@@ -152,27 +149,4 @@ public class Pool {
         return smallestIndex;
     }
 
-    public static void main(String[] args) {
-        Player player1 = new Player();
-        Player player2 = new Player();
-        Player player3 = new Player();
-        Player[] players = new Player[] {player1, player2, player3};
-        Pool pool = new Pool(players);
-
-        // Placing bets
-        pool.addMoney(player1, 5);
-        pool.addMoney(player2, 10);
-        pool.addMoney(player3, 15);
-
-        // Calculate winnings
-        pool.calculateWinnings(new int[]{1, 2, 3});
-        System.out.println(player1.money);
-        System.out.println(player2.money);
-        System.out.println(player3.money);
-
-        System.out.println();
-        System.out.println(pool.bets[0]);
-        System.out.println(pool.bets[1]);
-        System.out.println(pool.bets[2]);
-    }
 }
