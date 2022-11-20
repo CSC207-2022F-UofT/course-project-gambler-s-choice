@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class MainMenu{
+public class AdminMainMenu{
 
-    public MainMenu(JFrame frame){
+    public AdminMainMenu(JFrame frame){
 
         JLabel background = new JLabel();
         background.setSize(1000,800);
@@ -20,35 +20,67 @@ public class MainMenu{
 
         JButton helpButton = new JButton("Help");
 
+        JButton logoutButton = new JButton("Log Out");
+        JButton exitButton = new JButton("Exit Game");
+        JButton gameButton = new JButton("Play Game");
+        JButton editButton = new JButton("Edit User");
+        JLabel userLabel = new JLabel("Username");
+        JLabel balanceLabel = new JLabel("Balance");
+        JTextField username = new JTextField("");
+        JTextField balance = new JTextField("");
+
+        //TEMP actionlisteners
         helpButton.addActionListener(e -> {
             helpWindow.setVisible(!helpWindow.isVisible());
+            username.setVisible(!username.isVisible());
+            userLabel.setVisible(!userLabel.isVisible());
+            balance.setVisible(!balance.isVisible());
+            balanceLabel.setVisible(!balanceLabel.isVisible());
+
         });
-
-        JButton logoutButton = new JButton("Log Out");
-
         logoutButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU LOGGED OUT");
         });
-
-        JButton exitButton = new JButton("Exit Game");
-
         exitButton.addActionListener(e -> {
             System.exit(0);
         });
-
-        JButton gameButton = new JButton("Play Game");
-
         gameButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU ARE BACK IN THE GAME");
         });
 
 
-        ArrayList <Rectangle> coords = calcCoord(10,10, 4, 100, 60, 10);
+
+        editButton.addActionListener(e -> {
+            String userEntry = username.getText();
+            String balanceEntry = balance.getText();
+            username.setText("");
+            balance.setText("");
+            //FIXME this just extracts the text fields
+            JOptionPane.showMessageDialog(null,"Username: "+ userEntry + " New Balance: "+ balanceEntry);
+        });
+
+        //TODO add label text panel
+        //TODO add "implementation"
+        ArrayList <Rectangle> coords = calcCoord(10,10, 5, 100, 60, 10);
 
         gameButton.setBounds(coords.get(0));
         helpButton.setBounds(coords.get(1));
         logoutButton.setBounds(coords.get(2));
-        exitButton.setBounds(coords.get(3));
+        editButton.setBounds(coords.get(3));
+        exitButton.setBounds(coords.get(4));
+
+        //locations of the user and balance text fields
+        Rectangle userCoord = new Rectangle(130, 240, 100, 40);
+        Rectangle balanceCoord = new Rectangle(240, 240, 100, 40);
+        Rectangle userLabelCoord = new Rectangle(130, 200, 100, 60);
+        Rectangle balanceLabelCoord = new Rectangle(240, 200, 100, 60);
+
+        userLabel.setBounds(userLabelCoord);
+        balanceLabel.setBounds(balanceLabelCoord);
+
+        username.setBounds(userCoord);
+        balance.setBounds(balanceCoord);
+
 
 
         background.add(gameButton);
@@ -57,8 +89,13 @@ public class MainMenu{
 
         background.add(logoutButton);
 
+        background.add(editButton);
+        background.add(username);
+        background.add(balance);
         background.add(exitButton);
         background.add(helpWindow);
+        background.add(userLabel);
+        background.add(balanceLabel);
 
 
         frame.add(background);
@@ -72,7 +109,7 @@ public class MainMenu{
 
 
     }
-    //THIS IS TEMPORARY AS I DON'T KNOW WHERE ELSE TO PUT THIS METHOD
+    //FIXME THIS IS TEMPORARY AS I DON'T KNOW WHERE ELSE TO PUT THIS METHOD
     private void scaleImage(String location, JLabel label){
         ImageIcon icon = new ImageIcon(location);
         Image img = icon.getImage();
@@ -97,7 +134,7 @@ public class MainMenu{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainMenu(frame);
+                new AdminMainMenu(frame);
             }
         });
 
