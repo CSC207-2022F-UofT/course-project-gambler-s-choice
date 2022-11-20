@@ -1,15 +1,25 @@
 // Admin class
+//TODO FIX IMPLEMENTATION TO FOLLOW CLEAN ARCHITECTURE
 public class Admin extends User{
 
-    public Admin(){
-
+    /**
+     * Creates an Admin User by calling the User's Constructor and passing the params
+     * @param name name of the user
+     * @param password password of the user
+     */
+    public Admin(String name, String password){
+        super(name, password, "admin");
     }
 
-    public void editBalance(User user, float amount){
+    /**
+     * Edits the balance of a user
+     * @param user The user whose balance is being edited
+     * @param amount The amount being added to their balance
+     */
+    public void editBalance(User user, int amount){
         user.addBalance(amount);
+        //TODO EDIT FILE TO UPDATE BALANCE AS WELL
     }
 
-    //public void removePlayer(Game game, User user){
-
-    //}
 }
+

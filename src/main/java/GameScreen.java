@@ -7,14 +7,21 @@ public class GameScreen implements Screen{
 
     private final int CARD_WIDTH = 60;
     private final int CARD_HEIGHT = 100;
+    private final Game game;
 
 
+    /**
+     * Updates the current window to contain the necessary items in the game
+     * @param frame The current main window being used
+     * @param game The current game in play
+     */
     public GameScreen(JFrame frame, Game game) {
 
+        this.game = game;
         frame.setLayout(new BorderLayout());
         Container container = frame.getContentPane();
 
-        container.add(loadBackground(game));
+        container.add(loadBackground());
         container.add(this.loadButtons(), BorderLayout.SOUTH);
 
         frame.setSize(1000,800);
@@ -23,6 +30,11 @@ public class GameScreen implements Screen{
         frame.setVisible(true);
     }
 
+    /**
+     * Creates all the cards that are visible to the player and puts them into an array
+     * @param game The current game state to determine what the cards are
+     * @return An array of the images of cards that are visible to the player
+     */
     private ImagePanel[] loadSeenCards(Game game){
         Card[] handCards = game.getCurrPlayer().getCards();
         Card[] boardCards = game.getBoardCards();
@@ -42,6 +54,11 @@ public class GameScreen implements Screen{
         return cards;
     }
 
+    /**
+     * Creates all the card backs for the hands of the opposing players
+     * @param game The current game state to determine how many players there are
+     * @return An array of the images of the card backs for the opposing players
+     */
     private ImagePanel[] loadHiddenCards(Game game){
         int players = game.getPlayers().length * 2 - 2;
         String cardBack = "images/Card Back.png";
@@ -61,7 +78,12 @@ public class GameScreen implements Screen{
         return oppCards;
     }
 
-    private JPanel loadBackground(Game game){
+    /**
+     * Puts all the background elements into a JPanel for the frame to have
+     * @return The JPanel with all the background elements
+     */
+    @Override
+    public JPanel loadBackground(){
         JPanel backgroundPanel = new JPanel();
         backgroundPanel.setLayout(new BorderLayout());
 
@@ -96,6 +118,10 @@ public class GameScreen implements Screen{
         return backgroundPanel;
     }
 
+    /**
+     * Creates all the necessary buttons for this screen and puts them into a JPanel
+     * @return The JPanel with all the necessary button elements
+     */
     @Override
     public JPanel loadButtons() {
         int BUTTON_WIDTH = 80;
