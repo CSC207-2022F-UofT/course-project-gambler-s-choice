@@ -18,6 +18,7 @@ public class Hint_for_chance {
 
     private Double initial_win_rate(String converted_hands) {
         Hashtable<String, Double> win_rate_table = new Hashtable<String, Double>();
+        String[] starting_hand = {"NAA",
         win_rate_table.put("SAK", 80.00);
         // SAA is example, going to implement actual win rate later.
     }
