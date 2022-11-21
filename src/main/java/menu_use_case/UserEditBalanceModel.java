@@ -1,7 +1,9 @@
 package menu_use_case;
 
 public class UserEditBalanceModel {
-
+    /**
+     * The UserEditBalanceModel is just a data structure that stores a user and a balance for editing user balances
+     */
     String user;
     int balance;
 

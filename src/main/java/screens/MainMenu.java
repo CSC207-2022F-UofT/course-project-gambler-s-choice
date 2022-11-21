@@ -6,8 +6,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-public class MainMenu extends Menu{
-
+public class MainMenu implements Menu{
+    /**
+     * creates a main menu screen
+     * @param frame The frame that MainMenu modifies
+     */
     public MainMenu(JFrame frame){
 
         JLabel background = new JLabel();
@@ -69,19 +72,6 @@ public class MainMenu extends Menu{
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-    }
-
-
-    public static void main(String[] args){
-        JFrame frame = new JFrame("Main Menu");
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MainMenu(frame);
-            }
-        });
 
     }
 }

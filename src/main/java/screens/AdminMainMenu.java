@@ -6,8 +6,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import menu_use_case.UserEditBalanceModel;
 
-public class AdminMainMenu extends Menu{
-
+public class AdminMainMenu implements Menu{
+    /**
+     * Creates a main menu with an extra option to edit user balances
+     * @param frame the frame to be modified
+     */
     public AdminMainMenu(JFrame frame){
 
         JLabel background = new JLabel();
@@ -66,8 +69,6 @@ public class AdminMainMenu extends Menu{
             JOptionPane.showMessageDialog(null,"Username: "+ userEntry + " New Balance: "+ balanceEntry);
         });
 
-        //TODO add label text panel
-        //TODO add "implementation"
         ArrayList <Rectangle> coords = calcCoord(10,10, 5, 100, 60, 10);
 
         gameButton.setBounds(coords.get(0));
@@ -114,18 +115,6 @@ public class AdminMainMenu extends Menu{
 
 
 
-
-    }
-
-    public static void main(String[] args){
-        JFrame frame = new JFrame("Main Menu");
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new AdminMainMenu(frame);
-            }
-        });
 
     }
 }

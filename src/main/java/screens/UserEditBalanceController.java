@@ -3,7 +3,9 @@ import menu_use_case.UserEditBalanceInputBoundary;
 import menu_use_case.UserEditBalanceModel;
 // Interface adapters layer
 public class UserEditBalanceController {
-
+    /**
+     * This creates a UserEditBalanceModel
+     */
     final UserEditBalanceInputBoundary editInput;
 
     public UserEditBalanceController(UserEditBalanceInputBoundary editGateway){
