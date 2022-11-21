@@ -1,3 +1,6 @@
+import screens.AdminMainMenu;
+import screens.MainMenu;
+
 import javax.swing.*;
 
 public class MenuScreenTest {
@@ -7,7 +10,7 @@ public class MenuScreenTest {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new LoginScreen(testFrame);
+                new MainMenu(testFrame);
             }
         });
 
