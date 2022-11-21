@@ -7,7 +7,7 @@ public class combination_checker implements Comparable<combination_checker>{
         this.compare_ID = get_compare_ID(cards);
     }
     
-    public int get_compare_ID(Card[] cards){
+    public static int get_compare_ID(Card[] cards){
         Arrays.sort(cards);
         // Royal flush = 9, Straight flush = 8,  four of a kind = 7, full house = 6,
         // flush = 5, Straight = 4, three of a kind = 3, two pair = 2, pair = 1, High card = 0
@@ -17,7 +17,7 @@ public class combination_checker implements Comparable<combination_checker>{
             return 8;
         } else if (is_four_of_one_kind(cards)) {
             return 7;
-        } else if (is_fullhouse(cards)) {
+        } else if (is_full_house(cards)) {
             return 6;
         } else if (isFlush(cards)) {
             return 5;
@@ -47,17 +47,17 @@ public class combination_checker implements Comparable<combination_checker>{
 
     /**Return whether the card has combination of one pair.
      *
-     * @param cards
-     * @return
+     * @param cards a set of 5 cards
+     * @return whether the best combination is pair.
      */
-    public boolean is_one_pairs(Card[] cards) {
+    public static boolean is_one_pairs(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean a = (rep_list[0] == 0);
         boolean b = (rep_list[1] == 1);
         boolean c = (rep_list[2] == 1);
         boolean d = (rep_list[3] == 1);
         boolean e = (rep_list[4] == 2);
-        return a && b && c && d;
+        return a && b && c && d && e;
     }
 
     /**Return whether the card has combination of two pairs.
@@ -65,7 +65,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @param cards
      * @return
      */
-    public boolean is_two_pairs(Card[] cards) {
+    public static boolean is_two_pairs(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean a = (rep_list[0] == 0);
         boolean b = (rep_list[1] == 0);
@@ -80,7 +80,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @param cards
      * @return
      */
-    public boolean is_three_of_one_kind(Card[] cards) {
+    public static boolean is_three_of_one_kind(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean a = (rep_list[0] == 0);
         boolean b = (rep_list[1] == 0);
@@ -95,7 +95,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @param cards
      * @return
      */
-    public boolean is_fullhouse(Card[] cards) {
+    public static boolean is_full_house(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean a = (rep_list[0] == 0);
         boolean b = (rep_list[1] == 0);
@@ -111,7 +111,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @param cards
      * @return
      */
-    public boolean is_four_of_one_kind(Card[] cards) {
+    public static boolean is_four_of_one_kind(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean d = (rep_list[3] == 4);
         return d;
@@ -126,7 +126,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @param cards
      * @return
      */
-    private int[] get_Repeated_counting(Card[] cards){
+    private static int[] get_Repeated_counting(Card[] cards){
         int[] Repeated_counting = new int[5];
         int index_counting = 0;
         int temp = 1;
@@ -150,7 +150,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @param five_card
      * @return Whether the cards form a Flush.
      */
-    public boolean isFlush(Card[] five_card) {
+    public static boolean isFlush(Card[] five_card) {
         Card temp = five_card[0];
         for (Card c : five_card) {
             if (temp.sameSuit(c)) {
@@ -167,7 +167,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @return Whether the cards form a Flush.
      *
      */
-    public boolean isStraight2(Card[] sorted_cards) {
+    public static boolean isStraight2(Card[] sorted_cards) {
         boolean a = sorted_cards[0].getRankAsInt() == sorted_cards[1].getRankAsInt() + 1;
         boolean b = sorted_cards[1].getRankAsInt() == sorted_cards[2].getRankAsInt() + 1;
         boolean c = sorted_cards[2].getRankAsInt() == sorted_cards[3].getRankAsInt() + 1;
