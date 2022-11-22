@@ -6,20 +6,26 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-public class MainMenu implements Menu{
+public class MainMenu implements Menu {
     /**
      * creates a main menu screen
+     * This class does not work as of right now since we have yet to implement use cases, so there will be popup messages
+     * that will display when corresponding buttons are clicked that denote what the button is supposed to do
      * @param frame The frame that MainMenu modifies
      */
     public MainMenu(JFrame frame){
 
+        //Creates a new MenuController object
+        MenuController m = new MenuController();
+
         JLabel background = new JLabel();
         background.setSize(1000,800);
-        scaleImage("images/menu2.jpg", background);//scales the image to the label
+        scaleImage("images/menu2.jpg", background);
 
         JLabel helpWindow = new JLabel();
         helpWindow.setBounds(200,30, 557,700);
-        scaleImage("images/poker hand rankings.jpg", helpWindow);// TEMP IMAGE I WILL CREATE AN IMAGE LATER
+
+        scaleImage("images/poker hand rankings.jpg", helpWindow);
 
         helpWindow.setVisible(false);
 
@@ -31,9 +37,7 @@ public class MainMenu implements Menu{
 
         JButton logoutButton = new JButton("Log Out");
 
-        logoutButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU LOGGED OUT");
-        });
+        logoutButton.addActionListener(m);
 
         JButton exitButton = new JButton("Exit Game");
 
@@ -41,11 +45,11 @@ public class MainMenu implements Menu{
             System.exit(0);
         });
 
-        JButton gameButton = new JButton("Play Game");
+        JButton gameButton = new JButton("Play");
 
-        gameButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU ARE BACK IN THE GAME");
-        });
+        gameButton.addActionListener(m);
+
+
 
 
         ArrayList <Rectangle> coords = calcCoord(10,10, 4, 100, 60, 10);

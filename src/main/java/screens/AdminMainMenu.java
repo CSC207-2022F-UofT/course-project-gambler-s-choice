@@ -13,6 +13,8 @@ public class AdminMainMenu implements Menu{
      */
     public AdminMainMenu(JFrame frame){
 
+        MenuController m = new MenuController();
+
         JLabel background = new JLabel();
         background.setSize(1000,800);
         scaleImage("images/menu2.jpg", background);//scales the image to the label
@@ -27,15 +29,14 @@ public class AdminMainMenu implements Menu{
 
         JButton logoutButton = new JButton("Log Out");
         JButton exitButton = new JButton("Exit Game");
-        JButton gameButton = new JButton("Play Game");
+        JButton gameButton = new JButton("Play");
         JButton editButton = new JButton("Edit User");
         JLabel userLabel = new JLabel("Username");
         JLabel balanceLabel = new JLabel("Balance");
         JTextField username = new JTextField("");
         JTextField balance = new JTextField("");
 
-        //TEMP actionlisteners also ask question about if this is allowed since I am only interacting with things in this class
-        // is this supposed to be added into a use case? since I don't know how I would do this
+
         helpButton.addActionListener(e -> {
             helpWindow.setVisible(!helpWindow.isVisible());
             username.setVisible(!username.isVisible());
@@ -44,9 +45,7 @@ public class AdminMainMenu implements Menu{
             balanceLabel.setVisible(!balanceLabel.isVisible());
 
         });
-        logoutButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU LOGGED OUT");
-        });
+        logoutButton.addActionListener(m);
 
         //Also this just exits the system, don't think I would ever change this, so I think this should be fine to leave here.
         exitButton.addActionListener(e -> {
@@ -54,9 +53,7 @@ public class AdminMainMenu implements Menu{
         });
 
 
-        gameButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null,"(TEMP MESSAGE) YOU ARE BACK IN THE GAME");
-        });
+        gameButton.addActionListener(m);
 
 
 
