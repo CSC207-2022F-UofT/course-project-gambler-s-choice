@@ -1,4 +1,4 @@
-public class Card {
+public class Card implements Comparable<Card>{
     private final String rank;
     private final String suit;
 
@@ -89,7 +89,7 @@ public class Card {
      *
      * @return the rank of the card as an integer
      */
-    private int getRankAsInt() {
+    public int getRankAsInt() {
         if (this.getRank().equalsIgnoreCase("J")) {
             return 11;
         } else if (this.getRank().equalsIgnoreCase("Q")) {
@@ -161,5 +161,17 @@ public class Card {
         }
 
         return "images/Playing Cards/" + rank + "_of_" + suit + ".png";
+    }
+
+    /**Compare two cards by its rank.
+     * the purpose of this method is to make Card[] sort-able.
+     *
+     * @param other_card the object to be compared.
+     * @return positive number if this hands is bigger than other,
+     * negative if this is smaller, 0 if it is a tie.
+     */
+    @Override
+    public int compareTo(Card other_card) {
+        return this.getRankAsInt() - other_card.getRankAsInt();
     }
 }
