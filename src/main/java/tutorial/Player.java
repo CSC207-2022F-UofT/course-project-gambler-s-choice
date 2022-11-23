@@ -9,6 +9,11 @@ public class Player {
         this.id = id;
     }
 
+    public Player(int id, String[] hand) {
+        this.id = id;
+        this.hand = hand;
+    }
+
     public int getId() {
         return this.id;
     }

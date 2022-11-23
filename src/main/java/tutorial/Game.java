@@ -18,21 +18,27 @@ public class Game {
     }
 
     //format to return new int[6] = {1, 1, 2, 3, 4, 5} where p1 and p2 are both first
-    public ArrayList<Integer> findWinner(Player[] players, String[] flop) {
-        int largestScore = 0;
+    public int[] findWinner(Player[] players, String[] flop) {
         ArrayList<Integer> winningPlayers = new ArrayList<>();
-        int scoreVal = 0;
+        int[] scores = new int[players.length];
 
-        for (Player p : this.players) {
-            scoreVal = calculateHand(p.getPlayerHand(), this.river);
+        for (int i = 0; i < players.length; i++) {
+            scores[i] = calculateHand(players[i].getPlayerHand(), flop);
+        }
 
-            if (scoreVal > largestScore) {
-                winningPlayers = new ArrayList<>(p.getId());
-            } else if (scoreVal == largestScore) {
-                winningPlayers.add(p.getId());
+        int[] rankings = new int[players.length];
+        for (int x =0; x < rankings.length; x++) {
+            rankings[x]++;
+        }
+        for (int i = 0; i < scores.length; i++) {
+            for (int j =0; j < scores.length; j++) {
+                if (scores[j] > scores[i]) {
+                    rankings[i]++;
+                }
             }
         }
-        return winningPlayers;
+
+        return rankings;
     }
 
     /**
@@ -238,9 +244,17 @@ public class Game {
     public static void main(String[] args) {
         Game g = new Game();
         //GameScreen g2 = new GameScreen(1);
-        String[] hand = {"C1", "H3"};
-        String[] river = {"S3", "S4", "C4", "D4", "C2"};
+        Player[] players = new Player[]{
+                new Player(1, new String[]{"H1", "C1"}),
+                new Player(2, new String[]{"H2", "C7"}),
+                new Player(3, new String[]{"D6", "S8"}),
+                new Player(4, new String[]{"C4", "D1"}),
+                new Player(5, new String[]{"H1", "C1"})};
+        String[] flop = {"S1", "H3", "C3", "D4", "D5"};
 //
-        System.out.println(g.calculateHand(hand, river));
-    }
+        int[] results = g.findWinner(players, flop);
+        for (int x = 0; x < results.length;x++) {
+            System.out.println(results[x]);
+        }
+     }
 }

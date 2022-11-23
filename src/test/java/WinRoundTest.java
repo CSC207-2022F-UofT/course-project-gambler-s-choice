@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import tutorial.Game;
+import tutorial.Player;
 
 public class WinRoundTest {
 
@@ -36,5 +37,22 @@ public class WinRoundTest {
         assert g.calculateHand(hand, river) == 78;
     }
 
+    @Test
+    void winRoundTest() {
+        Game g = new Game();
+        Player[] players = new Player[]{
+                new Player(1, new String[]{"H1", "C1"}),
+                new Player(2, new String[]{"H2", "C7"}),
+                new Player(3, new String[]{"D6", "S8"}),
+                new Player(4, new String[]{"C4", "D1"}),
+                new Player(5, new String[]{"H1", "C1"})};
+        String[] flop = {"S1", "H3", "C3", "D4", "D5"};
+        int[] results = g.findWinner(players, flop);
+        assert(results[0] == 1);
+        assert(results[1] == 3);
+        assert(results[2] == 5);
+        assert(results[3] == 4);
+        assert(results[4] == 1);
+    }
 
 }
