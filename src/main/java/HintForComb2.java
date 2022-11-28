@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 
-public class Hint_for_comb2 {
+public class HintForComb2 {
     public int[] Hint_at_flop(Card[] existing_card) {
         assert existing_card.length == 5;
         int[] flop_result_list = new int[10];
@@ -76,6 +75,6 @@ public class Hint_for_comb2 {
             }
         }
         Arrays.sort(possible_comb);
-        return combination_checker.get_compare_ID(possible_comb[20]);
+        return CombinationChecker.get_compare_ID(possible_comb[20]);
     }
 }

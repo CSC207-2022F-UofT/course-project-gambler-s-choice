@@ -1,9 +1,9 @@
 import java.util.Arrays;
 
-public class combination_checker implements Comparable<combination_checker>{
+public class CombinationChecker implements Comparable<CombinationChecker>{
     public final int compare_ID;
     
-    public combination_checker(Card[] cards){
+    public CombinationChecker(Card[] cards){
         this.compare_ID = get_compare_ID(cards);
     }
     
@@ -40,7 +40,7 @@ public class combination_checker implements Comparable<combination_checker>{
      * @return
      */
     @Override
-    public int compareTo(combination_checker other_hands) {
+    public int compareTo(CombinationChecker other_hands) {
         return this.compare_ID - other_hands.compare_ID;
     }
 

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class logInAction {
+public class LogInAction {
 
     /**
      * Logs the User into the system.
