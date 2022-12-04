@@ -3,11 +3,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+
 public class Hint_for_comb2 {
+
+    /**
+     * Provide hint that chance of player end up with each of the combinations in the flop phase,
+     * which when there are 3 public cards reveled.
+     *
+     * @param existing_card A set of 5 Cards, which includes 2 cards from the player and 3 of the common cards.
+     * @return Return a list of int that represent how many outcomes for each combinations - out of all the possible
+     * outcomes.   For example: [10][9][8][7][6][5][4][3][2][1], means it has 10 outcome is high card, 9 outcomes
+     * are pair,..., 1 outcome of royal flush.
+     */
     public int[] Hint_at_flop(Card[] existing_card) {
         assert existing_card.length == 5;
         int[] flop_result_list = new int[10];
         List<Card> possible_draw = get_remaining_deck(existing_card);
+        // We are going to call the Hint at turn method, the logic is that we take all the possible card as the
+        // next public card, then put it into our Hint at turn function, and sum up all the possible outcomes, so we
+        // get all the possible outcome we would have at flop.
         for (Card c : possible_draw) {
             Card[] new_set = Arrays.copyOf(existing_card, 6);
             new_set[6] = c;
@@ -19,11 +33,20 @@ public class Hint_for_comb2 {
         return flop_result_list;
     }
 
+    /**
+     * Provide hint that chance of player end up with each of the combinations in the turn phase,
+     * which when there are 4 public cards reveled.
+     *
+     * @param existing_cards A set of 6 Cards, which includes 2 cards from the player and 4 of the common cards.
+     * @return Return a list of int that represent how many outcomes for each combinations
+     */
     private int[] Hint_at_Turn(Card[] existing_cards) {
         assert existing_cards.length == 6;
         List<Card> possible_draw = get_remaining_deck(existing_cards);
         int[] result_list = new int[10];
         Card[] old_set = Arrays.copyOf(existing_cards, 7);
+        // As we have 6 cards known, the next thing is that we going to try all the rest of cards and
+        // identify what's the best combination it forms and count it into the array of int.
         for (Card c : possible_draw) {
             old_set[7] = c;
             int winner = find_best_comb(old_set);
