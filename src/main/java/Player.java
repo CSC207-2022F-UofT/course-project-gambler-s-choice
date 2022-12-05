@@ -12,6 +12,7 @@ public class Player implements PlayerInterface{
     }
 
     public Player(Card card1, Card card2){
+        this.cards = new Card[2];
         cards[0] = card1;
         cards[1] = card2;
         // TODO: delete this constructor, display purpose only

@@ -9,8 +9,19 @@ public class Game {
         this.deck = new Deck();
         this.cards = new Card[5];
         this.players = players;
-    }
 
+        //TODO Delete this
+        Card card1 = new Card("10", "S");
+        Card card2 = new Card("J", "S");
+        Card card3 = new Card("K", "S");
+        Card card4 = new Card("A", "S");
+        Card card5 = new Card("Q", "S");
+        this.cards[0] = card1;
+        this.cards[1] = card2;
+        this.cards[2] = card3;
+        this.cards[3] = card4;
+        this.cards[4] = card5;
+    }
 
     public void start(){
         Card noUse;

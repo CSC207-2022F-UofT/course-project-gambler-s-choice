@@ -39,6 +39,7 @@ public class GameScreen implements Screen{
         Card[] handCards = game.getCurrPlayer().getCards();
         Card[] boardCards = game.getBoardCards();
         ImagePanel[] cards = new ImagePanel[2 + boardCards.length];
+        System.out.println("Cards" + boardCards);
 
         for (int i = 0; i < boardCards.length + handCards.length; i++){
             if (i < 2) {
