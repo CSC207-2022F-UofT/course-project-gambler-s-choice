@@ -2,11 +2,20 @@ import java.util.Arrays;
 
 public class combination_checker implements Comparable<combination_checker>{
     public final int compare_ID;
-    
+
     public combination_checker(Card[] cards){
+        if (cards.length != 5){
+            throw new IllegalArgumentException("Checking combination takes exactly 5 cards, please check how many" +
+                    "Cards been put in");
+        }
         this.compare_ID = get_compare_ID(cards);
     }
-    
+
+    /**
+     * Identity and return the cards best combination.
+     * @param cards A set of 5 cards.
+     * @return an ID that represent the type of combination of the set.
+     */
     public static int get_compare_ID(Card[] cards){
         Arrays.sort(cards);
         // Royal flush = 9, Straight flush = 8,  four of a kind = 7, full house = 6,
@@ -139,7 +148,7 @@ public class combination_checker implements Comparable<combination_checker>{
                 temp = 1;
             }
         }
-        Repeated_counting[5] = temp;
+        Repeated_counting[4] = temp;
         Arrays.sort(Repeated_counting);
         return Repeated_counting;
     }
@@ -153,7 +162,7 @@ public class combination_checker implements Comparable<combination_checker>{
     public static boolean isFlush(Card[] five_card) {
         Card temp = five_card[0];
         for (Card c : five_card) {
-            if (temp.sameSuit(c)) {
+            if (!temp.sameSuit(c)) {
                 return false;
             }
             temp = c;
@@ -168,10 +177,10 @@ public class combination_checker implements Comparable<combination_checker>{
      *
      */
     public static boolean isStraight2(Card[] sorted_cards) {
-        boolean a = sorted_cards[0].getRankAsInt() == sorted_cards[1].getRankAsInt() + 1;
-        boolean b = sorted_cards[1].getRankAsInt() == sorted_cards[2].getRankAsInt() + 1;
-        boolean c = sorted_cards[2].getRankAsInt() == sorted_cards[3].getRankAsInt() + 1;
-        boolean d = (sorted_cards[3].getRankAsInt() == sorted_cards[4].getRankAsInt() + 1
+        boolean a = sorted_cards[1].getRankAsInt() == sorted_cards[0].getRankAsInt() + 1;
+        boolean b = sorted_cards[2].getRankAsInt() == sorted_cards[1].getRankAsInt() + 1;
+        boolean c = sorted_cards[3].getRankAsInt() == sorted_cards[2].getRankAsInt() + 1;
+        boolean d = (sorted_cards[4].getRankAsInt() == sorted_cards[3].getRankAsInt() + 1
                     || sorted_cards[3].getRankAsInt() == sorted_cards[4].getRankAsInt() + 9);
         // last condition on d is for straight of rank 'A2345'
         return a && b && c && d;
