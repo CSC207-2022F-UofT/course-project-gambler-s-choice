@@ -1,23 +1,28 @@
 package login_menu_entities;
 
-public class User implements UserInterface {
-
-    private String name;
-    private String password;
+public class User implements UserInterface{
+    private final String name;
+    private final String password;
     private final String type;
-    private static int balance = 100;
-
+    private int balance = 100;
 
     /**
-     * Creates a User. The initial balance is 100.
-     * @param name name of the User
-     * @param password password of the User
-     * @param type type of this User (Admin or User)
+     * Creates a login_menu_entities.User. The initial balance is 100.
+     * @param name name of the login_menu_entities.User
+     * @param password password of the login_menu_entities.User
+     * @param type type of this login_menu_entities.User (Admin or login_menu_entities.User)
      */
-    public User(String name, String password, String type) {
+    public User(String name, String password, String type, int balance) {
         this.name = name;
         this.type = type;
         this.password = password;
+        this.balance = balance;
+    }
+    public User(String name, String password, int balance) {
+        this.name = name;
+        this.password = password;
+        this.type = "user";
+        this.balance = balance;
     }
 
     public User(String name, String password) {
@@ -27,38 +32,48 @@ public class User implements UserInterface {
     }
 
     /**
-     * Reports the name of this User
-     * @return name of this User
+     * Reports the name of this login_menu_entities.User
+     * @return name of this login_menu_entities.User
      */
-    @Override
     public String getName() {
         return this.name;
     }
 
     /**
-     * Reports the password of this User
-     * @return password of this User
+     * Reports the password of this login_menu_entities.User
+     * @return password of this login_menu_entities.User
      */
-    @Override
     public String getPassword() {
         return this.password;
     }
 
+
     /**
-     * Reports the type of this User
-     * @return password of this User
+     * Reports the type of this login_menu_entities.User
+     * @return password of this login_menu_entities.User
      */
-    @Override
     public String getType(){
         return this.type;
     }
 
     /**
-     * Reports the balance of this User.
+     * Reports the balance of this login_menu_entities.User.
      * @return balance in this account
      */
-    @Override
     public int getBalance() {
         return balance;
     }
+
+    /**
+     * Adds the given amount to the balance of this login_menu_entities.User.
+     */
+    public void addBalance(int amount){
+        balance += amount;
+    }
+
+    @Override
+    public String toString(){
+        return this.name + ", " + this.password + ", " + this.type + ", " + balance;
+    }
+
 }

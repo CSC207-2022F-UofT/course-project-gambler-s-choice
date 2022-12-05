@@ -1,3 +1,5 @@
+import screens.LoginScreen;
+
 import javax.swing.*;
 
 public class LoginScreenTest {

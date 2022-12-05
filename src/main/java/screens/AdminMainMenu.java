@@ -30,7 +30,7 @@ public class AdminMainMenu implements Menu{
         JButton logoutButton = new JButton("Log Out");
         JButton exitButton = new JButton("Exit Game");
         JButton gameButton = new JButton("Play");
-        JButton editButton = new JButton("Edit User");
+        JButton editButton = new JButton("Edit login_menu_entities.User");
         JLabel userLabel = new JLabel("Username");
         JLabel balanceLabel = new JLabel("Balance");
         JTextField username = new JTextField("");

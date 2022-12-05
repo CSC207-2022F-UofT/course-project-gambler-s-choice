@@ -1,3 +1,4 @@
+import login_menu_entities.User;
 import org.junit.jupiter.api.Test;
 
 class AdminTest {

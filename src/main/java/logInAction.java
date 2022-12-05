@@ -1,15 +1,17 @@
+import login_menu_entities.User;
+
 import java.io.*;
 import java.util.Scanner;
 
 public class logInAction {
 
     /**
-     * Logs the User into the system.
-     * If the User enters the correct combination of name, password and type, the User logs in.
-     * If the User enters a name that exists in the file but wrong password, the system displays wrong password.
-     * If the User enters a name that does not exist in the file, the system creates a new User.
-     * @param name name of the User
-     * @param password password of the User
+     * Logs the login_menu_entities.User into the system.
+     * If the login_menu_entities.User enters the correct combination of name, password and type, the login_menu_entities.User logs in.
+     * If the login_menu_entities.User enters a name that exists in the file but wrong password, the system displays wrong password.
+     * If the login_menu_entities.User enters a name that does not exist in the file, the system creates a new login_menu_entities.User.
+     * @param name name of the login_menu_entities.User
+     * @param password password of the login_menu_entities.User
      */
     public static void logIn(String name, String password, String type) throws FileNotFoundException {
         // Create file if necessary
@@ -39,9 +41,9 @@ public class logInAction {
         }
         // Create a new account
         try {
-            User newUser = new User(name, password, type);
+         //   User newUser = new User(name, password, type);
             BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt", true));
-            writer.write(newUser.toString());
+          //  writer.write(newUser.toString());
             writer.newLine();
             writer.close();
             System.out.println("New account created!");
@@ -54,10 +56,10 @@ public class logInAction {
 
 
     /**
-     * Changes the password of the User.
-     * If the User's name exists in the file, the system changes the User's password to the given password.
+     * Changes the password of the login_menu_entities.User.
+     * If the login_menu_entities.User's name exists in the file, the system changes the login_menu_entities.User's password to the given password.
      * Otherwise, the system displays that no such user exists.
-     * @param user the User whose password is to be changed.
+     * @param user the login_menu_entities.User whose password is to be changed.
      * @param password the new password
      */
     public static void changePassword(User user, String password) throws Exception {

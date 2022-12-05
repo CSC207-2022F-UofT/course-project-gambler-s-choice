@@ -1,9 +1,10 @@
+import screens.ImagePanel;
+import screens.Screen;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class GameScreen implements Screen{
+public class GameScreen implements Screen {
 
     private final int CARD_WIDTH = 60;
     private final int CARD_HEIGHT = 100;
