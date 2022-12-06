@@ -86,7 +86,7 @@ public class logInAction {
                     writer.write(line);
                     writer.newLine();
                 } else {
-                    user.setPassword(password);
+//                    user.setPassword(password);
                     String newInfo = user.toString();
                     writer.write(newInfo);
                     writer.newLine();

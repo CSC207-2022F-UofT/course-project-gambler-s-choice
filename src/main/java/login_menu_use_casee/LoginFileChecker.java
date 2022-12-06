@@ -1,26 +1,25 @@
 package login_menu_use_casee;
 
-import register_menu_use_case.UserRegisterRequestModel;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileChecker implements UserLoginDSGateway{
+public class LoginFileChecker implements UserLoginDSGateway{
 
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
-    private final String[] account = new String[4];
 
-    public FileChecker(String txtPath) throws IOException{
+    public LoginFileChecker(String txtPath) throws IOException{
         File usersFile = new File(txtPath);
 
-        Scanner scanner = new Scanner(usersFile);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] account = line.split(",");
-            accounts.add(account);
+        if (!(usersFile.createNewFile())) {
+            Scanner scanner = new Scanner(usersFile);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] account = line.split(", ");
+                accounts.add(account);
+            }
+            scanner.close();
         }
-        scanner.close();
     }
 
 
@@ -46,6 +45,14 @@ public class FileChecker implements UserLoginDSGateway{
 
     @Override
     public String[] getAccountInfo(String name, String pass) {
-        return new String[]{account[3], account[4]};
+        String[] accountInfo = new String[2];
+        for (String[] account: accounts){
+            if (account[0].equals(name) && account[1].equals(pass)) {
+                accountInfo[0] = account[2];
+                accountInfo[1] = account[3];
+            }
+        }
+        return accountInfo;
     }
+
 }

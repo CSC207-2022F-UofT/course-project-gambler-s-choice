@@ -13,6 +13,10 @@ public class Admin extends User {
         super(name, password, "admin");
     }
 
+    public Admin(String name, String password, int balance){
+        super(name, password, "admin", balance);
+    }
+
     /**
      * Edits the balance of a user
      * @param user The user whose balance is being edited
