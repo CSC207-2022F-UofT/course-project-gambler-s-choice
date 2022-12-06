@@ -5,6 +5,9 @@ public class Player implements PlayerInterface{
     private boolean allIn;
 
 
+    /**
+     * @param balance the amount of money player chooses to bring in the game
+     */
     public Player(int balance){
         this.balance = balance;
         this.cards = new Card[2];
@@ -12,11 +15,18 @@ public class Player implements PlayerInterface{
     }
 
     public Player(Card card1, Card card2){
+        cards = new Card[2];
         cards[0] = card1;
         cards[1] = card2;
-        // TODO: delete this constructor, display purpose only
+        // TODO: delete this constructor
     }
 
+
+    /**
+     * @param currentCall a list of current betting amount
+     * @param haveCalled the biggest call amount in the round
+     * @return a string representing decision. The validity has been checked in this method so can be used directly
+     */
     public String makeDecision(int currentCall, int haveCalled){
         String decision = "something";
 
@@ -46,6 +56,10 @@ public class Player implements PlayerInterface{
         return decision;
     }
 
+    /**
+     * Pool will call this method at the end of the game
+     * @param amount how much money is added to the player's balance
+     */
     public void addMoney(int amount){
         this.balance += amount;
     }
