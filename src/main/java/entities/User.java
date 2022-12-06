@@ -1,3 +1,5 @@
+package entities;
+
 public class User {
     private String name;
     private String password;
@@ -5,10 +7,10 @@ public class User {
     private static int balance = 100;
 
     /**
-     * Creates a User. The initial balance is 100.
-     * @param name name of the User
-     * @param password password of the User
-     * @param type type of this User (Admin or User)
+     * Creates a entities.User. The initial balance is 100.
+     * @param name name of the entities.User
+     * @param password password of the entities.User
+     * @param type type of this entities.User (Admin or entities.User)
      */
     public User(String name, String password, String type) {
         this.name = name;
@@ -23,45 +25,45 @@ public class User {
     }
 
     /**
-     * Reports the name of this User
-     * @return name of this User
+     * Reports the name of this entities.User
+     * @return name of this entities.User
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Sets the name of this User
+     * Sets the name of this entities.User
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Reports the password of this User
-     * @return password of this User
+     * Reports the password of this entities.User
+     * @return password of this entities.User
      */
     public String getPassword() {
         return this.password;
     }
 
     /**
-     * Reports the password of this User
+     * Reports the password of this entities.User
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * Reports the type of this User
-     * @return password of this User
+     * Reports the type of this entities.User
+     * @return password of this entities.User
      */
     public String getType(){
         return this.type;
     }
 
     /**
-     * Reports the balance of this User.
+     * Reports the balance of this entities.User.
      * @return balance in this account
      */
     public int getBalance() {
@@ -69,12 +71,16 @@ public class User {
     }
 
     /**
-     * Adds the given amount to the balance of this User.
+     * Adds the given amount to the balance of this entities.User.
      */
     public void addBalance(int amount){
         balance += amount;
     }
 
+    /**
+     * Reports the information of this User.
+     * @return the information of this User.
+     */
     @Override
     public String toString(){
         return this.name + ", " + this.password + ", " + this.type + ", " + balance;
