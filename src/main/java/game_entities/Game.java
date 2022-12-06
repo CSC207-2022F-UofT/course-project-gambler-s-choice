@@ -6,6 +6,10 @@ public class Game {
     private final Deck deck;
     private final Card[] cards;
 
+    /**
+     * The constructor of a single game
+     * @param players a list of all the players playing the game
+     */
     public Game(Player[] players){
         this.pool = new Pool(players);
         this.deck = new Deck();
@@ -14,6 +18,10 @@ public class Game {
     }
 
 
+    /**
+     * The main body method of the game. In this method, the game deals card, ask for player's choice and deal with
+     * the winner.
+     */
     public void start(){
         Card noUse;
         // resets at the end of each round
@@ -50,7 +58,6 @@ public class Game {
         cards[2] = deck.getCard();
 
         // round 1
-        call = 0;
         currentCall = new int[players.length];
 
         // ask for everyone's decision for once and then do the while loop until the round is finished
@@ -60,7 +67,7 @@ public class Game {
                 processDecision(players, i, decision, pool, call, currentCall);
             }
         }
-        whileLoop(currentCall, 0, call);
+        whileLoop(currentCall, 0, 0);
 
         if (checkWinner(currentCall) != -1){
             int[] ranking = getRankWhenOtherFolds(currentCall);
@@ -73,7 +80,6 @@ public class Game {
         cards[3] = deck.getCard();
 
         // round 2
-        call = 0;
         currentCall = new int[players.length];
 
         // ask for everyone's decision for once and then do the while loop until the round is finished
@@ -83,7 +89,7 @@ public class Game {
                 processDecision(players, i, decision, pool, call, currentCall);
             }
         }
-        whileLoop(currentCall, 0, call);
+        whileLoop(currentCall, 0, 0);
 
         if (checkWinner(currentCall) != -1){
             int[] ranking = getRankWhenOtherFolds(currentCall);
@@ -131,6 +137,13 @@ public class Game {
         pool.calculateWinnings(ranking);
     }
 
+    /**
+     *
+     * @param l a list of current betting amount
+     *          e.g. [100, -1, 100, -1, -1, 200] means that the 2rd, 4th, 5th player has folded, 1st and 3rd player
+     *              bets 100 and the 6th player raises to 200, meaning that this round is not over yet
+     * @return a boolean
+     */
     private boolean roundContinues(int[] l){
         // this will return true iff all the non-zero integers in <l> are the same or -1
         boolean status = true;
@@ -148,6 +161,12 @@ public class Game {
         return status;
     }
 
+    /**
+     * Take turns to ask the players in the list to make decision, until everyone is on the same bet or folds
+     * @param currentCall a list of current betting amount
+     * @param playerIndex the starting position of the player that are asked to make decision
+     * @param call the starting call amount
+     */
     private void whileLoop(int[] currentCall, int playerIndex, int call){
         while (roundContinues(currentCall)){
             String decision = players[playerIndex].makeDecision(call, currentCall[playerIndex]);
@@ -160,6 +179,11 @@ public class Game {
             }
         }
     }
+
+    /**
+     * @param lst a list of current betting amount
+     * @return a list that has 1 on the winner's index and 2 on other indexes
+     */
     private int[] getRankWhenOtherFolds(int[] lst){
         int[] result = new int[lst.length];
         for (int i = 0; i < lst.length; i++){
@@ -171,6 +195,11 @@ public class Game {
         return result;
     }
 
+    /**
+     * Checks if everyone else exits the game and returns the result
+     * @param l a list of current betting amount
+     * @return a boolean
+     */
     private int checkWinner(int[] l){  // tested!
         // return the winner's index iff there is only 1 non-negative integer in <l>
         // return -1 if there are more than 1 non-zero integers in <l>
@@ -191,6 +220,16 @@ public class Game {
     }
 
 
+    /**
+     * Decision is verified to be valid in the Player class, so this method directly processes the string
+     * Checking in a round is considered as betting $0
+     * @param players a list of current betting amount
+     * @param index the index of the active player (who is currently making decision)
+     * @param d decision
+     * @param pl pool
+     * @param currentCall a list of current betting amount
+     * @param callLst a list of current betting amount
+     */
     private void processDecision(Player[] players, int index, String d, Pool pl, int currentCall, int[] callLst){
 
         if (d.equals("C")) {
@@ -206,6 +245,7 @@ public class Game {
             callLst[index] = 0;
         }
     }
+
 
 
     public Player[] getPlayers() {

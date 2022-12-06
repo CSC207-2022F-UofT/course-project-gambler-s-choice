@@ -3,7 +3,7 @@ import login_menu_entities.User;
 import java.io.*;
 import java.util.Scanner;
 
-public class logInAction {
+public class LogInAction {
 
     /**
      * Logs the login_menu_entities.User into the system.

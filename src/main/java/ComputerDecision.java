@@ -8,7 +8,7 @@ public class ComputerDecision {
     private Card[] flop;
     private int callAmount;
 
-    public ComputerPlayerDecisionClass(Card[] hand, Card[] flop, int callAmount) {
+    public ComputerDecision(Card[] hand, Card[] flop, int callAmount) {
         this.hand = hand;
         this.flop = flop;
         this.callAmount = callAmount;
