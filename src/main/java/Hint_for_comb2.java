@@ -1,11 +1,23 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 
 
-public class Hint_for_comb2 {
 
+public class Hint_for_comb2{
+    private int[] CombinationCounts;
+
+
+    public int[] GetCombinationCounts(){
+        return this.CombinationCounts;
+    }
+    public Hint_for_comb2(Card[] cards){
+        if (cards.length == 5){
+            CombinationCounts = Hint_at_flop(cards);
+        } else if (cards.length == 6) {
+            CombinationCounts = Hint_at_Turn(cards);
+        }
+    }
     /**
      * Provide hint that chance of player end up with each of the combinations in the flop phase,
      * which when there are 3 public cards reveled.
@@ -24,7 +36,7 @@ public class Hint_for_comb2 {
         // get all the possible outcome we would have at flop.
         for (Card c : possible_draw) {
             Card[] new_set = Arrays.copyOf(existing_card, 6);
-            new_set[6] = c;
+            new_set[5] = c;
             int[] result_of_turn = Hint_at_Turn(new_set);
             for (int i = 0; i < 10; i++) {
                 flop_result_list[i] += result_of_turn[i];
@@ -40,7 +52,7 @@ public class Hint_for_comb2 {
      * @param existing_cards A set of 6 Cards, which includes 2 cards from the player and 4 of the common cards.
      * @return Return a list of int that represent how many outcomes for each combinations
      */
-    private int[] Hint_at_Turn(Card[] existing_cards) {
+    public int[] Hint_at_Turn(Card[] existing_cards) {
         assert existing_cards.length == 6;
         List<Card> possible_draw = get_remaining_deck(existing_cards);
         int[] result_list = new int[10];
@@ -48,13 +60,18 @@ public class Hint_for_comb2 {
         // As we have 6 cards known, the next thing is that we going to try all the rest of cards and
         // identify what's the best combination it forms and count it into the array of int.
         for (Card c : possible_draw) {
-            old_set[7] = c;
+            old_set[6] = c;
             int winner = find_best_comb(old_set);
             result_list[winner]++;
         }
         return result_list;
     }
 
+    /**
+     * Get a deck of the remaining cards.
+     * @param existing_cards cards that is already on the table.
+     * @return A array of Cards that could possibly be the next draw.
+     */
     public List<Card> get_remaining_deck(Card[] existing_cards) {
         Deck deck = new Deck();
         List<Card> remaining_cards = new ArrayList<>();
@@ -66,7 +83,12 @@ public class Hint_for_comb2 {
         return remaining_cards;
     }
 
-
+    /**
+     * Determine whether this card has been draw.
+     * @param exist_card A set of card that is already on the table.
+     * @param new_card the card we want to check if it has been draw.
+     * @return whether the deck already exist or not.
+     */
     public boolean have_not_draw(Card[] exist_card, Card new_card) {
         for (Card c : exist_card) {
             if (c.sameRank(new_card) && c.sameSuit(new_card)) {
@@ -85,20 +107,19 @@ public class Hint_for_comb2 {
      */
     public int find_best_comb(Card[] all_cards) {
         assert all_cards.length == 7;
-        int comb_count=0;
-        Card[][] possible_comb = new Card[21][5];
+        int bestCombCount=0;
+        Card[] possible_comb = new Card[5];
         for(int i=0; i < all_cards.length; i++){
             for (int j=i+1; j < all_cards.length; j++){
                 int added_cards = 0;
                 for (int k = 0; k<all_cards.length; k++){
                     if(k != i && k != j){
-                        possible_comb[comb_count][added_cards++]=all_cards[k];
+                        possible_comb[added_cards++]=all_cards[k];
                     }
                 }
-                comb_count++;
+                bestCombCount = Math.max(bestCombCount, combination_checker.get_compare_ID(possible_comb));
             }
         }
-        Arrays.sort(possible_comb);
-        return combination_checker.get_compare_ID(possible_comb[20]);
+        return bestCombCount;
     }
 }

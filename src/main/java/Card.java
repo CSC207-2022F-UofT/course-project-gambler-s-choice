@@ -98,7 +98,9 @@ public class Card implements Comparable<Card>{
             return 13;
         } else if (this.getRank().equalsIgnoreCase("A")) {
             return 14;
-        } else {
+        } else if (this.getRank().equalsIgnoreCase("X")) {
+            return 10;
+        }else {
             return Integer.parseInt(this.getRank());
         }
     }

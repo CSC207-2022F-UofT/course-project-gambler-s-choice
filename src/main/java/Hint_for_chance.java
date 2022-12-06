@@ -1,9 +1,8 @@
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class Hint_for_chance {
+public class Hint_for_chance{
     private final Double win_rate;
-
 
 
     /**Construct a hint that takes in two cards, that is player's private hands. the win rate
@@ -69,5 +68,7 @@ public class Hint_for_chance {
         else{
             return "N" + ranks;}
         }
-    }
+
+
+}
 

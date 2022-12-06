@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class combination_checker implements Comparable<combination_checker>{
+public class combination_checker{
     public final int compare_ID;
 
     public combination_checker(Card[] cards){
@@ -41,18 +41,6 @@ public class combination_checker implements Comparable<combination_checker>{
         } else { return 0;}
     }
 
-    /**Compare two set of 5 cards by their rank on combination.
-     * for example, two pair is greater than one pair. However, we only compare the
-     * combination, no card rank comparing.
-     *
-     * @param other_hands the object to be compared.
-     * @return
-     */
-    @Override
-    public int compareTo(combination_checker other_hands) {
-        return this.compare_ID - other_hands.compare_ID;
-    }
-
 
     /**Return whether the card has combination of one pair.
      *
@@ -66,29 +54,22 @@ public class combination_checker implements Comparable<combination_checker>{
         boolean c = (rep_list[2] == 1);
         boolean d = (rep_list[3] == 1);
         boolean e = (rep_list[4] == 2);
+        //The highest repeated rank in the set of card is one pair and the rest of three cards are
+        //different with each other.
         return a && b && c && d && e;
     }
 
-    /**Return whether the card has combination of two pairs.
-     *
-     * @param cards
-     * @return
-     */
+
     public static boolean is_two_pairs(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean a = (rep_list[0] == 0);
         boolean b = (rep_list[1] == 0);
         boolean c = (rep_list[2] == 1);
         boolean d = (rep_list[3] == 2);
-        boolean e = (rep_list[4] == 2);
         return a && b && c && d;
     }
 
-    /**Return whether the card has combination of three of one kind.
-     *
-     * @param cards
-     * @return
-     */
+
     public static boolean is_three_of_one_kind(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean a = (rep_list[0] == 0);
@@ -99,11 +80,7 @@ public class combination_checker implements Comparable<combination_checker>{
         return a && b && c && d && e;
     }
 
-    /**Return whether the card has combination of full house.
-     *
-     * @param cards
-     * @return
-     */
+
     public static boolean is_full_house(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
         boolean a = (rep_list[0] == 0);
@@ -115,25 +92,22 @@ public class combination_checker implements Comparable<combination_checker>{
     }
 
     /**Return whether the card has combination of full house.
-     *
-     * note: either {0,0,0,4} and {0,0,1,4} are four of one kind.
-     * @param cards
-     * @return
+     * note: either {0,0,0,0,4} and {0,0,0,1,4} are four of one kind.
+     * @param cards a set of 5 cards.
+     * @return Whether the set has 4 cards with same rank.
      */
     public static boolean is_four_of_one_kind(Card[] cards) {
         int[] rep_list = get_Repeated_counting(cards);
-        boolean d = (rep_list[3] == 4);
-        return d;
+        return rep_list[4] == 4;
     }
 
     /**Help method, that shows how many pair or card with same rank as an array. so it is easy
      * to determine pair or other same rank's combination.
-     *
-     * For example, cards with rank "225KA", will be return an array of {2,1,1,1}
+     * For example, cards with rank "225KA", will be return an array of {2,1,1,1,0}
      * so we know it is a pair.
      *
-     * @param cards
-     * @return
+     * @param cards A set of 5 cards.
+     * @return an array of int that represent the times of a rank was repeated in the cards.
      */
     private static int[] get_Repeated_counting(Card[] cards){
         int[] Repeated_counting = new int[5];
@@ -156,7 +130,7 @@ public class combination_checker implements Comparable<combination_checker>{
     /**
      * Check if the five cards form a combination of Flush.
      *
-     * @param five_card
+     * @param five_card a set of 5 cards.
      * @return Whether the cards form a Flush.
      */
     public static boolean isFlush(Card[] five_card) {
@@ -172,7 +146,7 @@ public class combination_checker implements Comparable<combination_checker>{
 
     /**Check if the five cards form a combination of Straight.
      *
-     * @param sorted_cards
+     * @param sorted_cards a set of 5 cards that is sorted by ranks.
      * @return Whether the cards form a Flush.
      *
      */

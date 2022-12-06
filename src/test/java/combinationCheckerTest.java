@@ -1,14 +1,16 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertTrue;
 
-class combination_checkerTest {
+class combinationCheckerTest {
     Card da = new Card("DA");
     Card ha = new Card("HA");
     Card sa = new Card("SA");
+    Card ca = new Card("CA");
     Card CSeven = new Card("C7");
     Card STwo = new Card("S2");
     Card dk = new Card("DK");
@@ -17,6 +19,7 @@ class combination_checkerTest {
     Card dx = new Card("10", "D");
     Card dNine = new Card("D9");
     Card[] ThreeOfAKind = {da, sa, ha, CSeven, STwo};
+    Card[] FourOfAKind = {STwo,da, sa, ha, ca};
     Card[] Straight = {ha, dk, dq, dj, dx};
     Card[] APair = {da, ha, dk, dq, dx};
     Card[] Flush = {da, dk, dq, dj, dNine};
@@ -24,23 +27,16 @@ class combination_checkerTest {
 
     @Test
     void get_compare_ID() {
-        assertEquals(5, combination_checker.get_compare_ID(Flush));
-        assertEquals(9, combination_checker.get_compare_ID(RoyalFlush));
-    }
-
-    @Test
-    void compareTo() {
+        Assertions.assertEquals(5, combination_checker.get_compare_ID(Flush));
+        Assertions.assertEquals(9, combination_checker.get_compare_ID(RoyalFlush));
     }
 
     @Test
     void is_one_pairs() {
         Arrays.sort(Straight);
-        assertTrue(combination_checker.is_one_pairs(APair));
+        Assertions.assertTrue(combination_checker.is_one_pairs(APair));
     }
 
-    @Test
-    void is_two_pairs() {
-    }
 
     @Test
     void is_three_of_one_kind() {
@@ -49,16 +45,10 @@ class combination_checkerTest {
     }
 
     @Test
-    void is_full_house() {
-    }
-
-    @Test
     void is_four_of_one_kind() {
+        assertTrue(combination_checker.is_four_of_one_kind(FourOfAKind));
     }
 
-    @Test
-    void isFlush() {
-    }
 
     @Test
     void isStraight2() {
