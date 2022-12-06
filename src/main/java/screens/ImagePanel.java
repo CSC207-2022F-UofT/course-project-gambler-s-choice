@@ -1,3 +1,5 @@
+package screens;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,7 @@ public class ImagePanel extends JPanel{
     private final int height;
 
     /**
-     * ImagePanel constructor to make Image objects to put into a JFrame
+     * screens.ImagePanel constructor to make Image objects to put into a JFrame
      * @param path The path to the image file as a string
      * @param x The x coordinate on the frame for the image to start from
      * @param y The y coordinate on the frame for the image to start from

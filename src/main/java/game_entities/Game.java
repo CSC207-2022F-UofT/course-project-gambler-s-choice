@@ -1,8 +1,16 @@
+package game_entities;
+
+import game_entities.Card;
+import game_entities.Deck;
+
 public class Game {
     private final Player[] players;
     private final Pool pool;
     private final Deck deck;
     private final Card[] cards;
+
+    private int currentWager = 0;
+    private int currentPlayer = 0;
 
     public Game(Player[] players){
         this.pool = new Pool(players);
@@ -21,6 +29,10 @@ public class Game {
         this.cards[2] = card3;
         this.cards[3] = card4;
         this.cards[4] = card5;
+    }
+
+    public int getCurrentWager() {
+        return this.currentWager;
     }
 
     public void start(){
@@ -222,10 +234,33 @@ public class Game {
     }
 
     public Player getCurrPlayer(){
-        return players[0];
+        return players[currentPlayer];
     }
 
     public Card[] getBoardCards(){
         return cards;
+    }
+
+    /**
+     * Returns the total amount of money bet in the game
+     *
+     * @return the total amount of money bet in the game
+     */
+    public int totalBet() {
+        return this.pool.totalBets();
+    }
+
+    public void changeCard() {
+        cards[0] = new Card("5", "D");
+    }
+
+    public void check() {
+        currentPlayer++;
+        currentPlayer %= players.length;
+        System.out.println(currentPlayer);
+    }
+
+    public int getCurrentPlayerAsInt() {
+        return currentPlayer;
     }
 }

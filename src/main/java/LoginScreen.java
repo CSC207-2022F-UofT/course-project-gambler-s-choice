@@ -1,7 +1,10 @@
+import screens.ImagePanel;
+import screens.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginScreen implements Screen{
+public class LoginScreen implements Screen {
 
     /**
      * Updates the current window to contain the necessary items in the game

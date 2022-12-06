@@ -1,3 +1,7 @@
+package game_entities;
+
+import game_entities.PlayerInterface;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,7 +12,7 @@ public class Pool {
     private int[] bets;
 
     /**
-     * Class constructor for Pool
+     * Class constructor for game_entities.Pool
      *
      * @param players   the players who are playing this game
      */
@@ -16,6 +20,19 @@ public class Pool {
         this.players = players;
         this.bets = new int[players.length];
         this.resetBets();
+    }
+
+    /**
+     * Returns the total amount in the pool
+     *
+     * @return the sum of values in the bets array
+     */
+    public int totalBets() {
+        int total = 0;
+        for (int i : this.bets) {
+            total += i;
+        }
+        return total;
     }
 
     /**

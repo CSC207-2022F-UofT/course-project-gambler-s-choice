@@ -1,13 +1,19 @@
+package screens;
+
+import game_entities.Card;
+import game_entities.Game;
+import game_use_case.CheckResponseModel;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class GameScreen implements Screen{
+public class GameScreen extends JPanel implements Screen {
 
     private final int CARD_WIDTH = 60;
     private final int CARD_HEIGHT = 100;
     private final Game game;
+    private final JFrame frame;
+    private final CheckController cController;
 
 
     /**
@@ -15,19 +21,18 @@ public class GameScreen implements Screen{
      * @param frame The current main window being used
      * @param game The current game in play
      */
-    public GameScreen(JFrame frame, Game game) {
+    public GameScreen(JFrame frame, Game game, CheckController cController) {
 
         this.game = game;
-        frame.setLayout(new BorderLayout());
-        Container container = frame.getContentPane();
+        this.frame = frame;
+        this.cController = cController;
 
-        container.add(loadBackground());
-        container.add(this.loadButtons(), BorderLayout.SOUTH);
+        this.setLayout(new BorderLayout());
 
-        frame.setSize(1000,800);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        this.add(loadBackground());
+        this.add(this.loadButtons(), BorderLayout.SOUTH);
+
+
     }
 
     /**
@@ -39,7 +44,12 @@ public class GameScreen implements Screen{
         Card[] handCards = game.getCurrPlayer().getCards();
         Card[] boardCards = game.getBoardCards();
         ImagePanel[] cards = new ImagePanel[2 + boardCards.length];
-        System.out.println("Cards" + boardCards);
+        // TODO delete this
+//        System.out.println("Cards" + boardCards);
+
+//        for (Card card : boardCards) {
+//            System.out.println(card);
+//        }
 
         for (int i = 0; i < boardCards.length + handCards.length; i++){
             if (i < 2) {
@@ -62,7 +72,7 @@ public class GameScreen implements Screen{
      */
     private ImagePanel[] loadHiddenCards(Game game){
         int players = game.getPlayers().length * 2 - 2;
-        String cardBack = "images/Card Back.png";
+        String cardBack = "images/game_entities.Card Back.png";
         ImagePanel[] oppCards = new ImagePanel[players];
         for (int i = 0; i < players; i+=2){
             oppCards[i] = new ImagePanel(cardBack, 0, 0, CARD_WIDTH, CARD_HEIGHT);
@@ -111,7 +121,7 @@ public class GameScreen implements Screen{
         backgroundPanel.add(betPrompt);
         backgroundPanel.add(betAmount);
         for (ImagePanel card: cards){
-            System.out.println(card);
+            //System.out.println(card);
             backgroundPanel.add(card);
         }
         backgroundPanel.add(background);
@@ -132,6 +142,15 @@ public class GameScreen implements Screen{
         JButton[] buttons = {new JButton("Check"), new JButton("Bet"), new JButton("Call"),
                 new JButton("Fold"), new JButton("Menu")};
         //TODO ADD ACTION LISTENERS FOR BUtTONS TO CALL GAME CLASS DECISION MAKER METHOD
+        buttons[0].addActionListener(e -> {
+            System.out.println("Check");
+
+            try {
+                CheckResponseModel response = cController.create(game.getCurrentPlayerAsInt(), "");
+            } catch (Exception ee) {
+                JOptionPane.showMessageDialog(frame, ee.getMessage());
+            }
+        });
         for (JButton button: buttons){
             button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
             buttonPanel.add(button);

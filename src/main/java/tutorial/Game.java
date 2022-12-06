@@ -243,7 +243,7 @@ public class Game {
 
     public static void main(String[] args) {
         Game g = new Game();
-        //GameScreen g2 = new GameScreen(1);
+        //screens.GameScreen g2 = new screens.GameScreen(1);
         Player[] players = new Player[]{
                 new Player(1, new String[]{"H1", "C1"}),
                 new Player(2, new String[]{"H2", "C7"}),

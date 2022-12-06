@@ -1,3 +1,7 @@
+package game_entities;
+
+import game_entities.Card;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;

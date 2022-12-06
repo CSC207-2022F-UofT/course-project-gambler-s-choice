@@ -1,3 +1,6 @@
+import game_entities.Card;
+import game_entities.Deck;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
