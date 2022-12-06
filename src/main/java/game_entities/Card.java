@@ -1,3 +1,5 @@
+package game_entities;
+
 public class Card implements Comparable<Card>{
     private final String rank;
     private final String suit;
@@ -164,7 +166,7 @@ public class Card implements Comparable<Card>{
     }
 
     /**Compare two cards by its rank.
-     * the purpose of this method is to make Card[] sort-able.
+     * the purpose of this method is to make game_entities.Card[] sort-able.
      *
      * @param other_card the object to be compared.
      * @return positive number if this hands is bigger than other,

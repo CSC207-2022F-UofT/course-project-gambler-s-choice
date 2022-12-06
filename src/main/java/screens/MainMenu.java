@@ -39,7 +39,7 @@ public class MainMenu extends JPanel implements Menu {
 
         logoutButton.addActionListener(m);
 
-        JButton exitButton = new JButton("Exit Game");
+        JButton exitButton = new JButton("Exit game_entities.Game");
 
         exitButton.addActionListener(e -> {
             System.exit(0);

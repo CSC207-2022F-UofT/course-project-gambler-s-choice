@@ -34,9 +34,9 @@ public class LoginFileChecker implements UserLoginDSGateway{
     }
 
     @Override
-    public boolean matchingPass(String pass) {
+    public boolean matchingPass(String user, String pass) {
         for (String[] account: accounts){
-            if (account[1].equals(pass)){
+            if (account[0].equals(user) && account[1].equals(pass)){
                 return true;
             }
         }

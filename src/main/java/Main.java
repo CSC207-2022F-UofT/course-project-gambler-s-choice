@@ -49,13 +49,11 @@ public class Main {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setVisible(true);
 
-
-        while (application.isActive()) {
-
-            if (loginScreen.isLoggedIn()) {
-                cardLayout.show(screens, "Menu");
-            } else if (!loginScreen.isLoggedIn()) {
+        while (true) {
+            if (!loginScreen.isLoggedIn()) {
                 cardLayout.show(screens, "Login");
+            } else if (loginScreen.isLoggedIn()) {
+                cardLayout.show(screens, "Menu");
             }
         }
     }

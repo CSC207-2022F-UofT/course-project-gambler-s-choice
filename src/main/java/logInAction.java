@@ -16,7 +16,7 @@ public class logInAction {
     public static void logIn(String name, String password, String type) throws FileNotFoundException {
         // Create file if necessary
         try {
-            File usersFile = new File("users.txt");
+            File usersFile = new File("src/main/users.txt");
             if (usersFile.createNewFile()) {
                 System.out.println("File created: " + usersFile.getName());
             }
@@ -25,7 +25,7 @@ public class logInAction {
             e.printStackTrace();
         }
 
-        Scanner scanner = new Scanner(new File("users.txt"));
+        Scanner scanner = new Scanner(new File("src/main/users.txt"));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.contains(name)) {
@@ -42,7 +42,7 @@ public class logInAction {
         // Create a new account
         try {
          //   User newUser = new User(name, password, type);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt", true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/users.txt", true));
           //  writer.write(newUser.toString());
             writer.newLine();
             writer.close();
@@ -65,7 +65,7 @@ public class logInAction {
     public static void changePassword(User user, String password) throws Exception {
 
         // Checks if the user exists
-        Scanner scanner1 = new Scanner(new File("users.txt"));
+        Scanner scanner1 = new Scanner(new File("src/main/users.txt"));
         boolean contains = false;
         while (scanner1.hasNextLine()) {
             String line = scanner1.nextLine();
@@ -77,7 +77,7 @@ public class logInAction {
             System.out.println("Username does not exist.");
         } else {
             // Changes the password of the user
-            File usersFile = new File("users.txt");
+            File usersFile = new File("src/main/users.txt");
             BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt", true));
             Scanner scanner = new Scanner(usersFile);
             while (scanner.hasNextLine()) {

@@ -1,3 +1,5 @@
+import game_entities.Card;
+
 import java.util.Arrays;
 import java.util.Hashtable;
 

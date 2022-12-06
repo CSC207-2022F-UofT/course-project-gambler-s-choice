@@ -1,3 +1,5 @@
+package game_entities;
+
 public class Player implements PlayerInterface{
     private int balance;
     private Card[] cards;

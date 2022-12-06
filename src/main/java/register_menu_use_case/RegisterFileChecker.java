@@ -15,7 +15,7 @@ public class RegisterFileChecker implements UserRegisterDSGateway{
     public RegisterFileChecker(String txtPath) throws IOException {
         usersFile = new File(txtPath);
 
-        if ((usersFile.createNewFile())) {
+        if (!(usersFile.createNewFile())) {
             Scanner scanner = new Scanner(usersFile);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -53,8 +53,8 @@ public class RegisterFileChecker implements UserRegisterDSGateway{
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(usersFile, true));
-            writer.newLine();
             writer.write(String.join(", ", account));
+            writer.newLine();
             writer.close();
         }
         catch (IOException e){

@@ -1,3 +1,5 @@
+import game_entities.Card;
+
 import java.util.Arrays;
 
 public class combination_checker implements Comparable<combination_checker>{

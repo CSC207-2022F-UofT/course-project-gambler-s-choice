@@ -21,7 +21,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
             return userPresenter.prepareFailView("Please enter a username and password");
         } else if(!(userDSGateway.existsByName(loginRequestModel.getUser()))){
             return userPresenter.prepareFailView("User not found");
-        } else if (!(userDSGateway.matchingPass(loginRequestModel.getPassword()))) {
+        } else if (!(userDSGateway.matchingPass(loginRequestModel.getUser(), loginRequestModel.getPassword()))) {
             return userPresenter.prepareFailView("Password does not match");
         }
         String username = loginRequestModel.getUser();

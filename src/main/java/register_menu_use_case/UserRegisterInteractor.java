@@ -17,10 +17,10 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary{
 
     @Override
     public UserRegisterResponseModel create(UserRegisterRequestModel RegisterRequestModel) {
-        if (!(userDSGateway.existsByName(RegisterRequestModel.getUser()))){
-            return userPresenter.prepareFailView("Username already taken");
-        } else if (RegisterRequestModel.getUser().isEmpty() || RegisterRequestModel.getPassword().isEmpty()){
+        if (RegisterRequestModel.getUser().isEmpty() || RegisterRequestModel.getPassword().isEmpty()){
             return userPresenter.prepareFailView("Please enter a username and password");
+        } else if (!(userDSGateway.existsByName(RegisterRequestModel.getUser()))){
+            return userPresenter.prepareFailView("Username already taken");
         } else if (RegisterRequestModel.getPassword2().isEmpty()){
             return userPresenter.prepareFailView("Please confirm your password");
         } else if (!(userDSGateway.matchingPass(RegisterRequestModel.getPassword(), RegisterRequestModel.getPassword2()))) {

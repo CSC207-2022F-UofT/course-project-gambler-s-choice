@@ -28,7 +28,7 @@ public class AdminMainMenu implements Menu{
         JButton helpButton = new JButton("Help");
 
         JButton logoutButton = new JButton("Log Out");
-        JButton exitButton = new JButton("Exit Game");
+        JButton exitButton = new JButton("Exit game_entities.Game");
         JButton gameButton = new JButton("Play");
         JButton editButton = new JButton("Edit login_menu_entities.User");
         JLabel userLabel = new JLabel("Username");

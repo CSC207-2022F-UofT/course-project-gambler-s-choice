@@ -1,7 +1,9 @@
+import game_entities.Card;
+import game_entities.Deck;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 
 public class Hint_for_comb2 {
     public int[] Hint_at_flop(Card[] existing_card) {
