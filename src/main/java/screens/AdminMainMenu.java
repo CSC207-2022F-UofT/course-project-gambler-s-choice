@@ -3,6 +3,8 @@ package screens;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,7 +15,18 @@ public class AdminMainMenu implements Menu{
      * Creates a main menu with an extra option to edit user balances
      * @param frame the frame to be modified
      */
-    public AdminMainMenu(JFrame frame){
+
+    private final JFrame frame;
+    private final AdminEditBalanceController controller;
+
+    private boolean loggedIn = true;
+
+    private boolean inGame = false;
+
+
+    public AdminMainMenu(JFrame frame, AdminEditBalanceController controller){
+    this.frame = frame;
+    this.controller = controller;
 
         MenuController m = new MenuController();
 
@@ -38,51 +51,48 @@ public class AdminMainMenu implements Menu{
         JTextField username = new JTextField("");
         JTextField balance = new JTextField("");
 
+        JButton buttons[] = {logoutButton,exitButton,gameButton,editButton};
 
-        helpButton.addActionListener(e -> {
-            helpWindow.setVisible(!helpWindow.isVisible());
-            username.setVisible(!username.isVisible());
-            userLabel.setVisible(!userLabel.isVisible());
-            balance.setVisible(!balance.isVisible());
-            balanceLabel.setVisible(!balanceLabel.isVisible());
-
-        });
-        logoutButton.addActionListener(m);
-
-        //Also this just exits the system, don't think I would ever change this, so I think this should be fine to leave here.
-        exitButton.addActionListener(e -> {
-            System.exit(0);
-        });
-
-
-        gameButton.addActionListener(m);
-
-
-
-        editButton.addActionListener(e -> {
-            String userEntry = username.getText();
-            String balanceEntry = balance.getText();
-            username.setText("");
-            balance.setText("");
-            AdminEditGateway admin;
-            try{
-                admin = new AdminFileChecker("./users.txt");
-            } catch (IOException a){
-                throw new RuntimeException("File does not exist");
-            }
-            AdminEditPresenter presenter = new AdminEditResponseFormatter();
-            AdminEditBalanceInputBoundary inputBoundary = new AdminEditInteractor(admin, presenter);
-            AdminEditBalanceController balanceController = new AdminEditBalanceController(inputBoundary);
-            try {
-                balanceController.create(userEntry, Integer.parseInt(balanceEntry));
-            } catch (Exception a) {
-                ErrorPanel errorPanel = new ErrorPanel(a.getMessage());
-                JOptionPane.showMessageDialog(errorPanel, a.getMessage());
-            }
-
-
-
-        });
+        for (JButton button: buttons) {
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed (ActionEvent evt){
+                    if (evt.getActionCommand().equals("Edit login_menu_entities.User")){
+                        String userEntry = username.getText();
+                        String balanceEntry = balance.getText();
+                        username.setText("");
+                        balance.setText("");
+                        AdminEditGateway admin;
+                        try{
+                            admin = new AdminFileChecker("./users.txt");
+                        } catch (IOException a){
+                            throw new RuntimeException("File does not exist");
+                        }
+                        AdminEditPresenter presenter = new AdminEditResponseFormatter();
+                        AdminEditBalanceInputBoundary inputBoundary = new AdminEditInteractor(admin, presenter);
+                        AdminEditBalanceController balanceController = new AdminEditBalanceController(inputBoundary);
+                        try {
+                            balanceController.create(userEntry, Integer.parseInt(balanceEntry));
+                        } catch (Exception a) {
+                            ErrorPanel errorPanel = new ErrorPanel(a.getMessage());
+                            JOptionPane.showMessageDialog(errorPanel, a.getMessage());
+                        }
+                    } else if (evt.getActionCommand().equals("Log Out")) {
+                        loggedIn = !loggedIn;
+                    } else if (evt.getActionCommand().equals("Exit game_entities.Game")) {
+                        System.exit(0);
+                    } else if (evt.getActionCommand().equals("Help")) {
+                        helpWindow.setVisible(!helpWindow.isVisible());
+                        username.setVisible(!username.isVisible());
+                        userLabel.setVisible(!userLabel.isVisible());
+                        balance.setVisible(!balance.isVisible());
+                        balanceLabel.setVisible(!balanceLabel.isVisible());
+                    } else if (evt.getActionCommand().equals("Play")) {
+                        inGame = true;
+                    }
+                }
+            });
+        }
 
         ArrayList <Rectangle> coords = calcCoord(10,10, 5, 100, 60, 10);
 
@@ -124,4 +134,9 @@ public class AdminMainMenu implements Menu{
         frame.add(background);
 
     }
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+    public boolean isInGame(){ return inGame;}
+
 }
