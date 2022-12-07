@@ -16,8 +16,10 @@ public class BetInteractor implements BetInputBoundary {
     @Override
     public ResponseModel create(RequestModel input) {
 
+        // Change last to bet to this player
         GameInterface game = this.gameFactory.create(input.getCurrentPlayer(), input.getFirstPlayer(),
-                input.getLastToBet(), input.getPlayerBalance(),
+                input.getCurrentPlayer(), // Init game with lastToBet as current player
+                input.getPlayerBalance(),
                 input.getCard1(), input.getCard2(), input.getTableCard(),
                 input.getCurrentBet(), input.getIsActive(), input.getPlayerBets(),
                 input.getDeck());
@@ -42,9 +44,7 @@ public class BetInteractor implements BetInputBoundary {
 
         // Common method used to move onto next player
         game.nextPlayer();
-        if (game.getCurrentPlayer() == input.getLastToBet()) {
-            game.nextRound();
-        } else if (game.getCurrentPlayer() == -1) {
+        if (game.getCurrentPlayer() == -1) {
             game.nextRound();
         }
 
