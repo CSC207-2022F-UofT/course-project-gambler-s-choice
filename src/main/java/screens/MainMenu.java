@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class MainMenu implements Menu {
+public class MainMenu extends JPanel implements Menu {
     /**
      * creates a main menu screen
      * This class does not work as of right now since we have yet to implement use cases, so there will be popup messages
@@ -54,7 +54,7 @@ public class MainMenu implements Menu {
                 public void actionPerformed (ActionEvent evt){
                     if (evt.getActionCommand().equals("Log Out")) {
                         loggedIn = !loggedIn;
-                    } else if (evt.getActionCommand().equals("Exit Game")) {
+                    } else if (evt.getActionCommand().equals("Exit game_entities.Game")) {
                         System.exit(0);
                     } else if (evt.getActionCommand().equals("Help")) {
                         helpWindow.setVisible(!helpWindow.isVisible());
@@ -86,7 +86,7 @@ public class MainMenu implements Menu {
         background.add(helpWindow);
 
 
-        frame.add(background);
+        this.add(background);
 
     }
 }

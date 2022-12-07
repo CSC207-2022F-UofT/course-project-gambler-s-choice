@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import menu_use_case.*;
 
-public class AdminMainMenu implements Menu{
+public class AdminMainMenu extends JPanel implements Menu{
     /**
      * Creates a main menu with an extra option to edit user balances
      * @param frame the frame to be modified
@@ -131,7 +131,7 @@ public class AdminMainMenu implements Menu{
         background.add(balanceLabel);
 
 
-        frame.add(background);
+        this.add(background);
 
     }
     public boolean isLoggedIn() {
