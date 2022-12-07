@@ -76,6 +76,16 @@ public class Player implements PlayerInterface {
         return 2;
     }
 
+    /**
+     * Bets a certain amount of money
+     * Removes the bet amount from player's balance
+     *
+     * @param amount amount the player has bet
+     */
+    public void bet(int amount) {
+        this.balance -= amount;
+    }
+
     public void receiveCard(Card card){
         if (cards[0] == null){
             cards[0] = card;
