@@ -80,16 +80,30 @@ public class Game implements GameInterface{
     }
 
     public void nextRound() {
-        if (this.firstPlayer <= this.players.length) {
-            this.firstPlayer++;
-        } else {
-            this.firstPlayer = 0;
-        }
+//        if (this.firstPlayer <= this.players.length) {
+//            this.firstPlayer++;
+//        } else {
+//            this.firstPlayer = 0;
+//        }
+        this.currentPlayer = this.firstPlayer; // Set curr player
+        this.lastBet = this.currentPlayer;
+        this.currentWager = 0;
 
         this.dealCards();
 
+    }
+
+    @Override
+    public void resetGame() {
+        // Reset the game
+        this.firstPlayer++; // Iterate first player
+        this.firstPlayer %= getPlayers().length;
+        this.currentPlayer = this.firstPlayer; // Set curr player
+        for (int i = 0; i < 5; i++) {
+            this.cards[i] = null; // Cards to null
+        }
+        this.lastBet = this.currentPlayer;
         this.currentWager = 0;
-        this.currentPlayer = this.firstPlayer;
     }
 
     /**
@@ -125,6 +139,7 @@ public class Game implements GameInterface{
         }
         //this can pass into the pool class later
         pool.calculateWinnings(rankings);
+
         return rankings;
     }
 

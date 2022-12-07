@@ -9,6 +9,8 @@ public interface GameInterface {
 
     int[] findWinner(Player[] players, String[] flop);
 
+    void resetGame();
+
     Player[] getPlayers();
 
     Pool getPool();
