@@ -2,6 +2,7 @@ package screens;
 
 import game_entities.Card;
 import game_entities.Game;
+import game_entities.Player;
 import game_use_case.CheckResponseModel;
 
 import javax.swing.*;
@@ -9,9 +10,84 @@ import java.awt.*;
 
 public class GameScreen extends JPanel implements Screen {
 
+    int currentPlayer;
+    int firstPlayer;
+    int lastToBet;
+    int[] playerBalance;
+    String[] card1;
+    String[] card2;
+    String[] boardCard;
+    String[] card1PNG;
+    String[] card2PNG;
+    String[] boardCardPNG;
+    int currentBet;
+    boolean[] isActive;
+    int[] playerBets;
+    String[] deck;
+    boolean isInteract = false;
+
+    public boolean isInteract() {
+        return isInteract;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public int getFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public int getLastToBet() {
+        return lastToBet;
+    }
+
+    public int[] getPlayerBalance() {
+        return playerBalance;
+    }
+
+    public String[] getCard1() {
+        return card1;
+    }
+
+    public String[] getCard2() {
+        return card2;
+    }
+
+    public String[] getBoardCard() {
+        return boardCard;
+    }
+
+    public String[] getCard1PNG() {
+        return card1PNG;
+    }
+
+    public String[] getCard2PNG() {
+        return card2PNG;
+    }
+
+    public String[] getBoardCardPNG() {
+        return boardCardPNG;
+    }
+
+    public int getCurrentBet() {
+        return currentBet;
+    }
+
+    public boolean[] getIsActive() {
+        return isActive;
+    }
+
+    public int[] getPlayerBets() {
+        return playerBets;
+    }
+
+    public String[] getDeck() {
+        return deck;
+    }
+
     private final int CARD_WIDTH = 60;
     private final int CARD_HEIGHT = 100;
-    private final Game game;
     private final JFrame frame;
     private final CheckController cController;
 
@@ -19,30 +95,62 @@ public class GameScreen extends JPanel implements Screen {
     /**
      * Updates the current window to contain the necessary items in the game
      * @param frame The current main window being used
-     * @param game The current game in play
+     * @param currentPlayer
+     * @param firstPlayer
+     * @param lastToBet
+     * @param playerBalance
+     * @param card1
+     * @param card2
+     * @param boardCard
+     * @param card1PNG
+     * @param card2PNG
+     * @param boardCardPNG
+     * @param currentBet
+     * @param isActive
+     * @param playerBets
+     * @param cController
      */
-    public GameScreen(JFrame frame, Game game, CheckController cController) {
+    public GameScreen(JFrame frame,
+                      int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance,
+                      String[] card1, String[] card2, String[] boardCard, String[] card1PNG, String[] card2PNG,
+                      String[] boardCardPNG, int currentBet, boolean[] isActive, int[] playerBets, String[] deck,
+                      CheckController cController) {
 
-        this.game = game;
         this.frame = frame;
         this.cController = cController;
+
+        this.currentPlayer = currentPlayer;
+        this.firstPlayer = firstPlayer;
+        this.lastToBet = lastToBet;
+        this.playerBalance = playerBalance;
+        this.card1 = card1;
+        this.card2 = card2;
+        this.boardCard = boardCard;
+        this.card1PNG = card1PNG;
+        this.card2PNG = card2PNG;
+        this.boardCardPNG = boardCardPNG;
+        this.currentBet = currentBet;
+        this.isActive = isActive;
+        this.playerBets = playerBets;
+        this.deck = deck;
 
         this.setLayout(new BorderLayout());
 
         this.add(loadBackground());
         this.add(this.loadButtons(), BorderLayout.SOUTH);
 
-
     }
 
     /**
      * Creates all the cards that are visible to the player and puts them into an array
-     * @param game The current game state to determine what the cards are
+     *
      * @return An array of the images of cards that are visible to the player
      */
-    private ImagePanel[] loadSeenCards(Game game){
-        Card[] handCards = game.getCurrPlayer().getCards();
-        Card[] boardCards = game.getBoardCards();
+    private ImagePanel[] loadSeenCards() {
+        String[] handCards = new String[]{
+                this.card1PNG[currentPlayer], this.card2PNG[currentPlayer]
+        };
+        String[] boardCards = this.boardCardPNG;
         ImagePanel[] cards = new ImagePanel[2 + boardCards.length];
         // TODO delete this
 //        System.out.println("Cards" + boardCards);
@@ -53,11 +161,11 @@ public class GameScreen extends JPanel implements Screen {
 
         for (int i = 0; i < boardCards.length + handCards.length; i++){
             if (i < 2) {
-                cards[i] = new ImagePanel(handCards[i].getPNG(), 0, 0, CARD_WIDTH, CARD_HEIGHT);
+                cards[i] = new ImagePanel(handCards[i], 0, 0, CARD_WIDTH, CARD_HEIGHT);
                 cards[i].setBounds(435 + 65 * i, 500, CARD_WIDTH, CARD_HEIGHT);
             }
             else {
-                cards[i] = new ImagePanel(boardCards[i - 2].getPNG(), 0, 0, CARD_WIDTH, CARD_HEIGHT);
+                cards[i] = new ImagePanel(boardCards[i - 2], 0, 0, CARD_WIDTH, CARD_HEIGHT);
                 cards[i].setBounds(335 + (i - 2)*65, 310, CARD_WIDTH, CARD_HEIGHT);
             }
         }
@@ -67,11 +175,11 @@ public class GameScreen extends JPanel implements Screen {
 
     /**
      * Creates all the card backs for the hands of the opposing players
-     * @param game The current game state to determine how many players there are
+     *
      * @return An array of the images of the card backs for the opposing players
      */
-    private ImagePanel[] loadHiddenCards(Game game){
-        int players = game.getPlayers().length * 2 - 2;
+    private ImagePanel[] loadHiddenCards(){
+        int players = card1.length * 2 - 2;
         String cardBack = "images/game_entities.Card Back.png";
         ImagePanel[] oppCards = new ImagePanel[players];
         for (int i = 0; i < players; i+=2){
@@ -99,9 +207,9 @@ public class GameScreen extends JPanel implements Screen {
         backgroundPanel.setLayout(new BorderLayout());
 
         ImagePanel background = new ImagePanel("images/Poker Table.png", 0, 0, 1000, 800);
-        ImagePanel[] cards = new ImagePanel[loadSeenCards(game).length + loadHiddenCards(game).length];
-        ImagePanel[] seenCards = loadSeenCards(game);
-        ImagePanel[] hiddenCards = loadHiddenCards(game);
+        ImagePanel[] cards = new ImagePanel[loadSeenCards().length + loadHiddenCards().length];
+        ImagePanel[] seenCards = loadSeenCards();
+        ImagePanel[] hiddenCards = loadHiddenCards();
 
         for (int i = 0; i <= seenCards.length + hiddenCards.length - 1; i++){
             if (i < hiddenCards.length){
@@ -113,6 +221,7 @@ public class GameScreen extends JPanel implements Screen {
         }
         JLabel betPrompt = new JLabel("Bet amount:");
         JTextField betAmount = new JTextField();
+        JLabel balance = new JLabel(Integer.toString(this.playerBalance[this.currentPlayer]));
 
         background.setBounds(0, 0, 1000, 800);
         betPrompt.setBounds(370, 640, 240, 40);
@@ -120,6 +229,7 @@ public class GameScreen extends JPanel implements Screen {
 
         backgroundPanel.add(betPrompt);
         backgroundPanel.add(betAmount);
+        backgroundPanel.add(balance);
         for (ImagePanel card: cards){
             //System.out.println(card);
             backgroundPanel.add(card);
@@ -143,10 +253,26 @@ public class GameScreen extends JPanel implements Screen {
                 new JButton("Fold"), new JButton("Menu")};
         //TODO ADD ACTION LISTENERS FOR BUtTONS TO CALL GAME CLASS DECISION MAKER METHOD
         buttons[0].addActionListener(e -> {
-            System.out.println("Check");
-
             try {
-                CheckResponseModel response = cController.create(game.getCurrentPlayerAsInt(), "");
+                CheckResponseModel response = cController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
+                        card1, card2, boardCard, card1PNG, card2PNG, boardCardPNG, currentBet, isActive, playerBets,
+                        deck);
+                this.currentPlayer = response.getCurrentPlayer();
+                this.firstPlayer = response.getFirstPlayer();
+                this.lastToBet = response.getLastToBet();
+                this.playerBalance = response.getPlayerBalance();
+                this.card1 = response.getCard1();
+                this.card2 = response.getCard2();
+                this.boardCard = response.getBoardCard();
+                this.card1PNG = response.getCard1PNG();
+                this.card2PNG = response.getCard2PNG();
+                this.boardCardPNG = response.getBoardCardPNG();
+                this.currentBet = response.getCurrentBet();
+                this.isActive = response.getIsActive();
+                this.playerBets = response.getPlayerBets();
+                System.out.println(card1PNG[currentPlayer]);
+                System.out.println(currentPlayer);
+                this.isInteract = response.isInteract();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
