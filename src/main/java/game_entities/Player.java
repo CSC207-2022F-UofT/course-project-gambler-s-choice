@@ -88,4 +88,7 @@ public class Player implements PlayerInterface {
         return this.cards;
     }
 
+    public int getBalance() {
+        return balance;
+    }
 }
