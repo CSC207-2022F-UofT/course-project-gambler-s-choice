@@ -57,7 +57,7 @@ public class Main {
         AdminEditResponseFormatter adminEditResponseFormatter = new AdminEditResponseFormatter();
         AdminEditInteractor adminEditInteractor = new AdminEditInteractor(adminFileChecker, adminEditResponseFormatter);
         AdminEditBalanceController adminEditBalanceController = new AdminEditBalanceController(adminEditInteractor);
-        AdminMainMenu adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController);
+        AdminMainMenu adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController, loginScreen.getUser());
 
         MenuFileChecker menuUser;
         try {
@@ -80,13 +80,13 @@ public class Main {
         while (true) {
             if (!loggedIn)  {
                 loggedIn = loginScreen.isLoggedIn();
+                mainMenuInitiate = loggedIn;
                 cardLayout.show(screens, "Login");
             } else if (loggedIn && !inGame) {
-
-
-                if (loginScreen.getType().equals("admin") && mainMenuInitiate){
-                    adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController);
+                if (loginScreen.getType().equals("admin") && mainMenuInitiate){ //TODO GETYPE RETURNS NULL
+                    adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController, loginScreen.getUser());
                     screens.add(adminMenuScreen, "Menu");
+                    mainMenuInitiate = false;
                 } else if (loginScreen.getType().equals("user") && mainMenuInitiate) {
                     menuScreen = new MainMenu(application, menuController, loginScreen.getUser());
                     screens.add(menuScreen, "Menu");
@@ -96,12 +96,13 @@ public class Main {
                 cardLayout.show(screens, "Menu");
                 if (loginScreen.getType().equals("admin")) {
                     loggedIn = adminMenuScreen.isLoggedIn();
-                    mainMenuInitiate = adminMenuScreen.isInitiate();
+                    inGame = adminMenuScreen.isInGame();
                 } else {
                     loggedIn = menuScreen.isLoggedIn();
-                    mainMenuInitiate = menuScreen.isInitiate();
+                    inGame = menuScreen.isInGame();
                 }
                 if (!loggedIn) {
+                    screens.remove(0);
                     loginScreen = new LoginScreen(application, loginController, registerController);
                     screens.add(loginScreen, "Login");
                     mainMenuInitiate = false;

@@ -114,8 +114,7 @@ public class LoginScreen extends JPanel implements Screen {
                             type = response.getType();
                             user = response.getUser();
                             } catch (Exception e) {
-                            JOptionPane.showMessageDialog(frame, e.getMessage());
-
+                                JOptionPane.showMessageDialog(frame, e.getMessage());
                         }
                     }
                     else if (evt.getActionCommand().equals("Register")){

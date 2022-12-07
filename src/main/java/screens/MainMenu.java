@@ -21,7 +21,6 @@ public class MainMenu extends JPanel implements Menu {
 
     private boolean loggedIn = true;
     private boolean inGame = false;
-    private boolean initiate = false;
 
     public MainMenu(JFrame frame, MenuController controller, String user){
         this.frame = frame;
@@ -62,7 +61,6 @@ public class MainMenu extends JPanel implements Menu {
                     } else if (evt.getActionCommand().equals("Play")) {
                         try {
                             MenuResponseModel response = controller.create(user, "Play", helpWindow.isVisible());
-                            initiate = true;
                             inGame = response.isInGame();
                         }catch (Exception e){
                             JOptionPane.showMessageDialog(frame, e.getMessage());
@@ -101,7 +99,4 @@ public class MainMenu extends JPanel implements Menu {
         return inGame;
     }
 
-    public boolean isInitiate(){
-        return initiate;
-    }
 }

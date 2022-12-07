@@ -7,14 +7,15 @@ import java.util.Scanner;
 public class AdminFileChecker implements AdminEditGateway {
 
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
+    private final File usersFile;
 
     public AdminFileChecker(String txtPath) throws IOException{
-        File usersFile = new File(txtPath); //creates a File instance
+        usersFile = new File(txtPath); //creates a File instance
 
         Scanner scanner = new Scanner(usersFile);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            String[] account = line.split(",");
+            String[] account = line.split(", ");
             accounts.add(account);
         }
         scanner.close();
@@ -35,6 +36,37 @@ public class AdminFileChecker implements AdminEditGateway {
         return false;
     }
 
+    @Override
+    public boolean validBalance(String balance) {
+        try {
+            Integer.parseInt(balance);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean sufficientBalance(String user) {
+        for (String[] account: accounts){
+            if (account[0].equals(user) && Integer.parseInt(account[3]) >= 100){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int getBalance(String user) {
+        for (String[] account: accounts){
+            if (account[0].equals(user)){
+                Integer.parseInt(account[3]);
+            }
+        }
+        return 0;
+    }
+
     /**
      * Edits the account given by the name of the user. If the user does not exist, returns false
      * @param name Name of the user we need to edit
@@ -43,9 +75,7 @@ public class AdminFileChecker implements AdminEditGateway {
      */
 
     @Override
-    public boolean editByName(String txtPath, String name, int balance) {
-        File usersFile = new File(txtPath); //creates a File instance
-
+    public boolean editByName(String name, int balance) {
         for (String[] account: accounts){
             if (account[0].equals(name)){
                 account[3] = Integer.toString(balance);

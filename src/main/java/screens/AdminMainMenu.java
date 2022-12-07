@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import admin_menu_use_case.*;
+import menu_use_case.MenuResponseModel;
 
 public class AdminMainMenu extends JPanel implements Menu{
     /**
@@ -17,17 +18,14 @@ public class AdminMainMenu extends JPanel implements Menu{
      */
 
     private final JFrame frame;
-    private final AdminEditBalanceController controller;
 
     private boolean loggedIn = true;
-
     private boolean inGame = false;
+    private String user;
 
-    private boolean initiate = false;
-
-    public AdminMainMenu(JFrame frame, AdminEditBalanceController controller){
+    public AdminMainMenu(JFrame frame, AdminEditBalanceController controller, String user){
+    this.user = user;
     this.frame = frame;
-    this.controller = controller;
 
         JLabel background = new JLabel();
         background.setSize(1000,800);
@@ -42,52 +40,50 @@ public class AdminMainMenu extends JPanel implements Menu{
         JButton helpButton = new JButton("Help");
 
         JButton logoutButton = new JButton("Log Out");
-        JButton exitButton = new JButton("Exit game_entities.Game");
+        JButton exitButton = new JButton("Exit Game");
         JButton gameButton = new JButton("Play");
-        JButton editButton = new JButton("Edit login_menu_entities.User");
+        JButton editButton = new JButton("Edit User");
         JLabel userLabel = new JLabel("Username");
         JLabel balanceLabel = new JLabel("Balance");
         JTextField username = new JTextField("");
         JTextField balance = new JTextField("");
 
-        JButton buttons[] = {logoutButton,exitButton,gameButton,editButton};
+        JButton[] buttons= {logoutButton,exitButton,gameButton,editButton, helpButton};
         String userfile = "src/main/users.txt";
         for (JButton button: buttons) {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed (ActionEvent evt){
-                    if (evt.getActionCommand().equals("Edit login_menu_entities.User")){
+                    if (evt.getActionCommand().equals("Edit User")){
                         String userEntry = username.getText();
                         String balanceEntry = balance.getText();
                         username.setText("");
                         balance.setText("");
-                        AdminEditGateway admin;
-                        try{
-                            admin = new AdminFileChecker(userfile);
-                        } catch (IOException a){
-                            throw new RuntimeException(a);
-                        }
-                        AdminEditPresenter presenter = new AdminEditResponseFormatter();
-                        AdminEditBalanceInputBoundary inputBoundary = new AdminEditInteractor(admin, presenter);
-                        AdminEditBalanceController balanceController = new AdminEditBalanceController(inputBoundary);
                         try {
-                            balanceController.create(userEntry, Integer.parseInt(balanceEntry), userfile);
+                            AdminEditResponseModel response = controller.create(userEntry, balanceEntry, "Edit User", helpWindow.isVisible());
+                            loggedIn = response.isLoggedIn();
                         } catch (Exception a) {
-                            ErrorPanel errorPanel = new ErrorPanel(a.getMessage());
-                            JOptionPane.showMessageDialog(errorPanel, a.getMessage());
+                            JOptionPane.showMessageDialog(frame, a.getMessage());
                         }
                     } else if (evt.getActionCommand().equals("Log Out")) {
-                        loggedIn = !loggedIn;
-                    } else if (evt.getActionCommand().equals("Exit game_entities.Game")) {
+                        AdminEditResponseModel response = controller.create(user, null, "Log Out", helpWindow.isVisible());
+                        loggedIn = response.isLoggedIn();
+                    } else if (evt.getActionCommand().equals("Exit Game")) {
                         System.exit(0);
                     } else if (evt.getActionCommand().equals("Help")) {
-                        helpWindow.setVisible(!helpWindow.isVisible());
-                        username.setVisible(!username.isVisible());
-                        userLabel.setVisible(!userLabel.isVisible());
-                        balance.setVisible(!balance.isVisible());
-                        balanceLabel.setVisible(!balanceLabel.isVisible());
+                        AdminEditResponseModel response = controller.create(user, null, "Help", helpWindow.isVisible());
+                        helpWindow.setVisible(response.isRulesVisible());
+                        username.setVisible(!response.isRulesVisible());
+                        userLabel.setVisible(!response.isRulesVisible());
+                        balance.setVisible(!response.isRulesVisible());
+                        balanceLabel.setVisible(!response.isRulesVisible());
                     } else if (evt.getActionCommand().equals("Play")) {
-                        inGame = true;
+                        try {
+                            AdminEditResponseModel response = controller.create(user, null, "Play", helpWindow.isVisible());
+                            inGame = response.isInGame();
+                        } catch (Exception e){
+                            JOptionPane.showMessageDialog(frame, e.getMessage());
+                        }
                     }
                 }
             });
@@ -137,9 +133,5 @@ public class AdminMainMenu extends JPanel implements Menu{
         return loggedIn;
     }
     public boolean isInGame(){ return inGame;}
-
-    public boolean isInitiate(){
-        return initiate;
-    }
 
 }

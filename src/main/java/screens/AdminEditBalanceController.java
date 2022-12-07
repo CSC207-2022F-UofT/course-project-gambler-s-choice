@@ -13,10 +13,10 @@ public class AdminEditBalanceController {
         this.editInput = editGateway;
     }
 
-    AdminEditResponseModel create(String user, int balance, String txtpath){
-        AdminEditBalanceModel balanceModel = new AdminEditBalanceModel(user, balance);
+    AdminEditResponseModel create(String user, String balance, String input, boolean rulesVisible){
+        AdminEditBalanceModel balanceModel = new AdminEditBalanceModel(user, balance, input, rulesVisible);
 
-        return editInput.create(balanceModel, txtpath);
+        return editInput.create(balanceModel);
     }
 
 

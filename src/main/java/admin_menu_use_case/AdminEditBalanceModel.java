@@ -4,27 +4,31 @@ public class AdminEditBalanceModel {
     /**
      * The UserEditBalanceModel is just a data structure that stores a user and a balance for editing user balances
      */
-    String user;
-    int balance;
+    private final String user;
+    private final String balance;
+    private final String input;
+    private final boolean rulesVisible;
 
-    public AdminEditBalanceModel(String user, int balance){
+    public AdminEditBalanceModel(String user, String balance, String input, boolean rulesVisible){
         this.user = user;
         this.balance = balance;
-
+        this.input = input;
+        this.rulesVisible = rulesVisible;
     }
 
     public String getUser(){
         return user;
     }
 
-    public int getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public String getInput(){
+        return input;
     }
-    public void setUser(String user) {
-        this.user = user;
+
+    public boolean isRulesVisible() {
+        return rulesVisible;
     }
 }
