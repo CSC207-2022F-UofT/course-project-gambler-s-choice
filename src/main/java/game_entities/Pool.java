@@ -180,4 +180,18 @@ public class Pool {
     public int[] getBets() {
         return bets;
     }
+
+    /**
+     * To string method
+     * Return the array of bets contained in pool
+     * @return array of bets as a string
+     */
+    @Override
+    public String toString() {
+        String toReturn = "[";
+        for (int i : this.bets) {
+            toReturn = toReturn + " " + i;
+        }
+        return toReturn + " ]";
+    }
 }
