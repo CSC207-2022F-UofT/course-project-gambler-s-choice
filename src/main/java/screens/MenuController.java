@@ -12,7 +12,7 @@ public class MenuController implements ActionListener {
         } else if (e.getActionCommand().equals("Play")) {
             System.out.println("(TEMP MESSAGE) Changes the screen to the game screen (does not change any data)");
         }
-        else if (e.getActionCommand().equals("Edit User")){
+        else if (e.getActionCommand().equals("Edit login_menu_entities.User")){
             System.out.println("(TEMP MESSAGE) edits the balance that the provided user has in the database");
         }
     }

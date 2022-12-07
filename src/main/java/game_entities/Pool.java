@@ -1,3 +1,7 @@
+package game_entities;
+
+import game_entities.PlayerInterface;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,7 +12,7 @@ public class Pool {
     private int[] bets;
 
     /**
-     * Class constructor for Pool
+     * Class constructor for game_entities.Pool
      *
      * @param players   the players who are playing this game
      */

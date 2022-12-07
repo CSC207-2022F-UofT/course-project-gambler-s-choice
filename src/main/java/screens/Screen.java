@@ -1,3 +1,5 @@
+package screens;
+
 import javax.swing.*;
 
 public interface Screen {
@@ -15,7 +17,7 @@ public interface Screen {
     public JPanel loadButtons();
 
     /**
-     * Clear the "Screen" (current window) before creating the screen items
+     * Clear the "screens.Screen" (current window) before creating the screen items
      * @param frame The JFrame window that is being used
      */
     public default void clearScreen(JFrame frame){

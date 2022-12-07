@@ -1,7 +1,9 @@
+package screens;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import game_entities.*;
 
 public class GameScreen implements Screen{
 
@@ -61,7 +63,7 @@ public class GameScreen implements Screen{
      */
     private ImagePanel[] loadHiddenCards(Game game){
         int players = game.getPlayers().length * 2 - 2;
-        String cardBack = "images/Card Back.png";
+        String cardBack = "images/game_entities.Card Back.png";
         ImagePanel[] oppCards = new ImagePanel[players];
         for (int i = 0; i < players; i+=2){
             oppCards[i] = new ImagePanel(cardBack, 0, 0, CARD_WIDTH, CARD_HEIGHT);

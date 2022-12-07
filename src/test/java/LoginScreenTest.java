@@ -1,3 +1,5 @@
+import screens.LoginScreen;
+
 import javax.swing.*;
 
 public class LoginScreenTest {
@@ -8,7 +10,7 @@ public class LoginScreenTest {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new LoginScreen(aaaa);
+         //       new LoginScreen(aaaa);
             }
         });
 

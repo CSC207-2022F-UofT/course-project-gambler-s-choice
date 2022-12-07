@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-public class MainMenu implements Menu {
+public class MainMenu extends JPanel implements Menu {
     /**
      * creates a main menu screen
      * This class does not work as of right now since we have yet to implement use cases, so there will be popup messages
@@ -39,7 +39,7 @@ public class MainMenu implements Menu {
 
         logoutButton.addActionListener(m);
 
-        JButton exitButton = new JButton("Exit Game");
+        JButton exitButton = new JButton("Exit game_entities.Game");
 
         exitButton.addActionListener(e -> {
             System.exit(0);
@@ -70,12 +70,8 @@ public class MainMenu implements Menu {
         background.add(helpWindow);
 
 
-        frame.add(background);
+        this.add(background);
 
-        frame.setSize(1000,800);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
 
     }
 }

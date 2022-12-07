@@ -1,3 +1,5 @@
+package game_entities;
+
 public class Game {
     private final Player[] players;
     private final Pool pool;
