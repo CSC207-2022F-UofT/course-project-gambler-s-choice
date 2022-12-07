@@ -1,4 +1,4 @@
-package menu_use_case;
+package admin_menu_use_case;
 
 public interface AdminEditGateway {
     boolean existsByName(String name);

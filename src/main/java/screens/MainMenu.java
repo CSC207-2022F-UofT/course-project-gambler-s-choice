@@ -1,17 +1,16 @@
 package screens;
 //THIS IS THE UI LAYER
 
-import menu_use_case.*;
+import menu_use_case.MenuResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class MainMenu implements Menu {
+public class MainMenu extends JPanel implements Menu {
     /**
      * creates a main menu screen
      * This class does not work as of right now since we have yet to implement use cases, so there will be popup messages
@@ -21,10 +20,10 @@ public class MainMenu implements Menu {
     private final JFrame frame;
 
     private boolean loggedIn = true;
-
     private boolean inGame = false;
+    private boolean initiate = false;
 
-    public MainMenu(JFrame frame){
+    public MainMenu(JFrame frame, MenuController controller, String user){
         this.frame = frame;
 
         JLabel background = new JLabel();
@@ -46,27 +45,32 @@ public class MainMenu implements Menu {
 
         JButton gameButton = new JButton("Play");
 
-        JButton buttons[] = {logoutButton,exitButton,gameButton};
+        JButton[] buttons = {logoutButton,exitButton,gameButton, helpButton};
 
         for (JButton button: buttons) {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed (ActionEvent evt){
                     if (evt.getActionCommand().equals("Log Out")) {
-                        loggedIn = !loggedIn;
+                        MenuResponseModel response = controller.create(user, "Log out", helpWindow.isVisible());
+                        loggedIn = response.isLoggedIn();
                     } else if (evt.getActionCommand().equals("Exit Game")) {
                         System.exit(0);
                     } else if (evt.getActionCommand().equals("Help")) {
-                        helpWindow.setVisible(!helpWindow.isVisible());
+                        MenuResponseModel response = controller.create(user, "Help", helpWindow.isVisible());
+                        helpWindow.setVisible(response.isRulesVisible());
                     } else if (evt.getActionCommand().equals("Play")) {
-                        inGame = true;
+                        try {
+                            MenuResponseModel response = controller.create(user, "Play", helpWindow.isVisible());
+                            initiate = true;
+                            inGame = response.isInGame();
+                        }catch (Exception e){
+                            JOptionPane.showMessageDialog(frame, e.getMessage());
+                        }
                     }
                 }
             });
         }
-
-
-
 
         ArrayList <Rectangle> coords = calcCoord(10,10, 4, 100, 60, 10);
 
@@ -83,10 +87,21 @@ public class MainMenu implements Menu {
         background.add(logoutButton);
 
         background.add(exitButton);
+
         background.add(helpWindow);
 
+        this.add(background);
+    }
 
-        frame.add(background);
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
 
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public boolean isInitiate(){
+        return initiate;
     }
 }

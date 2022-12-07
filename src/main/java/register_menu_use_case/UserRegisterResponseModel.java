@@ -16,14 +16,9 @@ public class UserRegisterResponseModel {
         this.loggedIn = loggedIn;
     }
 
-    String getUser() {
+    public String getUser() {
         return user;
     }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
     String getPassword() {
         return password;
     }

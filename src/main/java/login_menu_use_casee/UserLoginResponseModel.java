@@ -15,12 +15,8 @@ public class UserLoginResponseModel {
         this.loggedIn = loggedIn;
     }
 
-    String getUser() {
+    public String getUser() {
         return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     String getPassword() {

@@ -1,7 +1,7 @@
 package screens;
-import menu_use_case.AdminEditBalanceInputBoundary;
-import menu_use_case.AdminEditBalanceModel;
-import menu_use_case.AdminEditResponseModel;
+import admin_menu_use_case.AdminEditBalanceInputBoundary;
+import admin_menu_use_case.AdminEditBalanceModel;
+import admin_menu_use_case.AdminEditResponseModel;
 // Interface adapters layer
 public class AdminEditBalanceController {
     /**

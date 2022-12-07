@@ -20,6 +20,8 @@ public class LoginScreen extends JPanel implements Screen {
     private final LoginController lcontroller;
     private final RegisterController rcontroller;
     private boolean loggedIn = false;
+    private String user = null;
+    private String type = null;
 
     /**
      * Updates the current window to contain the necessary items in the game
@@ -34,6 +36,10 @@ public class LoginScreen extends JPanel implements Screen {
         JPanel backgroundPanel = loadBackground();
         this.add(backgroundPanel);
 
+        usernameField.setText("");
+        passwordField.setText(""); //TODO FIGURE OUT HOW TO CLEAR JTEXTFIELD
+        passwordField2.setText("");
+
         this.add(this.loadButtons(), BorderLayout.SOUTH);
     }
 
@@ -43,6 +49,7 @@ public class LoginScreen extends JPanel implements Screen {
      */
     @Override
     public JPanel loadBackground() {
+
         JPanel backgroundPanel = new JPanel();
         backgroundPanel.setLayout(new BorderLayout());
         Font font = new Font("", Font.PLAIN, 24);
@@ -104,6 +111,8 @@ public class LoginScreen extends JPanel implements Screen {
                             UserLoginResponseModel response = lcontroller.create(usernameField.getText(),
                                     new String(passwordField.getPassword()));
                             loggedIn = response.isLoggedIn();
+                            type = response.getType();
+                            user = response.getUser();
                             } catch (Exception e) {
                             JOptionPane.showMessageDialog(frame, e.getMessage());
 
@@ -115,6 +124,8 @@ public class LoginScreen extends JPanel implements Screen {
                                     new String(passwordField.getPassword()),
                                     new String(passwordField2.getPassword()));
                             loggedIn = response.isLoggedIn();
+                            type = response.getType();
+                            user = response.getUser();
                         } catch (Exception e) {
                             JOptionPane.showMessageDialog(frame, e.getMessage());
                         }
@@ -132,4 +143,13 @@ public class LoginScreen extends JPanel implements Screen {
     public boolean isLoggedIn() {
         return loggedIn;
     }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getType() {
+        return type;
+    }
+
 }

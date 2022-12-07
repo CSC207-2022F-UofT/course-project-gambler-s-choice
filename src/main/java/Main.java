@@ -1,8 +1,12 @@
 import javax.swing.*;
 
+import admin_menu_use_case.AdminEditInteractor;
+import admin_menu_use_case.AdminEditResponseFormatter;
+import admin_menu_use_case.AdminFileChecker;
 import login_menu_entities.UserFactory;
 import login_menu_entities.UserInterfaceFactory;
 import login_menu_use_casee.*;
+import menu_use_case.*;
 import register_menu_use_case.*;
 import screens.*;
 
@@ -11,6 +15,12 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+        boolean loggedIn = false;
+        boolean inGame = false;
+        boolean mainMenuInitiate = true;
+        String usersfile = "src/main/users.txt";
+
+
         JFrame application = new JFrame("Gambler's Choice");
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
@@ -18,31 +28,49 @@ public class Main {
 
         UserLoginDSGateway user;
         try {
-            user = new LoginFileChecker("src/main/users.txt");
+            user = new LoginFileChecker(usersfile);
         } catch (IOException e) {
             throw new RuntimeException("File could not be created");
         }
         UserLoginPresenter presenter = new UserLoginResponseFormatter();
         UserInterfaceFactory userFactory = new UserFactory();
-        UserLoginInputBoundary inputBoundary = new UserLoginInteractor(user, presenter, userFactory);
-        LoginController controller = new LoginController(inputBoundary);
+        UserLoginInputBoundary loginInputBoundary = new UserLoginInteractor(user, presenter, userFactory);
+        LoginController loginController = new LoginController(loginInputBoundary);
         UserRegisterDSGateway user2;
         try {
-            user2 = new RegisterFileChecker("src/main/users.txt");
+            user2 = new RegisterFileChecker(usersfile);
         } catch (IOException e) {
             throw new RuntimeException("File could not be created");
         }
         UserRegisterPresenter presenter1 = new UserRegisterResponseFormatter();
-        UserRegisterInputBoundary inputBoundary1 = new UserRegisterInteractor(user2, presenter1, userFactory);
-        RegisterController controller1 = new RegisterController(inputBoundary1);
+        UserRegisterInputBoundary registerInputBoundary = new UserRegisterInteractor(user2, presenter1, userFactory);
+        RegisterController registerController = new RegisterController(registerInputBoundary);
 
-        LoginScreen loginScreen = new LoginScreen(application, controller, controller1);
+        LoginScreen loginScreen = new LoginScreen(application, loginController, registerController);
 
+        AdminFileChecker adminFileChecker;
+        try{
+            adminFileChecker = new AdminFileChecker(usersfile);
+        } catch (IOException e){
+            throw new RuntimeException("File could not be created");
+        }
+        AdminEditResponseFormatter adminEditResponseFormatter = new AdminEditResponseFormatter();
+        AdminEditInteractor adminEditInteractor = new AdminEditInteractor(adminFileChecker, adminEditResponseFormatter);
+        AdminEditBalanceController adminEditBalanceController = new AdminEditBalanceController(adminEditInteractor);
+        AdminMainMenu adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController);
 
-        MainMenu menuScreen = new MainMenu(application);
+        MenuFileChecker menuUser;
+        try {
+            menuUser = new MenuFileChecker(usersfile);
+        } catch (IOException e){
+            throw new RuntimeException("File could not be created");
+        }
+        MenuResponseFormatter menuResponseFormatter = new MenuResponseFormatter();
+        MenuInteractor menuInteractor = new MenuInteractor(menuUser, menuResponseFormatter);
+        MenuController menuController = new MenuController(menuInteractor);
+        MainMenu menuScreen = new MainMenu(application, menuController, loginScreen.getUser());;
 
         screens.add(loginScreen, "Login");
-        screens.add(menuScreen, "Menu");
         application.pack();
         application.setSize(1000,800);
         application.setResizable(false);
@@ -50,10 +78,34 @@ public class Main {
         application.setVisible(true);
 
         while (true) {
-            if (!loginScreen.isLoggedIn()) {
+            if (!loggedIn)  {
+                loggedIn = loginScreen.isLoggedIn();
                 cardLayout.show(screens, "Login");
-            } else if (loginScreen.isLoggedIn()) {
+            } else if (loggedIn && !inGame) {
+
+
+                if (loginScreen.getType().equals("admin")){
+                    adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController);
+                    screens.add(adminMenuScreen, "Menu");
+                } else if (loginScreen.getType().equals("user") && mainMenuInitiate) {
+                    menuScreen = new MainMenu(application, menuController, loginScreen.getUser());
+                    screens.add(menuScreen, "Menu");
+                    mainMenuInitiate = false;
+                }
+
                 cardLayout.show(screens, "Menu");
+                if (loginScreen.getType().equals("admin")) {
+                    loggedIn = adminMenuScreen.isLoggedIn();
+                } else {
+                    loggedIn = menuScreen.isLoggedIn();
+                    mainMenuInitiate = menuScreen.isInitiate();
+                }
+                if (!loggedIn) {
+                    loginScreen = new LoginScreen(application, loginController, registerController);
+                }
+
+            } else if (inGame) {
+
             }
         }
     }

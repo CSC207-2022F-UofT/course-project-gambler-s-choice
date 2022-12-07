@@ -1,22 +1,24 @@
 package screens;
 
-import menu_use_case.*;
+import menu_use_case.MenuInputBoundary;
+import menu_use_case.MenuRequestModel;
+import menu_use_case.MenuResponseModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-public class MenuController implements ActionListener {
+public class MenuController {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("Log Out")){
+    final MenuInputBoundary userInput;
 
-        } else if (e.getActionCommand().equals("Play")) {
-            System.out.println("(TEMP MESSAGE) Changes the screen to the game screen (does not change any data)");
-        }
-        else if (e.getActionCommand().equals("Edit login_menu_entities.User")){
-
-        }
+    public MenuController(MenuInputBoundary menuGateway){
+        this.userInput = menuGateway;
     }
+
+    MenuResponseModel create(String user, String input, boolean rulesVisible){
+        MenuRequestModel requestModel = new MenuRequestModel(user, input, rulesVisible);
+
+        return userInput.create(requestModel);
+    }
+
 }
