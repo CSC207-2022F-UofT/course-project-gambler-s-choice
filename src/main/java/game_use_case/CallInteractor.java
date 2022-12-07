@@ -60,7 +60,7 @@ public class CallInteractor implements CallInputBoundary{
         int currentPlayer = game.getCurrentPlayer();
         int firstPlayer = game.getFirstPlayer();
         int lastToBet = game.lastToBet();
-        int currentBet = input.getCurrentBet();
+        int currentBet = game.getCurrentWager();
         for (int i = 0; i < length; i++) {
             card1[i] = game.getPlayers()[i].getCards()[0].toString();
             card2[i] = game.getPlayers()[i].getCards()[1].toString();
