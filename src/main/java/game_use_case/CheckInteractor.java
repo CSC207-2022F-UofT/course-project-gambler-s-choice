@@ -57,8 +57,10 @@ public class CheckInteractor implements CheckInputBoundary {
         int[] playerBets = game.getPool().getBets();
         boolean[] isActive = game.getActive();
         for (int i = 0; i < 5; i++) {
-            tableCard[i] = game.getTableCards()[i].toString();
-            tableCardPNG[i] = game.getTableCards()[i].getPNG();
+            if (game.getTableCards()[i] != null) {
+                tableCard[i] = game.getTableCards()[i].toString();
+                tableCardPNG[i] = game.getTableCards()[i].getPNG();
+            }
         }
         String[] deck = game.getDeck().deckAsStringArray();
 

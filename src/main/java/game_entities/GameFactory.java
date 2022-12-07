@@ -15,7 +15,9 @@ public class GameFactory implements GameFactoryInterface {
 
         Card[] cards = new Card[tableCard.length];
         for (int i = 0; i < cards.length; i++) {
-            cards[i] = new Card(tableCard[i]);
+            if (tableCard[i] != null) {
+                cards[i] = new Card(tableCard[i]);
+            }
         }
 
         Card[] deckCards = new Card[deck.length];

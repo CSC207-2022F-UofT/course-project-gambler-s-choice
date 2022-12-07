@@ -152,15 +152,9 @@ public class GameScreen extends JPanel implements Screen {
                 this.card1PNG[currentPlayer], this.card2PNG[currentPlayer]
         };
         String[] tableCards = this.tableCardPNG;
-        ImagePanel[] cards = new ImagePanel[2 + tableCards.length];
-        // TODO delete this
-//        System.out.println("Cards" + tableCards);
+        ImagePanel[] cards = new ImagePanel[2 + lenNotNull(tableCards)];
 
-//        for (Card card : tableCards) {
-//            System.out.println(card);
-//        }
-
-        for (int i = 0; i < tableCards.length + handCards.length; i++){
+        for (int i = 0; i < lenNotNull(tableCards) + handCards.length; i++){
             if (i < 2) {
                 cards[i] = new ImagePanel(handCards[i], 0, 0, CARD_WIDTH, CARD_HEIGHT);
                 cards[i].setBounds(435 + 65 * i, 500, CARD_WIDTH, CARD_HEIGHT);
@@ -305,5 +299,31 @@ public class GameScreen extends JPanel implements Screen {
         }
 
         return buttonPanel;
+    }
+
+    /**
+     * Returns the amount of not null indices in the array
+     * All null indices must be at the end of the array
+     * Arr must be length of 5
+     * @param arr the Array to be measured
+     * @return the number of non-null indices
+     */
+    private static int lenNotNull(String[] arr) {
+        if (arr[0] == null) {
+            return 0;
+        }
+        if (arr[1] == null) {
+            return 1;
+        }
+        if (arr[2] == null) {
+            return 2;
+        }
+        if (arr[3] == null) {
+            return 3;
+        }
+        if (arr[4] == null) {
+            return 4;
+        }
+        return 5;
     }
 }
