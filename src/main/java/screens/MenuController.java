@@ -1,7 +1,11 @@
 package screens;
 
+import login_menu_use_casee.FileChecker;
+import menu_use_case.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MenuController implements ActionListener {
 
@@ -13,7 +17,7 @@ public class MenuController implements ActionListener {
             System.out.println("(TEMP MESSAGE) Changes the screen to the game screen (does not change any data)");
         }
         else if (e.getActionCommand().equals("Edit login_menu_entities.User")){
-            System.out.println("(TEMP MESSAGE) edits the balance that the provided user has in the database");
+
         }
     }
 }

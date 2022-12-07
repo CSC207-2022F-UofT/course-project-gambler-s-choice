@@ -3,8 +3,10 @@ package screens;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
-import menu_use_case.UserEditBalanceModel;
+
+import menu_use_case.*;
 
 public class AdminMainMenu implements Menu{
     /**
@@ -62,8 +64,24 @@ public class AdminMainMenu implements Menu{
             String balanceEntry = balance.getText();
             username.setText("");
             balance.setText("");
-            //FIXME this just extracts the text fields
-            JOptionPane.showMessageDialog(null,"Username: "+ userEntry + " New Balance: "+ balanceEntry);
+            AdminEditGateway admin;
+            try{
+                admin = new AdminFileChecker("./users.txt");
+            } catch (IOException a){
+                throw new RuntimeException("File does not exist");
+            }
+            AdminEditPresenter presenter = new AdminEditResponseFormatter();
+            AdminEditBalanceInputBoundary inputBoundary = new AdminEditInteractor(admin, presenter);
+            AdminEditBalanceController balanceController = new AdminEditBalanceController(inputBoundary);
+            try {
+                balanceController.create(userEntry, Integer.parseInt(balanceEntry));
+            } catch (Exception a) {
+                ErrorPanel errorPanel = new ErrorPanel(a.getMessage());
+                JOptionPane.showMessageDialog(errorPanel, a.getMessage());
+            }
+
+
+
         });
 
         ArrayList <Rectangle> coords = calcCoord(10,10, 5, 100, 60, 10);
@@ -104,14 +122,6 @@ public class AdminMainMenu implements Menu{
 
 
         frame.add(background);
-
-        frame.setSize(1000,800);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-
-
-
 
     }
 }
