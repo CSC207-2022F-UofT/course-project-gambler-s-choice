@@ -17,6 +17,11 @@ public class Deck {
         this.shuffle();
     }
 
+    public Deck(Card[] cards) {
+        this.deck = new Stack<>();
+        this.deck.addAll(List.of(cards));
+    }
+
     /**
      * Helper method used in the creation of the deck
      */

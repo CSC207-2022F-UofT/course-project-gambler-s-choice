@@ -5,7 +5,7 @@ import game_entities.Deck;
 
 import java.util.*;
 
-public class Game {
+public class Game implements GameInterface{
     private final Player[] players;
     private final Pool pool;
     private final Deck deck;
@@ -15,8 +15,6 @@ public class Game {
     private int currentPlayer;
 
     private int firstPlayer;
-
-    private int[] playerBets;
 
     private int lastBet; //index of the last person who bet
 
@@ -41,45 +39,57 @@ public class Game {
         this.cards[4] = card5;
     }
 
+    public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] boardCard, int currentBet, Boolean[] isActive, Pool pool, Deck deck) {
+        this.players = players;
+        this.firstPlayer = firstPlayer;
+        this.currentPlayer = currentPlayer;
+        this.lastBet = lastToBet;
+        this.cards = boardCard;
+        this.currentWager = currentBet;
+        this.isActive = isActive;
+        this.pool = pool;
+        this.deck = deck;
+    }
+
     /**
      * This method will add cards to the table
      */
     public void dealCards() {
         if (this.cards.length == 0) {
-            cards[0] = this.deck.getCard();
-            cards[1] = this.deck.getCard();
-            cards[2] = this.deck.getCard();
+            this.cards[0] = this.deck.getCard();
+            this.cards[1] = this.deck.getCard();
+            this.cards[2] = this.deck.getCard();
         } else if (this.cards.length == 3) {
-            cards[3] = this.deck.getCard();
+            this.cards[3] = this.deck.getCard();
         } else if (this.cards.length == 4) {
-            cards[4] = this.deck.getCard();
+            this.cards[4] = this.deck.getCard();
         }
     }
 
     public void nextPlayer() {
-        if (currentPlayer <= players.length) {
-            currentPlayer++;
+        if (this.currentPlayer <= this.players.length) {
+            this.currentPlayer++;
         } else {
-            currentPlayer = 0;
+            this.currentPlayer = 0;
         }
         //you can remove this bit if you want
-        if (currentPlayer == lastBet) {
-            currentPlayer = -1;
+        if (this.currentPlayer == this.lastBet) {
+            this.currentPlayer = -1;
         }
 
     }
 
     public void nextRound() {
-        if (firstPlayer <= players.length) {
-            firstPlayer++;
+        if (this.firstPlayer <= this.players.length) {
+            this.firstPlayer++;
         } else {
-            firstPlayer = 0;
+            this.firstPlayer = 0;
         }
 
         this.dealCards();
 
-        currentWager = 0;
-        currentPlayer = firstPlayer;
+        this.currentWager = 0;
+        this.currentPlayer = this.firstPlayer;
     }
 
     /**

@@ -22,6 +22,12 @@ public class Pool {
         this.resetBets();
     }
 
+    public Pool(PlayerInterface[] players, int[] bets) {
+        this.players = players;
+        this.bets = bets;
+
+    }
+
     /**
      * Returns the total amount in the pool
      *
