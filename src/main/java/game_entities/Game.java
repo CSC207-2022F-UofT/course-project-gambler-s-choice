@@ -18,7 +18,7 @@ public class Game implements GameInterface{
 
     private int lastBet; //index of the last person who bet
 
-    private Boolean[] isActive;
+    private boolean[] isActive;
 
     public Game(Player[] players){
         this.pool = new Pool(players);
@@ -39,7 +39,7 @@ public class Game implements GameInterface{
         this.cards[4] = card5;
     }
 
-    public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] boardCard, int currentBet, Boolean[] isActive, Pool pool, Deck deck) {
+    public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] boardCard, int currentBet, boolean[] isActive, Pool pool, Deck deck) {
         this.players = players;
         this.firstPlayer = firstPlayer;
         this.currentPlayer = currentPlayer;

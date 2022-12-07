@@ -4,7 +4,7 @@ public class GameFactory implements GameFactoryInterface {
     @Override
     public GameInterface create(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance,
                                 String[] card1, String[] card2, String[] boardCard, int currentBet,
-                                Boolean[] isActive, int[] playerBets, String[] deck) {
+                                boolean[] isActive, int[] playerBets, String[] deck) {
 
         Player[] players = new Player[card1.length];
 
