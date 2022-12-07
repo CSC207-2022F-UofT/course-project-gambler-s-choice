@@ -225,7 +225,7 @@ public class GameScreen extends JPanel implements Screen {
 
         background.setBounds(0, 0, 1000, 800);
         betPrompt.setBounds(370, 640, 240, 40);
-        betAmount.setBounds(40, 40, 110, 40); // x = 440, y = 640
+        betAmount.setBounds(440, 640, 110, 40); // x = 440, y = 640
         balance.setBounds(0, 0, 100, 50);
 
         backgroundPanel.add(betPrompt);
