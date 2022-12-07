@@ -14,13 +14,13 @@ public class CheckInteractor implements CheckInputBoundary {
     }
 
     @Override
-    public ResponseModel create(RequestModel inputData) {
+    public ResponseModel create(RequestModel input) {
 
-        GameInterface game = this.gameFactory.create(inputData.getCurrentPlayer(), inputData.getFirstPlayer(),
-                inputData.getLastToBet(), inputData.getPlayerBalance(),
-                inputData.getCard1(), inputData.getCard2(), inputData.getTableCard(),
-                inputData.getCurrentBet(), inputData.getIsActive(), inputData.getPlayerBets(),
-                inputData.getDeck());
+        GameInterface game = this.gameFactory.create(input.getCurrentPlayer(), input.getFirstPlayer(),
+                input.getLastToBet(), input.getPlayerBalance(),
+                input.getCard1(), input.getCard2(), input.getTableCard(),
+                input.getCurrentBet(), input.getIsActive(), input.getPlayerBets(),
+                input.getDeck());
 
         if (game.getCurrentWager() != 0) {
             return checkPresenter.prepareFailView("Cannot check when current wager is not 0");
@@ -28,7 +28,7 @@ public class CheckInteractor implements CheckInputBoundary {
 
         // Common method used to move onto next player
         game.nextPlayer();
-        if (game.getCurrentPlayer() == inputData.getLastToBet()) {
+        if (game.getCurrentPlayer() == input.getLastToBet()) {
             game.nextRound();
         } else if (game.getCurrentPlayer() == -1) {
             game.nextRound();
