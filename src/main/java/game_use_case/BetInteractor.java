@@ -76,7 +76,7 @@ public class BetInteractor implements BetInputBoundary {
         String[] deck = game.getDeck().deckAsStringArray();
 
         // If player has gone all in, set them inactive
-        if (inputData.getBet() == game.getPlayers()[inputData.getCurrentPlayer()].getBalance()) {
+        if (0 == game.getPlayers()[inputData.getCurrentPlayer()].getBalance()) {
             isActive[inputData.getCurrentPlayer()] = false;
         }
 
