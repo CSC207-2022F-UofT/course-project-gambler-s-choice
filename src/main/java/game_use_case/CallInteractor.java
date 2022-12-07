@@ -27,7 +27,11 @@ public class CallInteractor implements CallInputBoundary{
             callPresenter.prepareFailView("Cannot call when current bet is 0. Please check instead.");
         }
 
-        if (input.getCurrentBet() >= input.getPlayerBalance()[input.getCurrentPlayer()]) {
+        // Setting the amount the player must bet
+        int amountToBet = input.getPlayerBets()[input.getLastToBet()] -
+                input.getPlayerBets()[input.getCurrentPlayer()];
+
+        if (amountToBet >= input.getPlayerBalance()[input.getCurrentPlayer()]) {
             // Case when player has less money than previous bet
             // Player goes all in; their money goes to 0
             game.getPlayers()[input.getCurrentPlayer()].bet(
@@ -36,8 +40,8 @@ public class CallInteractor implements CallInputBoundary{
                     input.getPlayerBalance()[input.getCurrentPlayer()]);
             game.getActive()[input.getCurrentPlayer()] = false;
         } else {
-            game.getPlayers()[input.getCurrentPlayer()].bet(input.getCurrentBet());
-            game.getPool().addMoney(game.getPlayers()[input.getCurrentPlayer()], input.getCurrentBet());
+            game.getPlayers()[input.getCurrentPlayer()].bet(amountToBet);
+            game.getPool().addMoney(game.getPlayers()[input.getCurrentPlayer()], amountToBet);
         }
 
         // Common method used to move onto next player

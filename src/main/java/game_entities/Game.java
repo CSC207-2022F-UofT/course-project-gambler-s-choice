@@ -32,9 +32,9 @@ public class Game implements GameInterface{
         Card card3 = new Card("K", "S");
         Card card4 = new Card("A", "S");
         Card card5 = new Card("Q", "S");
-        this.cards[0] = card1;
-        this.cards[1] = card2;
-        this.cards[2] = card3;
+//        this.cards[0] = card1;
+//        this.cards[1] = card2;
+//        this.cards[2] = card3;
 //        this.cards[3] = card4;
 //        this.cards[4] = card5;
     }
@@ -89,6 +89,9 @@ public class Game implements GameInterface{
 //            this.firstPlayer = 0;
 //        }
         this.currentPlayer = this.firstPlayer; // Set curr player
+        while(!this.isActive[this.currentPlayer]) { // Make sure to set curr player as an active one
+            this.iteratePlayer();
+        }
         this.lastBet = this.currentPlayer;
         this.currentWager = 0;
 
