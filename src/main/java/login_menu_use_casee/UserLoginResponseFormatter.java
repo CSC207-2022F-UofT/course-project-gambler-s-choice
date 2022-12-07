@@ -6,7 +6,7 @@ public class UserLoginResponseFormatter implements UserLoginPresenter{
 
     @Override
     public UserLoginResponseModel prepareSuccessView(UserLoginResponseModel user) {
-        return null;
+        return new UserLoginResponseModel(user.getUser(), user.getPassword(), user.getType(), user.getBalance(), true);
     }
 
     @Override

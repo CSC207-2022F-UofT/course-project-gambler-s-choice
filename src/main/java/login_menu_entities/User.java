@@ -24,7 +24,11 @@ public class User implements UserInterface{
         this.type = "user";
         this.balance = balance;
     }
-
+    public User(String name, String password, String type) {
+        this.name = name;
+        this.type = type;
+        this.password = password;
+    }
     public User(String name, String password) {
         this.name = name;
         this.type = "user";

@@ -1,3 +1,8 @@
+import game_entities.Card;
+import game_entities.Game;
+import game_entities.Player;
+import screens.GameScreen;
+
 import javax.swing.*;
 
 public class GameScreenTest {

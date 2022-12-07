@@ -4,7 +4,7 @@ public class UserFactory implements UserInterfaceFactory{
     @Override
     public UserInterface create(String name, String password, String type, int balance){
         if (type.equals("admin")){
-            if (balance == 0){
+            if (balance == -1){
                 return new Admin(name, password);
             } else {
                 return new Admin(name, password, balance);
@@ -12,7 +12,7 @@ public class UserFactory implements UserInterfaceFactory{
 
         }
         else{
-            if (balance == 0){
+            if (balance == -1){
                 return new User(name, password);
             } else {
                 return new User(name, password, balance);

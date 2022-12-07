@@ -10,7 +10,7 @@ public class LoginScreenTest {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new LoginScreen(aaaa);
+         //       new LoginScreen(aaaa);
             }
         });
 

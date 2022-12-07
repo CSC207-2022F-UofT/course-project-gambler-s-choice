@@ -1,7 +1,9 @@
+import game_entities.Card;
+
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class Hint_for_chance {
+public class HintForChance {
     private final Double win_rate;
 
 
@@ -12,7 +14,7 @@ public class Hint_for_chance {
      *
      * @param player_hands two private cards of the player.
      */
-    public Hint_for_chance(Card[] player_hands){
+    public HintForChance(Card[] player_hands){
         assert player_hands.length == 2;
         this.win_rate = initial_win_rate(convertor(player_hands));
     }
