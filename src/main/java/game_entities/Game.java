@@ -39,12 +39,12 @@ public class Game implements GameInterface{
         this.cards[4] = card5;
     }
 
-    public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] boardCard, int currentBet, boolean[] isActive, Pool pool, Deck deck) {
+    public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] tableCard, int currentBet, boolean[] isActive, Pool pool, Deck deck) {
         this.players = players;
         this.firstPlayer = firstPlayer;
         this.currentPlayer = currentPlayer;
         this.lastBet = lastToBet;
-        this.cards = boardCard;
+        this.cards = tableCard;
         this.currentWager = currentBet;
         this.isActive = isActive;
         this.pool = pool;

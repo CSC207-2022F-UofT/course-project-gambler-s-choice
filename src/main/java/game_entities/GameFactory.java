@@ -3,7 +3,7 @@ package game_entities;
 public class GameFactory implements GameFactoryInterface {
     @Override
     public GameInterface create(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance,
-                                String[] card1, String[] card2, String[] boardCard, int currentBet,
+                                String[] card1, String[] card2, String[] tableCard, int currentBet,
                                 boolean[] isActive, int[] playerBets, String[] deck) {
 
         Player[] players = new Player[card1.length];
@@ -13,9 +13,9 @@ public class GameFactory implements GameFactoryInterface {
             players[i].addMoney(playerBalance[i]);
         }
 
-        Card[] cards = new Card[boardCard.length];
+        Card[] cards = new Card[tableCard.length];
         for (int i = 0; i < cards.length; i++) {
-            cards[i] = new Card(boardCard[i]);
+            cards[i] = new Card(tableCard[i]);
         }
 
         Card[] deckCards = new Card[deck.length];

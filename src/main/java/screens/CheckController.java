@@ -1,9 +1,8 @@
 package screens;
 
-import game_entities.Player;
 import game_use_case.CheckInputBoundary;
-import game_use_case.CheckRequestModel;
-import game_use_case.CheckResponseModel;
+import game_use_case.RequestModel;
+import game_use_case.ResponseModel;
 
 public class CheckController {
     final CheckInputBoundary input;
@@ -12,12 +11,12 @@ public class CheckController {
         this.input = input;
     }
 
-    CheckResponseModel create(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
-                              String[] card2, String[] boardCard, String[] card1PNG, String[] card2PNG,
-                              String[] boardCardPNG, int currentBet, boolean[] isActive, int[] playerBets,
-                              String[] deck) {
-        CheckRequestModel requestModel = new CheckRequestModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
-                card1, card2, boardCard, card1PNG, card2PNG, boardCardPNG, currentBet, isActive, playerBets, deck);
+    ResponseModel create(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
+                         String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
+                         String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets,
+                         String[] deck) {
+        RequestModel requestModel = new RequestModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
+                card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets, deck);
         return input.create(requestModel);
     }
 }

@@ -14,11 +14,11 @@ public class CheckInteractor implements CheckInputBoundary {
     }
 
     @Override
-    public CheckResponseModel create(CheckRequestModel inputData) {
+    public ResponseModel create(RequestModel inputData) {
 
 //        GameInterface game = this.gameFactory.create(inputData.getCurrentPlayer(), inputData.getFirstPlayer(),
 //                inputData.getLastToBet(), inputData.getPlayerBalance(),
-//                inputData.getCard1(), inputData.getCard2(), inputData.getBoardCard(),
+//                inputData.getCard1(), inputData.getCard2(), inputData.getTableCard(),
 //                inputData.getCurrentBet(), inputData.getIsActive(), inputData.getPlayerBets(),
 //                inputData.getDeck());
 
@@ -31,7 +31,7 @@ public class CheckInteractor implements CheckInputBoundary {
 //        Player curr = game.getPlayers()[inputData.getPlayer()];
 //        String card1 = curr.getCards()[0].getPNG();
 //        String card2 = curr.getCards()[1].getPNG();
-//        Card[] tableCards = game.getBoardCards();
+//        Card[] tableCards = game.getTableCards();
 //        int amount = 0;
 //        for (Card card : tableCards) {
 //            if (card != null) {
@@ -60,10 +60,10 @@ public class CheckInteractor implements CheckInputBoundary {
         int length = game.getPlayers().length;
         String[] card1 = new String[length];
         String[] card2 = new String[length];
-        String[] boardCard = new String[5];
+        String[] tableCard = new String[5];
         String[] card1PNG = new String[length];
         String[] card2PNG = new String[length];
-        String[] boardCardPNG = new String[5];
+        String[] tableCardPNG = new String[5];
         int[] playerBalance = new int[length];
         int[] playerBets = new int[length];
         boolean[] isActive = new boolean[length];
@@ -86,9 +86,9 @@ public class CheckInteractor implements CheckInputBoundary {
             // System.out.println(card1[i] + " " + card2[i] + " " + card1PNG[i] + " " + card2PNG[i]);
         }
         for (int i = 0; i < 5; i++) {
-            boardCard[i] = game.getBoardCards()[i].toString();
-            boardCardPNG[i] = game.getBoardCards()[i].getPNG();
-            // System.out.println(boardCard[i] + " " + boardCardPNG[i]);
+            tableCard[i] = game.getTableCards()[i].toString();
+            tableCardPNG[i] = game.getTableCards()[i].getPNG();
+            // System.out.println(tableCard[i] + " " + tableCardPNG[i]);
         }
         String[] deck = {"DA", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "DX", "DJ", "DQ", "DK",
                 "CA", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "CX", "CJ", "CQ", "CK",
@@ -104,8 +104,8 @@ public class CheckInteractor implements CheckInputBoundary {
 
 
 
-        CheckResponseModel response = new CheckResponseModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
-                card1, card2, boardCard, card1PNG, card2PNG, boardCardPNG, currentBet, isActive, playerBets, deck,
+        ResponseModel response = new ResponseModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
+                card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets, deck,
                 true);
         return checkPresenter.prepareSuccessView(response);
     }

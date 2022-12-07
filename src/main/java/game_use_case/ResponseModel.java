@@ -1,39 +1,42 @@
 package game_use_case;
 
-public class CheckRequestModel {
+public class ResponseModel {
+
     int currentPlayer;
     int firstPlayer;
     int lastToBet;
     int[] playerBalance;
     String[] card1;
     String[] card2;
-    String[] boardCard;
+    String[] tableCard;
     String[] card1PNG;
     String[] card2PNG;
-    String[] boardCardPNG;
+    String[] tableCardPNG;
     int currentBet;
     boolean[] isActive;
     int[] playerBets;
     String[] deck;
+    boolean isInteract;
 
-    public CheckRequestModel(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
-                             String[] card2, String[] boardCard, String[] card1PNG, String[] card2PNG,
-                             String[] boardCardPNG, int currentBet, boolean[] isActive, int[] playerBets,
-                             String[] deck) {
+    public ResponseModel(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
+                         String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
+                         String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets,
+                         String[] deck, boolean isInteract) {
         this.currentPlayer = currentPlayer;
         this.firstPlayer = firstPlayer;
         this.lastToBet = lastToBet;
         this.playerBalance = playerBalance;
         this.card1 = card1;
         this.card2 = card2;
-        this.boardCard = boardCard;
+        this.tableCard = tableCard;
         this.card1PNG = card1PNG;
         this.card2PNG = card2PNG;
-        this.boardCardPNG = boardCardPNG;
+        this.tableCardPNG = tableCardPNG;
         this.currentBet = currentBet;
         this.isActive = isActive;
         this.playerBets = playerBets;
         this.deck = deck;
+        this.isInteract = isInteract;
     }
     public int getCurrentPlayer() {
         return currentPlayer;
@@ -83,12 +86,12 @@ public class CheckRequestModel {
         this.card2 = card2;
     }
 
-    public String[] getBoardCard() {
-        return boardCard;
+    public String[] getTableCard() {
+        return tableCard;
     }
 
-    public void setBoardCard(String[] boardCard) {
-        this.boardCard = boardCard;
+    public void setTableCard(String[] tableCard) {
+        this.tableCard = tableCard;
     }
 
     public String[] getCard1PNG() {
@@ -107,12 +110,12 @@ public class CheckRequestModel {
         this.card2PNG = card2PNG;
     }
 
-    public String[] getBoardCardPNG() {
-        return boardCardPNG;
+    public String[] getTableCardPNG() {
+        return tableCardPNG;
     }
 
-    public void setBoardCardPNG(String[] boardCardPNG) {
-        this.boardCardPNG = boardCardPNG;
+    public void setTableCardPNG(String[] tableCardPNG) {
+        this.tableCardPNG = tableCardPNG;
     }
 
     public int getCurrentBet() {
@@ -145,5 +148,9 @@ public class CheckRequestModel {
 
     public void setDeck(String[] deck) {
         this.deck = deck;
+    }
+
+    public boolean isInteract() {
+        return isInteract;
     }
 }

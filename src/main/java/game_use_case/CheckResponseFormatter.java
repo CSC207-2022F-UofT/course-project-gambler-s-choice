@@ -4,12 +4,12 @@ import screens.GameFail;
 
 public class CheckResponseFormatter implements CheckPresenter {
     @Override
-    public CheckResponseModel prepareSuccessView(CheckResponseModel response) {
+    public ResponseModel prepareSuccessView(ResponseModel response) {
         return response;
     }
 
     @Override
-    public CheckResponseModel prepareFailView(String error) {
+    public ResponseModel prepareFailView(String error) {
         throw new GameFail(error);
     }
 }
