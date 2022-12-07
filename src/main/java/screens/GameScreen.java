@@ -88,6 +88,7 @@ public class GameScreen extends JPanel implements Screen {
     private final JFrame frame;
     private final CheckController cController;
     private final BetController bController;
+    private final FoldController fController;
 
     private final JTextField betAmount = new JTextField();
 
@@ -114,11 +115,12 @@ public class GameScreen extends JPanel implements Screen {
                       int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance,
                       String[] card1, String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                       String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets, String[] deck,
-                      CheckController cController, BetController bController) {
+                      CheckController cController, BetController bController, FoldController fController) {
 
         this.frame = frame;
         this.cController = cController;
         this.bController = bController;
+        this.fController = fController;
 
         this.currentPlayer = currentPlayer;
         this.firstPlayer = firstPlayer;
@@ -292,6 +294,30 @@ public class GameScreen extends JPanel implements Screen {
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
+        });
+        buttons[3].addActionListener(e -> {
+            try {
+                ResponseModel response = fController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
+                        card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
+                        deck, Integer.parseInt(betAmount.getText()));
+                this.currentPlayer = response.getCurrentPlayer();
+                this.firstPlayer = response.getFirstPlayer();
+                this.lastToBet = response.getLastToBet();
+                this.playerBalance = response.getPlayerBalance();
+                this.card1 = response.getCard1();
+                this.card2 = response.getCard2();
+                this.tableCard = response.getTableCard();
+                this.card1PNG = response.getCard1PNG();
+                this.card2PNG = response.getCard2PNG();
+                this.tableCardPNG = response.getTableCardPNG();
+                this.currentBet = response.getCurrentBet();
+                this.isActive = response.getIsActive();
+                this.playerBets = response.getPlayerBets();
+                this.isInteract = response.isInteract();
+            } catch (Exception ee) {
+                JOptionPane.showMessageDialog(frame, ee.getMessage());
+            }
+
         });
         for (JButton button: buttons){
             button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));

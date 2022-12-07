@@ -4,6 +4,7 @@ import game_entities.*;
 import game_use_case.*;
 import screens.BetController;
 import screens.CheckController;
+import screens.FoldController;
 import screens.GameScreen;
 
 import java.awt.*;
@@ -60,6 +61,9 @@ public class MainGame {
         BetPresenter betPresenter = new BetResponseFormatter();
         BetInputBoundary betInputBoundary = new BetInteractor(betPresenter, gameFactory);
         BetController betController = new BetController(betInputBoundary);
+        FoldPresenter foldPresenter = new FoldResponseFormatter();
+        FoldInputBoundary foldInputBoundary = new FoldInteractor(foldPresenter, gameFactory);
+        FoldController foldController = new FoldController(foldInputBoundary);
 
         JFrame application = new JFrame("Gambler's Choice");
         CardLayout cardLayout = new CardLayout();
@@ -70,7 +74,7 @@ public class MainGame {
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController, betController);
+                checkController, betController, foldController);
 
         screens.add(gameScreen, "Game");
         application.pack();
@@ -99,7 +103,7 @@ public class MainGame {
                         currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG,
                         tableCardPNG, currentBet, isActive, playerBets, deck,
-                        checkController, betController);
+                        checkController, betController, foldController);
                 screens.add(gameScreen, "Game");
             }
 
