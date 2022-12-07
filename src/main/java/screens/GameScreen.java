@@ -41,8 +41,8 @@ public class GameScreen extends JPanel implements Screen {
      * @return An array of the images of cards that are visible to the player
      */
     private ImagePanel[] loadSeenCards(Game game){
-        Card[] handCards = game.getCurrPlayer().getCards();
-        Card[] boardCards = game.getBoardCards();
+        Card[] handCards = game.getCurrPlayerObj().getCards();
+        Card[] boardCards = game.getTableCards();
         ImagePanel[] cards = new ImagePanel[2 + boardCards.length];
         // TODO delete this
 //        System.out.println("Cards" + boardCards);

@@ -8,4 +8,22 @@ public interface GameInterface {
     void nextRound();
 
     int[] findWinner(Player[] players, String[] flop);
+
+    Player[] getPlayers();
+
+    Pool getPool();
+
+    Deck getDeck();
+
+    Card[] getTableCards();
+
+    int getCurrentWager();
+
+    int getCurrentPlayer();
+
+    int getFirstPlayer();
+
+    int lastToBet();
+
+    boolean[] getActive();
 }

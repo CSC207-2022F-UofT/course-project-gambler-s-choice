@@ -18,7 +18,7 @@ public class Game implements GameInterface{
 
     private int lastBet; //index of the last person who bet
 
-    private Boolean[] isActive;
+    private boolean[] isActive;
 
     public Game(Player[] players){
         this.pool = new Pool(players);
@@ -39,7 +39,7 @@ public class Game implements GameInterface{
         this.cards[4] = card5;
     }
 
-    public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] boardCard, int currentBet, Boolean[] isActive, Pool pool, Deck deck) {
+    public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] boardCard, int currentBet, boolean[] isActive, Pool pool, Deck deck) {
         this.players = players;
         this.firstPlayer = firstPlayer;
         this.currentPlayer = currentPlayer;
@@ -124,6 +124,7 @@ public class Game implements GameInterface{
             }
         }
         //this can pass into the pool class later
+        pool.calculateWinnings(rankings);
         return rankings;
     }
 
@@ -340,6 +341,26 @@ public class Game implements GameInterface{
         return this.currentWager;
     }
 
+    @Override
+    public int getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    @Override
+    public int getFirstPlayer() {
+        return this.firstPlayer;
+    }
+
+    @Override
+    public int lastToBet() {
+        return this.lastBet;
+    }
+
+    @Override
+    public boolean[] getActive() {
+        return this.getActive();
+    }
+
     public void start(){
         Card noUse;
         // resets at the end of each round
@@ -537,13 +558,25 @@ public class Game implements GameInterface{
         return players;
     }
 
-    public Player getCurrPlayer(){
+    @Override
+    public Pool getPool() {
+        return this.pool;
+    }
+
+    @Override
+    public Deck getDeck() {
+        return this.deck;
+    }
+
+    @Override
+    public Card[] getTableCards() {
+        return this.cards;
+    }
+
+    public Player getCurrPlayerObj(){
         return players[currentPlayer];
     }
 
-    public Card[] getBoardCards(){
-        return cards;
-    }
 
     /**
      * Returns the total amount of money bet in the game
