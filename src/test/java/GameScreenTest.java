@@ -1,9 +1,6 @@
 import game_entities.*;
 import game_use_case.*;
-import screens.BetController;
-import screens.CheckController;
-import screens.FoldController;
-import screens.GameScreen;
+import screens.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +62,9 @@ public class GameScreenTest {
         BetPresenter betPresenter = new BetResponseFormatter();
         BetInputBoundary betInputBoundary = new BetInteractor(betPresenter, gameFactory);
         BetController betController = new BetController(betInputBoundary);
-
+        CallPresenter callPresenter = new CallResponseFormatter();
+        CallInputBoundary callInputBoundary = new CallInteractor(callPresenter, gameFactory);
+        CallController callController = new CallController(callInputBoundary);
         FoldPresenter foldPresenter = new FoldResponseFormatter();
         FoldInputBoundary foldInputBoundary = new FoldInteractor(foldPresenter, gameFactory);
         FoldController foldController = new FoldController(foldInputBoundary);
@@ -74,7 +73,7 @@ public class GameScreenTest {
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController, betController, foldController), "Game");
+                checkController, betController, callController, foldController), "Game");
 
         aaaa.pack();
         aaaa.setSize(1000,800);

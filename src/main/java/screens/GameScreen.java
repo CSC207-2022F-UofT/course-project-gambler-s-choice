@@ -89,6 +89,7 @@ public class GameScreen extends JPanel implements Screen {
     private final CheckController cController;
     private final BetController bController;
     private final FoldController fController;
+    private final CallController aController;
 
     private final JTextField betAmount = new JTextField();
 
@@ -115,11 +116,13 @@ public class GameScreen extends JPanel implements Screen {
                       int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance,
                       String[] card1, String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                       String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets, String[] deck,
-                      CheckController cController, BetController bController, FoldController fController) {
+                      CheckController cController, BetController bController,
+                      CallController aController, FoldController fController) {
 
         this.frame = frame;
         this.cController = cController;
         this.bController = bController;
+        this.aController = aController;
         this.fController = fController;
 
         this.currentPlayer = currentPlayer;
@@ -248,7 +251,7 @@ public class GameScreen extends JPanel implements Screen {
         buttonPanel.setLayout(new FlowLayout());
         JButton[] buttons = {new JButton("Check"), new JButton("Bet"), new JButton("Call"),
                 new JButton("Fold"), new JButton("Menu")};
-        //TODO ADD ACTION LISTENERS FOR BUtTONS TO CALL GAME CLASS DECISION MAKER METHOD
+
         buttons[0].addActionListener(e -> {
             try {
                 ResponseModel response = cController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
@@ -268,6 +271,7 @@ public class GameScreen extends JPanel implements Screen {
                 this.isActive = response.getIsActive();
                 this.playerBets = response.getPlayerBets();
                 this.isInteract = response.isInteract();
+                this.deck = response.getDeck();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
@@ -291,6 +295,31 @@ public class GameScreen extends JPanel implements Screen {
                 this.isActive = response.getIsActive();
                 this.playerBets = response.getPlayerBets();
                 this.isInteract = response.isInteract();
+                this.deck = response.getDeck();
+            } catch (Exception ee) {
+                JOptionPane.showMessageDialog(frame, ee.getMessage());
+            }
+        });
+        buttons[2].addActionListener(e -> {
+            try {
+                ResponseModel response = aController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
+                        card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
+                        deck, 0);
+                this.currentPlayer = response.getCurrentPlayer();
+                this.firstPlayer = response.getFirstPlayer();
+                this.lastToBet = response.getLastToBet();
+                this.playerBalance = response.getPlayerBalance();
+                this.card1 = response.getCard1();
+                this.card2 = response.getCard2();
+                this.tableCard = response.getTableCard();
+                this.card1PNG = response.getCard1PNG();
+                this.card2PNG = response.getCard2PNG();
+                this.tableCardPNG = response.getTableCardPNG();
+                this.currentBet = response.getCurrentBet();
+                this.isActive = response.getIsActive();
+                this.playerBets = response.getPlayerBets();
+                this.isInteract = response.isInteract();
+                this.deck = response.getDeck();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
@@ -314,6 +343,7 @@ public class GameScreen extends JPanel implements Screen {
                 this.isActive = response.getIsActive();
                 this.playerBets = response.getPlayerBets();
                 this.isInteract = response.isInteract();
+                this.deck = response.getDeck();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }

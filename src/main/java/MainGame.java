@@ -2,10 +2,7 @@ import javax.swing.*;
 
 import game_entities.*;
 import game_use_case.*;
-import screens.BetController;
-import screens.CheckController;
-import screens.FoldController;
-import screens.GameScreen;
+import screens.*;
 
 import java.awt.*;
 
@@ -61,6 +58,9 @@ public class MainGame {
         BetPresenter betPresenter = new BetResponseFormatter();
         BetInputBoundary betInputBoundary = new BetInteractor(betPresenter, gameFactory);
         BetController betController = new BetController(betInputBoundary);
+        CallPresenter callPresenter = new CallResponseFormatter();
+        CallInputBoundary callInputBoundary = new CallInteractor(callPresenter, gameFactory);
+        CallController callController = new CallController(callInputBoundary);
         FoldPresenter foldPresenter = new FoldResponseFormatter();
         FoldInputBoundary foldInputBoundary = new FoldInteractor(foldPresenter, gameFactory);
         FoldController foldController = new FoldController(foldInputBoundary);
@@ -74,7 +74,7 @@ public class MainGame {
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController, betController, foldController);
+                checkController, betController, callController, foldController);
 
         screens.add(gameScreen, "Game");
         application.pack();
@@ -103,7 +103,7 @@ public class MainGame {
                         currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG,
                         tableCardPNG, currentBet, isActive, playerBets, deck,
-                        checkController, betController, foldController);
+                        checkController, betController, callController, foldController);
                 screens.add(gameScreen, "Game");
             }
 
