@@ -93,8 +93,6 @@ public class Game implements GameInterface{
         this.lastBet = this.currentPlayer;
         this.currentWager = 0;
 
-        this.dealCards();
-
         if (this.cards[4] != null) {
 
             Player[] activePlayers = new Player[this.isActive.length];
@@ -111,8 +109,9 @@ public class Game implements GameInterface{
             }
 
             this.findWinner(activePlayers, strCards);
+        } else {
+            this.dealCards();
         }
-
     }
 
     /**
