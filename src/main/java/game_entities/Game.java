@@ -55,13 +55,13 @@ public class Game implements GameInterface{
      * This method will add cards to the table
      */
     public void dealCards() {
-        if (this.cards.length == 0) {
+        if (this.cards[0] == null) {
             this.cards[0] = this.deck.getCard();
             this.cards[1] = this.deck.getCard();
             this.cards[2] = this.deck.getCard();
-        } else if (this.cards.length == 3) {
+        } else if (this.cards[3] == null) {
             this.cards[3] = this.deck.getCard();
-        } else if (this.cards.length == 4) {
+        } else if (this.cards[4]== null) {
             this.cards[4] = this.deck.getCard();
         }
     }
