@@ -29,12 +29,7 @@ public class CheckInteractor implements CheckInputBoundary {
         // Common method used to move onto next player
         game.nextPlayer();
         if (game.getCurrentPlayer() == -1) {
-            if (game.getTableCards()[4] != null) {
-                game.findWinner(game.getPlayers(), inputData.getTableCard());
-                game.resetGame();
-            } else {
-                game.nextRound();
-            }
+            game.nextRound();
         }
 
         // Converting Game information into ResponseModel

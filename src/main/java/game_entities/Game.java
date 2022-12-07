@@ -111,20 +111,6 @@ public class Game implements GameInterface{
 
     }
 
-    @Override
-    public void resetGame() {
-        // Reset the game
-        this.firstPlayer++; // Iterate first player
-        this.firstPlayer %= getPlayers().length;
-        this.currentPlayer = this.firstPlayer; // Set curr player
-        for (int i = 0; i < 5; i++) {
-            this.cards[i] = null; // Cards to null
-        }
-        this.lastBet = this.currentPlayer;
-        this.currentWager = 0;
-    }
-
-
     /**
      * This method will take in a list of players and the card flop and will output the list of winning players
      * @param players
