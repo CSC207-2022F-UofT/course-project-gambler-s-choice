@@ -373,7 +373,7 @@ public class Game implements GameInterface{
 
     @Override
     public boolean[] getActive() {
-        return this.getActive();
+        return this.isActive;
     }
 
     public void start(){
