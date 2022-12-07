@@ -1,8 +1,6 @@
 import game_entities.*;
-import game_use_case.CheckInputBoundary;
-import game_use_case.CheckInteractor;
-import game_use_case.CheckPresenter;
-import game_use_case.CheckResponseFormatter;
+import game_use_case.*;
+import screens.BetController;
 import screens.CheckController;
 import screens.GameScreen;
 
@@ -63,11 +61,15 @@ public class GameScreenTest {
         GameFactoryInterface gameFactory = new GameFactory();
         CheckInputBoundary checkInputBoundary = new CheckInteractor(checkPresenter, gameFactory);
         CheckController checkController = new CheckController(checkInputBoundary);
+        BetPresenter betPresenter = new BetResponseFormatter();
+        BetInputBoundary betInputBoundary = new BetInteractor(betPresenter, gameFactory);
+        BetController betController = new BetController(betInputBoundary);
+
         screens.add(new GameScreen(aaaa,
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController), "Game");
+                checkController, betController), "Game");
 
         aaaa.pack();
         aaaa.setSize(1000,800);
