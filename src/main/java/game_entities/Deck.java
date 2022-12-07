@@ -66,4 +66,17 @@ public class Deck {
     public Card getCard() {
         return this.deck.pop();
     }
+
+    public String[] deckAsStringArray() {
+        int len = deck.size();
+        Card[] tempDeck = new Card[len];
+        String[] toReturn = new String[len];
+        for (int i = len - 1; i >= 0; i--) {
+            Card card = deck.pop();
+            tempDeck[i] = card;
+            toReturn[i] = card.toString();
+        }
+        this.deck.addAll(List.of(tempDeck));
+        return toReturn;
+    }
 }
