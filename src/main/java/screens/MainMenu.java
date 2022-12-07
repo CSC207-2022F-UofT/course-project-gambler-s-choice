@@ -1,8 +1,13 @@
 package screens;
 //THIS IS THE UI LAYER
 
+import menu_use_case.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -13,10 +18,14 @@ public class MainMenu implements Menu {
      * that will display when corresponding buttons are clicked that denote what the button is supposed to do
      * @param frame The frame that MainMenu modifies
      */
-    public MainMenu(JFrame frame){
+    private final JFrame frame;
 
-        //Creates a new MenuController object
-        MenuController m = new MenuController();
+    private boolean loggedIn = true;
+
+    private boolean inGame = false;
+
+    public MainMenu(JFrame frame){
+        this.frame = frame;
 
         JLabel background = new JLabel();
         background.setSize(1000,800);
@@ -31,23 +40,30 @@ public class MainMenu implements Menu {
 
         JButton helpButton = new JButton("Help");
 
-        helpButton.addActionListener(e -> {
-            helpWindow.setVisible(!helpWindow.isVisible());
-        });
-
         JButton logoutButton = new JButton("Log Out");
-
-        logoutButton.addActionListener(m);
 
         JButton exitButton = new JButton("Exit Game");
 
-        exitButton.addActionListener(e -> {
-            System.exit(0);
-        });
-
         JButton gameButton = new JButton("Play");
 
-        gameButton.addActionListener(m);
+        JButton buttons[] = {logoutButton,exitButton,gameButton};
+
+        for (JButton button: buttons) {
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed (ActionEvent evt){
+                    if (evt.getActionCommand().equals("Log Out")) {
+                        loggedIn = !loggedIn;
+                    } else if (evt.getActionCommand().equals("Exit Game")) {
+                        System.exit(0);
+                    } else if (evt.getActionCommand().equals("Help")) {
+                        helpWindow.setVisible(!helpWindow.isVisible());
+                    } else if (evt.getActionCommand().equals("Play")) {
+                        inGame = true;
+                    }
+                }
+            });
+        }
 
 
 
