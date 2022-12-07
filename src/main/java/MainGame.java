@@ -1,10 +1,8 @@
 import javax.swing.*;
 
 import game_entities.*;
-import game_use_case.CheckInputBoundary;
-import game_use_case.CheckInteractor;
-import game_use_case.CheckPresenter;
-import game_use_case.CheckResponseFormatter;
+import game_use_case.*;
+import screens.BetController;
 import screens.CheckController;
 import screens.GameScreen;
 
@@ -39,7 +37,7 @@ public class MainGame {
             card2[i] = game.getPlayers()[i].getCards()[1].toString();
             card1PNG[i] = game.getPlayers()[i].getCards()[0].getPNG();
             card2PNG[i] = game.getPlayers()[i].getCards()[1].getPNG();
-            playerBalance[i] = 3 * i;
+            playerBalance[i] = 100;
             playerBets[i] = 0;
             isActive[i] = true;
             // System.out.println(card1[i] + " " + card2[i] + " " + card1PNG[i] + " " + card2PNG[i]);
@@ -59,6 +57,9 @@ public class MainGame {
         CheckPresenter checkPresenter = new CheckResponseFormatter();
         CheckInputBoundary checkInputBoundary = new CheckInteractor(checkPresenter, gameFactory);
         CheckController checkController = new CheckController(checkInputBoundary);
+        BetPresenter betPresenter = new BetResponseFormatter();
+        BetInputBoundary betInputBoundary = new BetInteractor(betPresenter, gameFactory);
+        BetController betController = new BetController(betInputBoundary);
 
         JFrame application = new JFrame("Gambler's Choice");
         CardLayout cardLayout = new CardLayout();
@@ -69,11 +70,11 @@ public class MainGame {
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController);
+                checkController, betController);
 
         screens.add(gameScreen, "Game");
         application.pack();
-        application.setSize(1000,800);
+        application.setSize(1000,700); // TODO reset height to 800
         application.setResizable(false);
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setVisible(true);
@@ -98,7 +99,7 @@ public class MainGame {
                         currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG,
                         tableCardPNG, currentBet, isActive, playerBets, deck,
-                        checkController);
+                        checkController, betController);
                 screens.add(gameScreen, "Game");
             }
 
