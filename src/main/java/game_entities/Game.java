@@ -35,8 +35,8 @@ public class Game implements GameInterface{
         this.cards[0] = card1;
         this.cards[1] = card2;
         this.cards[2] = card3;
-        this.cards[3] = card4;
-        this.cards[4] = card5;
+//        this.cards[3] = card4;
+//        this.cards[4] = card5;
     }
 
     public Game(Player[] players, int currentPlayer, int firstPlayer, int lastToBet, Card[] tableCard, int currentBet, boolean[] isActive, Pool pool, Deck deck) {
@@ -67,16 +67,20 @@ public class Game implements GameInterface{
     }
 
     public void nextPlayer() {
-        if (this.currentPlayer <= this.players.length) {
-            this.currentPlayer++;
-        } else {
-            this.currentPlayer = 0;
+        this.iteratePlayer();
+        while(!this.isActive[this.currentPlayer]) {
+            this.iteratePlayer();
         }
         //you can remove this bit if you want
         if (this.currentPlayer == this.lastBet) {
             this.currentPlayer = -1;
         }
 
+    }
+
+    private void iteratePlayer() {
+        this.currentPlayer++;
+        this.currentPlayer %= this.players.length;
     }
 
     public void nextRound() {
