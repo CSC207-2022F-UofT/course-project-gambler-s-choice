@@ -91,6 +91,24 @@ public class Game implements GameInterface{
 
         this.dealCards();
 
+        if (this.cards[4] != null) {
+
+            Player[] activePlayers = new Player[this.isActive.length];
+            for (int i = 0; i < this.isActive.length; i++) {
+                if (this.isActive[i]) {
+                    activePlayers[i] = this.players[i];
+                }
+            }
+
+            String[] strCards = new String[5];
+
+            for (int i =0; i < 5; i++) {
+                strCards[i] = cards[i].toString();
+            }
+
+            this.findWinner(activePlayers, strCards);
+        }
+
     }
 
     @Override
@@ -105,6 +123,7 @@ public class Game implements GameInterface{
         this.lastBet = this.currentPlayer;
         this.currentWager = 0;
     }
+
 
     /**
      * This method will take in a list of players and the card flop and will output the list of winning players
