@@ -35,6 +35,11 @@ public class BetInteractor implements BetInputBoundary {
         game.getPlayers()[inputData.getCurrentPlayer()].bet(inputData.getBet());
         game.getPool().addMoney(game.getPlayers()[inputData.getCurrentPlayer()], inputData.getBet());
 
+        // If player has gone all in, set them inactive
+        if (0 == game.getPlayers()[inputData.getCurrentPlayer()].getBalance()) {
+            game.getActive()[inputData.getCurrentPlayer()] = false;
+        }
+
         // Common method used to move onto next player
         game.nextPlayer();
         if (game.getCurrentPlayer() == inputData.getLastToBet()) {
@@ -52,9 +57,7 @@ public class BetInteractor implements BetInputBoundary {
         String[] card2PNG = new String[length];
         String[] tableCardPNG = new String[5];
         int[] playerBalance = new int[length];
-        int currentPlayer = inputData.getCurrentPlayer();
-        currentPlayer += 1;
-        currentPlayer %= 2;
+        int currentPlayer = game.getCurrentPlayer();
         int firstPlayer = game.getFirstPlayer();
         int lastToBet = game.lastToBet();
         int currentBet = inputData.getBet();

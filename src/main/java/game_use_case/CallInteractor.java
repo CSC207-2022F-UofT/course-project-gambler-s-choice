@@ -34,6 +34,7 @@ public class CallInteractor implements CallInputBoundary{
                     inputData.getPlayerBalance()[inputData.getCurrentPlayer()]);
             game.getPool().addMoney(game.getPlayers()[inputData.getCurrentPlayer()],
                     inputData.getPlayerBalance()[inputData.getCurrentPlayer()]);
+            game.getActive()[inputData.getCurrentPlayer()] = false;
         } else {
             game.getPlayers()[inputData.getCurrentPlayer()].bet(inputData.getCurrentBet());
             game.getPool().addMoney(game.getPlayers()[inputData.getCurrentPlayer()], inputData.getCurrentBet());
@@ -56,12 +57,10 @@ public class CallInteractor implements CallInputBoundary{
         String[] card2PNG = new String[length];
         String[] tableCardPNG = new String[5];
         int[] playerBalance = new int[length];
-        int currentPlayer = inputData.getCurrentPlayer();
-        currentPlayer += 1;
-        currentPlayer %= 2;
+        int currentPlayer = game.getCurrentPlayer();
         int firstPlayer = game.getFirstPlayer();
         int lastToBet = game.lastToBet();
-        int currentBet = inputData.getBet();
+        int currentBet = inputData.getCurrentBet();
         for (int i = 0; i < length; i++) {
             card1[i] = game.getPlayers()[i].getCards()[0].toString();
             card2[i] = game.getPlayers()[i].getCards()[1].toString();

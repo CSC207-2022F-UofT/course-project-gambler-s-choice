@@ -22,6 +22,9 @@ public class FoldInteractor implements FoldInputBoundary{
 
         int foldedPlayer = input.getCurrentPlayer();
 
+        // Set player to inactive
+        game.getActive()[input.getCurrentPlayer()] = false;
+
         game.nextPlayer();
         if (game.getCurrentPlayer() == input.getLastToBet()) {
             game.nextRound();
@@ -39,12 +42,10 @@ public class FoldInteractor implements FoldInputBoundary{
         String[] card2PNG = new String[length];
         String[] tableCardPNG = new String[5];
         int[] playerBalance = new int[length];
-        int currentPlayer = input.getCurrentPlayer();
-        currentPlayer += 1;
-        currentPlayer %= 2;
-        int firstPlayer = 0;
-        int lastToBet = 0;
-        int currentBet = 0;
+        int currentPlayer = game.getCurrentPlayer();
+        int firstPlayer = game.getFirstPlayer();
+        int lastToBet = game.lastToBet();
+        int currentBet = game.getCurrentWager();
         for (int i = 0; i < length; i++) {
             card1[i] = game.getPlayers()[i].getCards()[0].toString();
             card2[i] = game.getPlayers()[i].getCards()[1].toString();
