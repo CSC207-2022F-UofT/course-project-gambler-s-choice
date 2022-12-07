@@ -218,11 +218,12 @@ public class GameScreen extends JPanel implements Screen {
         }
         JLabel betPrompt = new JLabel("Bet amount:");
         JTextField betAmount = new JTextField();
-        JLabel balance = new JLabel(Integer.toString(this.playerBalance[this.currentPlayer]));
+        JLabel balance = new JLabel("Balance: " + this.playerBalance[this.currentPlayer]);
 
         background.setBounds(0, 0, 1000, 800);
         betPrompt.setBounds(370, 640, 240, 40);
         betAmount.setBounds(440, 640, 110, 40);
+        balance.setBounds(0, 0, 100, 50);
 
         backgroundPanel.add(betPrompt);
         backgroundPanel.add(betAmount);
