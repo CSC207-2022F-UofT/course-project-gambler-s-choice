@@ -1,15 +1,12 @@
 package admin_menu_use_case;
 
-
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminFileChecker implements AdminEditGateway {
 
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
-    private final String[] account = new String[2]; //No need to edit an account, we just need the username and the new balance to set it to
 
     public AdminFileChecker(String txtPath) throws IOException{
         File usersFile = new File(txtPath); //creates a File instance
@@ -46,16 +43,35 @@ public class AdminFileChecker implements AdminEditGateway {
      */
 
     @Override
-    public boolean editByName(String name, int balance) {
+    public boolean editByName(String txtPath, String name, int balance) {
+        File usersFile = new File(txtPath); //creates a File instance
+
         for (String[] account: accounts){
             if (account[0].equals(name)){
-                account[4] = Integer.toString(balance);
+                account[3] = Integer.toString(balance);
+
+
+                try {
+                    BufferedWriter writer;
+                    writer = new BufferedWriter(new FileWriter(usersFile, false));
+                    for (String[] acc : accounts) {
+
+                        writer.write(String.join(", ", acc));
+
+                        writer.newLine();
+                    }
+                    writer.close();
+                }
+                catch (Exception e){
+                    return false;
+                }
                 return true;
             }
-
             }
+
         return false;
     }
+
 
 
 }

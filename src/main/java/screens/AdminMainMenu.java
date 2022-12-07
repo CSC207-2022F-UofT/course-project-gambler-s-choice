@@ -23,6 +23,7 @@ public class AdminMainMenu extends JPanel implements Menu{
 
     private boolean inGame = false;
 
+    private boolean initiate = false;
 
     public AdminMainMenu(JFrame frame, AdminEditBalanceController controller){
     this.frame = frame;
@@ -50,7 +51,7 @@ public class AdminMainMenu extends JPanel implements Menu{
         JTextField balance = new JTextField("");
 
         JButton buttons[] = {logoutButton,exitButton,gameButton,editButton};
-
+        String userfile = "src/main/users.txt";
         for (JButton button: buttons) {
             button.addActionListener(new ActionListener() {
                 @Override
@@ -62,15 +63,15 @@ public class AdminMainMenu extends JPanel implements Menu{
                         balance.setText("");
                         AdminEditGateway admin;
                         try{
-                            admin = new AdminFileChecker("./users.txt");
+                            admin = new AdminFileChecker(userfile);
                         } catch (IOException a){
-                            throw new RuntimeException("File does not exist");
+                            throw new RuntimeException(a);
                         }
                         AdminEditPresenter presenter = new AdminEditResponseFormatter();
                         AdminEditBalanceInputBoundary inputBoundary = new AdminEditInteractor(admin, presenter);
                         AdminEditBalanceController balanceController = new AdminEditBalanceController(inputBoundary);
                         try {
-                            balanceController.create(userEntry, Integer.parseInt(balanceEntry));
+                            balanceController.create(userEntry, Integer.parseInt(balanceEntry), userfile);
                         } catch (Exception a) {
                             ErrorPanel errorPanel = new ErrorPanel(a.getMessage());
                             JOptionPane.showMessageDialog(errorPanel, a.getMessage());
@@ -136,5 +137,9 @@ public class AdminMainMenu extends JPanel implements Menu{
         return loggedIn;
     }
     public boolean isInGame(){ return inGame;}
+
+    public boolean isInitiate(){
+        return initiate;
+    }
 
 }

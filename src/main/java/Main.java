@@ -84,7 +84,7 @@ public class Main {
             } else if (loggedIn && !inGame) {
 
 
-                if (loginScreen.getType().equals("admin")){
+                if (loginScreen.getType().equals("admin") && mainMenuInitiate){
                     adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController);
                     screens.add(adminMenuScreen, "Menu");
                 } else if (loginScreen.getType().equals("user") && mainMenuInitiate) {
@@ -96,12 +96,15 @@ public class Main {
                 cardLayout.show(screens, "Menu");
                 if (loginScreen.getType().equals("admin")) {
                     loggedIn = adminMenuScreen.isLoggedIn();
+                    mainMenuInitiate = adminMenuScreen.isInitiate();
                 } else {
                     loggedIn = menuScreen.isLoggedIn();
                     mainMenuInitiate = menuScreen.isInitiate();
                 }
                 if (!loggedIn) {
                     loginScreen = new LoginScreen(application, loginController, registerController);
+                    screens.add(loginScreen, "Login");
+                    mainMenuInitiate = false;
                 }
 
             } else if (inGame) {

@@ -12,14 +12,18 @@ public class AdminEditInteractor implements AdminEditBalanceInputBoundary{
 
 
     @Override
-    public AdminEditResponseModel create(AdminEditBalanceModel editBalanceModel) {
+    public AdminEditResponseModel create(AdminEditBalanceModel editBalanceModel, String txtpath) {
         if (!(adminEditGateway.existsByName(editBalanceModel.getUser()))){
             return adminEditPresenter.prepareFailView("User not found");
         }
         else{
             String username = editBalanceModel.getUser();
             int balance = editBalanceModel.getBalance();
-            adminEditGateway.editByName(username,balance); //Edits the actual user balance
+            try {
+                adminEditGateway.editByName(txtpath, username, balance); //Edits the actual user balance
+            }catch (Exception e){
+                return adminEditPresenter.prepareFailView(e.toString());
+            }
             AdminEditResponseModel adminResponseModel = new AdminEditResponseModel(username, balance);
             return adminEditPresenter.prepareSuccessView(adminResponseModel);
 

@@ -37,7 +37,7 @@ public class LoginScreen extends JPanel implements Screen {
         this.add(backgroundPanel);
 
         usernameField.setText("");
-        passwordField.setText(""); //TODO FIGURE OUT HOW TO CLEAR JTEXTFIELD
+        passwordField.setText("");
         passwordField2.setText("");
 
         this.add(this.loadButtons(), BorderLayout.SOUTH);
