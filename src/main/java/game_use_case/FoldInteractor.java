@@ -21,6 +21,10 @@ public class FoldInteractor implements FoldInputBoundary{
                 input.getDeck());
 
         int foldedPlayer = input.getCurrentPlayer();
+        // Don't let the player fold if they go first
+        if (game.getCurrentPlayer() == game.lastToBet()) {
+            return foldPresenter.prepareFailView("Don't fold. You should check instead");
+        }
 
         // Set player to inactive
         game.getActive()[input.getCurrentPlayer()] = false;
@@ -31,7 +35,6 @@ public class FoldInteractor implements FoldInputBoundary{
         } else if (game.getCurrentPlayer() == -1) {
             game.nextRound();
         }
-
 
         //response model
         int length = game.getPlayers().length;
@@ -68,8 +71,6 @@ public class FoldInteractor implements FoldInputBoundary{
         ResponseModel response = new ResponseModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets, deck,
                 true);
-
-
         return foldPresenter.prepareSuccessView(response);
     }
 }
