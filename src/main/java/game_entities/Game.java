@@ -75,7 +75,6 @@ public class Game implements GameInterface{
         if (this.currentPlayer == this.lastBet) {
             this.currentPlayer = -1;
         }
-
     }
 
     private void iteratePlayer() {
@@ -97,9 +96,9 @@ public class Game implements GameInterface{
 
             Player[] activePlayers = new Player[this.isActive.length];
             for (int i = 0; i < this.isActive.length; i++) {
-                if (this.isActive[i]) {
+                // if (this.isActive[i]) {
                     activePlayers[i] = this.players[i];
-                }
+                // }
             }
 
             String[] strCards = new String[5];
@@ -143,6 +142,11 @@ public class Game implements GameInterface{
                 if (scores[j] > scores[i]) {
                     rankings[i]++;
                 }
+            }
+        }
+        for (int i = 0; i < rankings.length; i++) {
+            if (!this.isActive[i] && this.players[i].getBalance() != 0) {
+                rankings[i] = rankings.length;
             }
         }
         //this can pass into the pool class later
