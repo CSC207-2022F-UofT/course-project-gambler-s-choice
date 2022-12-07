@@ -172,4 +172,12 @@ public class Pool {
         return smallestIndex;
     }
 
+    /**
+     * Getter for bets
+     *
+     * @return the list of bets players have made
+     */
+    public int[] getBets() {
+        return bets;
+    }
 }
