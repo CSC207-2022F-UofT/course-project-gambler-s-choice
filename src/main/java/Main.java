@@ -21,6 +21,7 @@ public class Main {
         boolean inGame = false;
         boolean mainMenuInitiate = true;
         boolean gameScreenInitiate = true;
+        String username = "";
         String usersfile = "src/main/users.txt";
 
         //Initializing necessary JFrame
@@ -90,9 +91,12 @@ public class Main {
         NewGamePresenter newGamePresenter = new NewGameResponseFormatter();
         NewGameInputBoundary newGameInputBoundary = new NewGameInteractor(newGamePresenter, gameFactory);
         NewGameController newGameController = new NewGameController(newGameInputBoundary);
+        LeaveResponseFormatter leaveResponseFormatter = new LeaveResponseFormatter();
+        LeaveInteractor leaveInteractor = new LeaveInteractor(leaveResponseFormatter);
+        LeaveController leaveController = new LeaveController(leaveInteractor);
 
         GameScreen gameScreen = new GameScreen(application,
-                checkController, betController, callController, foldController, newGameController);
+                checkController, betController, callController, foldController, newGameController, leaveController, null);
 
         screens.add(loginScreen, "Login");
         application.pack();
@@ -124,6 +128,7 @@ public class Main {
                     screens.add(menuScreen, "Menu");
                     mainMenuInitiate = false;
                 }
+                username = loginScreen.getUser();
                 cardLayout.show(screens, "Menu");
                 if (loginScreen.getType().equals("admin")) {
                     loggedIn = adminMenuScreen.isLoggedIn();
@@ -141,7 +146,10 @@ public class Main {
             } else if (inGame) {
                 if (gameScreenInitiate){
                     gameScreen = new GameScreen(application,
-                            checkController, betController, callController, foldController, newGameController);
+                            checkController, betController,
+                            callController, foldController,
+                            newGameController, leaveController,
+                            username);
                     screens.add(gameScreen, "Game");
                     gameScreenInitiate = false;
                 }
@@ -164,11 +172,17 @@ public class Main {
                             currentPlayer, firstPlayer, lastToBet, playerBalance,
                             card1, card2, tableCard, card1PNG, card2PNG,
                             tableCardPNG, currentBet, isActive, playerBets, deck,
-                            checkController, betController, callController, foldController);
+                            checkController, betController, callController, foldController, leaveController,
+                            username);
                     screens.add(gameScreen, "Game");
                 }
                 cardLayout.show(screens, "Game");
-                //inGame = gamescreen.isInGame();
+                inGame = gameScreen.getInGame();
+                if (!inGame){
+                    cardLayout.show(screens, "Menu");
+                    gameScreenInitiate = true;
+                    mainMenuInitiate = true;
+                }
             }
         }
     }

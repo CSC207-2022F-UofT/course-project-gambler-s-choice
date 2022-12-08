@@ -7,4 +7,6 @@ public interface NewGameInputBoundary {
      * @return a response model with updated values
      */
     ResponseModel create(RequestModel input);
+
+    String getUser();
 }

@@ -1,3 +1,5 @@
+package deprecated;
+
 import javax.swing.*;
 
 import game_entities.*;
@@ -6,6 +8,7 @@ import screens.*;
 
 import java.awt.*;
 
+@Deprecated
 public class MainGame {
     public static void main(String[] args) {
 
@@ -25,6 +28,9 @@ public class MainGame {
         NewGamePresenter newGamePresenter = new NewGameResponseFormatter();
         NewGameInputBoundary newGameInputBoundary = new NewGameInteractor(newGamePresenter, gameFactory);
         NewGameController newGameController = new NewGameController(newGameInputBoundary);
+        LeaveResponseFormatter leaveResponseFormatter = new LeaveResponseFormatter();
+        LeaveInteractor leaveInteractor = new LeaveInteractor(leaveResponseFormatter);
+        LeaveController leaveController = new LeaveController(leaveInteractor);
 
         JFrame application = new JFrame("Gambler's Choice");
         CardLayout cardLayout = new CardLayout();
@@ -32,7 +38,7 @@ public class MainGame {
         application.add(screens);
 
         GameScreen gameScreen = new GameScreen(application,
-                checkController, betController, callController, foldController, newGameController);
+                checkController, betController, callController, foldController, newGameController, leaveController, "AAA");
 
         screens.add(gameScreen, "Game");
         application.pack();
@@ -61,11 +67,12 @@ public class MainGame {
                         currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG,
                         tableCardPNG, currentBet, isActive, playerBets, deck,
-                        checkController, betController, callController, foldController);
+                        checkController, betController, callController, foldController, leaveController, "AA");
                 screens.add(gameScreen, "Game");
             }
 
             cardLayout.show(screens, "Game");
+
         }
     }
 }

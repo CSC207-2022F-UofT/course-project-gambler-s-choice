@@ -6,6 +6,7 @@ import game_entities.GameInterface;
 public class NewGameInteractor implements NewGameInputBoundary {
     private final NewGamePresenter newGamePresenter;
     private final GameFactoryInterface gameFactory;
+    private String user;
 
     public NewGameInteractor(NewGamePresenter newGamePresenter, GameFactoryInterface gameFactory) {
         this.newGamePresenter = newGamePresenter;
@@ -13,6 +14,7 @@ public class NewGameInteractor implements NewGameInputBoundary {
     }
 
     public ResponseModel create(RequestModel input) {
+        user = input.getUser();
         GameInterface game = this.gameFactory.create(input.getCurrentPlayer(), input.getFirstPlayer(),
                 input.getLastToBet(), input.getPlayerBalance(), input.getCard1(), input.getCard2(),
                 input.getTableCard(), input.getCurrentBet(), input.getIsActive(), input.getPlayerBets(),
@@ -51,7 +53,12 @@ public class NewGameInteractor implements NewGameInputBoundary {
 
         ResponseModel response = new ResponseModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets, deck,
-                true);
+                true, input.getUser());
         return newGamePresenter.prepareSuccessView(response);
+    }
+
+    @Override
+    public String getUser() {
+        return user;
     }
 }

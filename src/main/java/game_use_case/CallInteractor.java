@@ -102,7 +102,7 @@ public class CallInteractor implements CallInputBoundary{
 
         ResponseModel response = new ResponseModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets, deck,
-                true);
+                true, input.getUser());
         return callPresenter.prepareSuccessView(response);
     }
 }
