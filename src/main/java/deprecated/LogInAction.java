@@ -1,8 +1,11 @@
+package deprecated;
+
 import login_menu_entities.User;
 
 import java.io.*;
 import java.util.Scanner;
 
+@Deprecated
 public class LogInAction {
 
     /**

@@ -3,7 +3,7 @@ package login_menu_entities;
 public class Admin extends User implements UserInterface {
 
     /**
-     * Creates an Admin login_menu_entities.User by calling the login_menu_entities.User's Constructor and passing the params
+     * Creates an Admin User by calling the User's Constructor and passing the params
      * @param name name of the user
      * @param password password of the user
      */

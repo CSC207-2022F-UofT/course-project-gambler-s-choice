@@ -26,4 +26,6 @@ public interface GameInterface {
     int lastToBet();
 
     boolean[] getActive();
+
+    void newGame();
 }

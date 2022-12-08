@@ -15,12 +15,13 @@ public class RequestModel {
     boolean[] isActive;
     int[] playerBets;
     String[] deck;
-    int bet;
+    String bet;
+    String user;
 
     public RequestModel(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
                         String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                         String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets,
-                        String[] deck, int bet) {
+                        String[] deck, String bet, String user) {
         this.currentPlayer = currentPlayer;
         this.firstPlayer = firstPlayer;
         this.lastToBet = lastToBet;
@@ -36,6 +37,7 @@ public class RequestModel {
         this.playerBets = playerBets;
         this.deck = deck;
         this.bet = bet;
+        this.user = user;
     }
     public int getCurrentPlayer() {
         return currentPlayer;
@@ -149,11 +151,19 @@ public class RequestModel {
         this.deck = deck;
     }
 
-    public int getBet() {
+    public String getBet() {
         return bet;
     }
 
-    public void setBet(int bet) {
+    public void setBet(String bet) {
         this.bet = bet;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

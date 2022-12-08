@@ -1,8 +1,11 @@
+package deprecated;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@Deprecated
 public class MainFrame extends JFrame{
 
     private TextPanel textPanel;
