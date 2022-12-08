@@ -1,9 +1,7 @@
 package game_use_case;
 
-import game_entities.Game;
 import game_entities.GameFactory;
 import game_entities.GameFactoryInterface;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FoldInteractorTest {
 
 
+    /**
+     * test case for when the second player folds
+     */
     @Test
     void secondPlayerFold() {
         FoldPresenter foldPresenter = new FoldPresenter() {
@@ -40,6 +41,9 @@ public class FoldInteractorTest {
         foldInteractor.create(input);
     }
 
+    /**
+     * Test case for when every other player except the first one folds
+     */
     @Test
     void allPlayerFold() {
         FoldPresenter foldPresenter = new FoldPresenter() {
@@ -70,6 +74,9 @@ public class FoldInteractorTest {
         foldInteractor.create(input);
     }
 
+    /**
+     * Test for when the first player tries to fold
+     */
     @Test
     void firstPlayerFold() {
         FoldPresenter foldPresenter = new FoldPresenter() {
