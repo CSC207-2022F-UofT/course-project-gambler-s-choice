@@ -12,6 +12,10 @@ public class MenuFileChecker implements MenuDSGateway{
 
     private final File usersFile;
 
+    /**
+     * Adds the account information into this MenuFileChecker's accounts.
+     * @param txtPath the name of the users information file
+     */
     public MenuFileChecker(String txtPath) throws IOException{
         usersFile = new File(txtPath);
 
@@ -26,6 +30,11 @@ public class MenuFileChecker implements MenuDSGateway{
         }
     }
 
+    /**
+     * Return whether the account has sufficient balance
+     * @param user the given user
+     * @return true iff the account has sufficient balance
+     */
     @Override
     public boolean sufficientBalance(String user) {
         try{
@@ -42,6 +51,11 @@ public class MenuFileChecker implements MenuDSGateway{
         return false;
     }
 
+    /**
+     * Reports the balance of the given user
+     * @param user the given user
+     * @return the balance of the given user
+     */
     @Override
     public int getBalance(String user) {
         try{
