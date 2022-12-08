@@ -123,24 +123,14 @@ public class AdminFileChecker implements AdminEditGateway {
      * @throws IOException
      */
     private void update() throws IOException{
+        accounts.clear();
         Scanner scanner = new Scanner(usersFile);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] account = line.split(", ");
-            if (!isInAccounts(account)){
-                accounts.add(account);
-            }
+            accounts.add(account);
         }
         scanner.close();
-    }
-
-    private boolean isInAccounts (String[] account){
-        for(String [] acc: accounts){
-            if (Arrays.equals(account, acc)){
-                return true;
-            }
-        }
-        return false;
     }
 
 }
