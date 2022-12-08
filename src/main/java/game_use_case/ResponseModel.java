@@ -1,5 +1,9 @@
 package game_use_case;
 
+/**
+ * Represents the Response Model. Will contain the primitive values used to represent each game instance.
+ * The game screen will use this to construct a new game instance based off the current variables
+ */
 public class ResponseModel {
 
     int currentPlayer;
@@ -19,6 +23,9 @@ public class ResponseModel {
     boolean isInteract;
     String user;
 
+    /**
+     * Response Constructor
+     */
     public ResponseModel(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
                          String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                          String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets,

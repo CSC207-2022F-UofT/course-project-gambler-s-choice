@@ -2,17 +2,29 @@ package game_use_case;
 
 import game_entities.*;
 
+/**
+ * This class represents when the user checks in the game. This will create a new game state.
+ */
 public class CheckInteractor implements CheckInputBoundary {
 
     final CheckPresenter checkPresenter;
     final GameFactoryInterface gameFactory;
 
-
+    /**
+     * CheckConstructor
+     * creates an object with the inputted callPresenter and gameFactory
+     */
     public CheckInteractor(CheckPresenter outputBoundary, GameFactoryInterface gameFactory) {
         this.checkPresenter = outputBoundary;
         this.gameFactory = gameFactory;
     }
 
+    /**
+     * This method will take in a request model and apply a "check" transformation to it.
+     * It will then output the new values as a response value.
+     * @param input the request model passed in
+     * @return a response model with changed values
+     */
     @Override
     public ResponseModel create(RequestModel input) {
 

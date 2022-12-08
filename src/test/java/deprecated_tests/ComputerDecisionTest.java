@@ -1,6 +1,9 @@
+package deprecated_tests;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
+@Deprecated
 class ComputerDecisionTest {
 
 //    @Test

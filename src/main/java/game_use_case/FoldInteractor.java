@@ -4,12 +4,20 @@ import game_entities.*;
 
 import java.util.Arrays;
 
+/**
+ * This class represents the case where the user folds in the game. This will create a new game state.
+ */
+
 public class FoldInteractor implements FoldInputBoundary{
 
     private final FoldPresenter foldPresenter;
 
     private final GameFactoryInterface gameFactory;
 
+    /**
+     * Fold Constructors
+     * creates an object with the inputted callPresenter and gameFactory
+     */
     public FoldInteractor(FoldPresenter foldPresenter, GameFactoryInterface gameFactory) {
         this.foldPresenter = foldPresenter;
         this.gameFactory = gameFactory;

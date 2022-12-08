@@ -5,6 +5,9 @@ import game_entities.PlayerInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Pool class used to manage the bet of the players and assign winnings
+ */
 public class Pool {
 
     // players and bets will be parallel arrays

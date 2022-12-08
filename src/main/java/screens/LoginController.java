@@ -1,8 +1,8 @@
 package screens;
 
-import login_menu_use_casee.UserLoginInputBoundary;
-import login_menu_use_casee.UserLoginRequestModel;
-import login_menu_use_casee.UserLoginResponseModel;
+import login_menu_use_case.UserLoginInputBoundary;
+import login_menu_use_case.UserLoginRequestModel;
+import login_menu_use_case.UserLoginResponseModel;
 
 public class LoginController{
 
