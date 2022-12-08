@@ -28,6 +28,10 @@ public class LoginScreen extends JPanel implements Screen {
      * @param
      */
     public LoginScreen(JFrame frame, LoginController lcontroller, RegisterController rcontroller){
+        usernameField.setText("");
+        passwordField.setText("");
+        passwordField2.setText("");
+
         this.frame = frame;
         this.lcontroller = lcontroller;
         this.rcontroller = rcontroller;
@@ -35,10 +39,6 @@ public class LoginScreen extends JPanel implements Screen {
 
         JPanel backgroundPanel = loadBackground();
         this.add(backgroundPanel);
-
-        usernameField.setText("");
-        passwordField.setText("");
-        passwordField2.setText("");
 
         this.add(this.loadButtons(), BorderLayout.SOUTH);
     }

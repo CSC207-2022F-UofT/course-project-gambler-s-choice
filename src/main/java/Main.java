@@ -83,7 +83,12 @@ public class Main {
                 mainMenuInitiate = loggedIn;
                 cardLayout.show(screens, "Login");
             } else if (loggedIn && !inGame) {
-                if (loginScreen.getType().equals("admin") && mainMenuInitiate){ //TODO GETYPE RETURNS NULL
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e){
+                    JOptionPane.showMessageDialog(application, "There was an error loading your account");
+                }
+                if (loginScreen.getType().equals("admin") && mainMenuInitiate){
                     adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController, loginScreen.getUser());
                     screens.add(adminMenuScreen, "Menu");
                     mainMenuInitiate = false;

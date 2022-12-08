@@ -97,7 +97,7 @@ public class AdminFileChecker implements AdminEditGateway {
                 }
                 return true;
             }
-            }
+        }
 
         return false;
     }
