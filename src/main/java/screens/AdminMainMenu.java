@@ -33,7 +33,7 @@ public class AdminMainMenu extends JPanel implements Menu{
 
         JLabel helpWindow = new JLabel();
         helpWindow.setBounds(200,30, 557,700);
-        scaleImage("images/poker hand rankings.jpg", helpWindow);// TEMP IMAGE I WILL CREATE AN IMAGE LATER
+        scaleImage("images/poker hand rankings.jpg", helpWindow);
 
         helpWindow.setVisible(false);
 

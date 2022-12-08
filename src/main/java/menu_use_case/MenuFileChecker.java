@@ -66,7 +66,7 @@ public class MenuFileChecker implements MenuDSGateway{
 
         for (String[] account: accounts){
             if (account[0].equals(user)){
-                Integer.parseInt(account[3]);
+                return Integer.parseInt(account[3]);
             }
         }
         return 0;
