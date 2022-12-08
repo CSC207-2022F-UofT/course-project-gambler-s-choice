@@ -3,6 +3,9 @@ package admin_menu_use_case;
 
 import screens.EditFail;
 
+/**
+ * creates the AdminEditResponsemodels such that they can return a success or fail view
+ */
 public class AdminEditResponseFormatter implements  AdminEditPresenter{
 
     /**

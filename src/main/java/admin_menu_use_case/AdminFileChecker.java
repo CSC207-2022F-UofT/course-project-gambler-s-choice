@@ -2,9 +2,11 @@ package admin_menu_use_case;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Admin edit file use case
+ */
 public class AdminFileChecker implements AdminEditGateway {
 
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
@@ -138,7 +140,6 @@ public class AdminFileChecker implements AdminEditGateway {
 
     /**
      * Private helper method that updates the accounts instance variable
-     * @throws IOException
      */
     private void update() throws IOException{
         accounts.clear();
