@@ -42,7 +42,7 @@ public class BetInteractorTest {
                 0, 0, 0, new int[]{100, 100},
                 new String[]{"SA", "HA"}, new String[]{"SK", "HK"}, new String[]{"DA", "DK", "DQ", null, null},
                 new String[2], new String[2], new String[5], 0, new boolean[]{true, true},
-                new int[]{0, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, 25
+                new int[]{0, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, "25", ""
         );
         interactor.create(input);
     }
@@ -62,10 +62,10 @@ public class BetInteractorTest {
                 assertEquals(100, outputData.getPlayerBets()[1]);
                 // Test for correct user turn and last bet amount
                 assertEquals(0, outputData.getCurrentPlayer());
-                assertEquals(25, outputData.getCurrentBet());
+                assertEquals(100, outputData.getCurrentBet());
                 // Test to see if inactivity is correct
                 assertTrue(outputData.getIsActive()[0]);
-                assertFalse(outputData.getIsActive()[0]);
+                assertFalse(outputData.getIsActive()[1]);
                 return null;
             }
 
@@ -83,7 +83,7 @@ public class BetInteractorTest {
                 1, 0, 0, new int[]{75, 100},
                 new String[]{"SA", "HA"}, new String[]{"SK", "HK"}, new String[]{"DA", "DK", "DQ", null, null},
                 new String[2], new String[2], new String[5], 0, new boolean[]{true, true},
-                new int[]{25, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, 100
+                new int[]{25, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, "100", ""
         );
         interactor.create(input);
     }
@@ -114,7 +114,7 @@ public class BetInteractorTest {
                 1, 0, 0, new int[]{100, 100},
                 new String[]{"SA", "HA"}, new String[]{"SK", "HK"}, new String[]{"DA", "DK", "DQ", null, null},
                 new String[2], new String[2], new String[5], 0, new boolean[]{true, true},
-                new int[]{0, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, 125
+                new int[]{0, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, "125", ""
         );
         interactor.create(input);
     }
