@@ -89,7 +89,7 @@ public class BetInteractorTest {
     }
 
     /**
-     * Test case for if they bet more than
+     * Test case for if they bet more than they have in balance
      */
     @Test
     void betMoreThanBalance() {
