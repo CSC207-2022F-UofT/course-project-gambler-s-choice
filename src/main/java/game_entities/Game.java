@@ -163,6 +163,7 @@ public class Game implements GameInterface{
     /**
      * Method used to generate a new game
      */
+    @Override
     public void newGame() {
         int numberOfPlayers = this.players.length;
         for (int i = 0; i < numberOfPlayers; i++) {
