@@ -91,6 +91,7 @@ public class GameScreen extends JPanel implements Screen {
     private final BetController bController;
     private final FoldController fController;
     private final CallController aController;
+    private final LeaveController lController;
 
     private final JTextField betAmount = new JTextField();
 
@@ -118,13 +119,14 @@ public class GameScreen extends JPanel implements Screen {
                       String[] card1, String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                       String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets, String[] deck,
                       CheckController cController, BetController bController,
-                      CallController aController, FoldController fController) {
+                      CallController aController, FoldController fController, LeaveController lController) {
 
         this.frame = frame;
         this.cController = cController;
         this.bController = bController;
         this.aController = aController;
         this.fController = fController;
+        this.lController = lController;
 
         this.currentPlayer = currentPlayer;
         this.firstPlayer = firstPlayer;
@@ -351,6 +353,16 @@ public class GameScreen extends JPanel implements Screen {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
 
+        });
+        buttons[4].addActionListener(e -> {
+           try {
+               boolean response = lController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
+                       card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
+                       deck, 0);
+
+           } catch (Exception ee) {
+               JOptionPane.showMessageDialog(frame, ee.getMessage());
+           }
         });
         for (JButton button: buttons){
             button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
