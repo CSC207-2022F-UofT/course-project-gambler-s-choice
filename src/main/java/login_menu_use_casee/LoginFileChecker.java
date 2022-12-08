@@ -2,6 +2,7 @@ package login_menu_use_casee;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class LoginFileChecker implements UserLoginDSGateway{
@@ -12,8 +13,9 @@ public class LoginFileChecker implements UserLoginDSGateway{
      */
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
 
+    private final File usersFile;
     public LoginFileChecker(String txtPath) throws IOException{
-        File usersFile = new File(txtPath);
+        usersFile = new File(txtPath);
 
         if (!(usersFile.createNewFile())) {
             Scanner scanner = new Scanner(usersFile);
@@ -33,6 +35,11 @@ public class LoginFileChecker implements UserLoginDSGateway{
      */
     @Override
     public boolean existsByName(String name) {
+        try{
+            update();
+        }catch (Exception e){
+            return false;
+        }
         for (String[] account: accounts){
             if (account[0].equals(name)){
                 return true;
@@ -49,6 +56,11 @@ public class LoginFileChecker implements UserLoginDSGateway{
      */
     @Override
     public boolean matchingPass(String user, String pass) {
+        try{
+            update();
+        }catch (Exception e){
+            return false;
+        }
         for (String[] account: accounts){
             if (account[0].equals(user) && account[1].equals(pass)){
                 return true;
@@ -65,6 +77,11 @@ public class LoginFileChecker implements UserLoginDSGateway{
      */
     @Override
     public String[] getAccountInfo(String name, String pass) {
+        try{
+            update();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         String[] accountInfo = new String[2];
         for (String[] account: accounts){
             if (account[0].equals(name) && account[1].equals(pass)) {
@@ -73,6 +90,31 @@ public class LoginFileChecker implements UserLoginDSGateway{
             }
         }
         return accountInfo;
+    }
+
+    /**
+     * Private helper method that updates the accounts instance variable
+     * @throws IOException
+     */
+    private void update() throws IOException{
+        Scanner scanner = new Scanner(usersFile);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] account = line.split(", ");
+            if (!isInAccounts(account)){
+                accounts.add(account);
+            }
+        }
+        scanner.close();
+    }
+
+    private boolean isInAccounts (String[] account){
+        for(String [] acc: accounts){
+            if (Arrays.equals(account, acc)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
