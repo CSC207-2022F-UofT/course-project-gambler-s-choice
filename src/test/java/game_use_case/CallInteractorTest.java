@@ -96,4 +96,35 @@ public class CallInteractorTest {
         );
         interactor.create(input);
     }
+
+    /**
+     * Test case for if the current bet is 0
+     */
+    @Test
+    void notAllowedToCall() {
+        CallPresenter presenter = new CallPresenter() {
+            @Override
+            public ResponseModel prepareSuccessView(ResponseModel outputData) {
+                fail("Use case success is unexpected");
+                return null;
+            }
+
+            @Override
+            public ResponseModel prepareFailView(String error) {
+                assertEquals("Cannot call when current bet is 0. Please check instead.", error);
+                return null;
+            }
+        };
+
+        GameFactoryInterface gameFactory = new GameFactory();
+        CallInputBoundary interactor = new CallInteractor(presenter, gameFactory);
+
+        RequestModel input = new RequestModel(
+                0, 0, 0, new int[]{100, 100},
+                new String[]{"SA", "HA"}, new String[]{"SK", "HK"}, new String[]{"DA", "DK", "DQ", null, null},
+                new String[2], new String[2], new String[5], 0, new boolean[]{true, true},
+                new int[]{0, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, "0", ""
+        );
+        interactor.create(input);
+    }
 }
