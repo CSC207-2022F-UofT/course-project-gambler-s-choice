@@ -5,7 +5,7 @@ import admin_menu_use_case.AdminEditResponseFormatter;
 import admin_menu_use_case.AdminFileChecker;
 import login_menu_entities.UserFactory;
 import login_menu_entities.UserInterfaceFactory;
-import login_menu_use_casee.*;
+import login_menu_use_case.*;
 import menu_use_case.*;
 import register_menu_use_case.*;
 import screens.*;
