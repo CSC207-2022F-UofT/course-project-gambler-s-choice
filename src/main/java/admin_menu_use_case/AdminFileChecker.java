@@ -9,6 +9,10 @@ public class AdminFileChecker implements AdminEditGateway {
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
     private final File usersFile;
 
+    /**
+     * Adds the account information into this AdminFileCheck's accounts.
+     * @param txtPath the name of the users information file
+     */
     public AdminFileChecker(String txtPath) throws IOException{
         usersFile = new File(txtPath); //creates a File instance
 
@@ -36,6 +40,11 @@ public class AdminFileChecker implements AdminEditGateway {
         return false;
     }
 
+    /**
+     * Returns whether the balance is valid
+     * @param balance the balance of the user
+     * @return true iff the balance is valid
+     */
     @Override
     public boolean validBalance(String balance) {
         try {
@@ -47,6 +56,11 @@ public class AdminFileChecker implements AdminEditGateway {
         }
     }
 
+    /**
+     * Return whether the account has sufficient balance
+     * @param user the given user
+     * @return true iff the account has sufficient balance
+     */
     @Override
     public boolean sufficientBalance(String user) {
         for (String[] account: accounts){
@@ -57,6 +71,11 @@ public class AdminFileChecker implements AdminEditGateway {
         return false;
     }
 
+    /**
+     * Reports the balance of the use
+     * @param user the given user
+     * @return the balance of the given user
+     */
     @Override
     public int getBalance(String user) {
         for (String[] account: accounts){
