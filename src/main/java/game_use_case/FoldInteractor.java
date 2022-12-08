@@ -13,6 +13,11 @@ public class FoldInteractor implements FoldInputBoundary{
         this.gameFactory = gameFactory;
     }
 
+    /**
+     * Creates a response model with the updated game values after the input has been processed
+     * @param input the inputted request model
+     * @return a response model with the updated Game values
+     */
     @Override
     public ResponseModel create(RequestModel input) {
         GameInterface game = this.gameFactory.create(input.getCurrentPlayer(), input.getFirstPlayer(),
