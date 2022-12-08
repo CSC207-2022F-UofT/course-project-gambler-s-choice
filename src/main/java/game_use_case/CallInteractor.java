@@ -26,7 +26,7 @@ public class CallInteractor implements CallInputBoundary{
 
         // Logic goes here
         if (input.getCurrentBet() == 0) {
-            callPresenter.prepareFailView("Cannot call when current bet is 0. Please check instead.");
+            return callPresenter.prepareFailView("Cannot call when current bet is 0. Please check instead.");
         }
 
         // Setting the amount the player must bet
