@@ -2,6 +2,7 @@ import screens.AdminMainMenu;
 
 import javax.swing.*;
 
+
 public class AdminMenuScreenTest {
     public static void main(String[] args){
 
