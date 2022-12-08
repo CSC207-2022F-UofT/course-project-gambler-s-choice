@@ -221,15 +221,18 @@ public class GameScreen extends JPanel implements Screen {
         }
         JLabel betPrompt = new JLabel("Bet amount:");
         JLabel balance = new JLabel("Balance: " + this.playerBalance[this.currentPlayer]);
+        JLabel player = new JLabel("Player " + (this.currentPlayer + 1) + "'s turn");
 
         background.setBounds(0, 0, 1000, 800);
         betPrompt.setBounds(370, 640, 240, 40);
         betAmount.setBounds(440, 640, 110, 40); // x = 440, y = 640
-        balance.setBounds(0, 0, 100, 50);
+        balance.setBounds(25, 0, 100, 50);
+        player.setBounds(875, 0, 100, 50);
 
         backgroundPanel.add(betPrompt);
         backgroundPanel.add(betAmount);
         backgroundPanel.add(balance);
+        backgroundPanel.add(player);
         for (ImagePanel card: cards){
             //System.out.println(card);
             backgroundPanel.add(card);
@@ -251,7 +254,6 @@ public class GameScreen extends JPanel implements Screen {
         buttonPanel.setLayout(new FlowLayout());
         JButton[] buttons = {new JButton("Check"), new JButton("Bet"), new JButton("Call"),
                 new JButton("Fold"), new JButton("Menu")};
-
         buttons[0].addActionListener(e -> {
             try {
                 ResponseModel response = cController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
