@@ -13,11 +13,7 @@ public class LeaveInteractor implements LeaveInputBoundary{
 
     private final AdminEditGateway editGateway;
 
-    private final String name;
-
-    private final PlayerInterface player;
-
-    public LeaveInteractor(LeavePresenter leavePresenter, String name, PlayerInterface player) {
+    public LeaveInteractor(LeavePresenter leavePresenter) {
         AdminEditGateway editGateway1;
         this.leavePresenter = leavePresenter;
         try {
@@ -27,14 +23,14 @@ public class LeaveInteractor implements LeaveInputBoundary{
             editGateway1 = null;
         }
 
-        this.player = player;
         this.editGateway = editGateway1;
-        this.name = name;
     }
 
     @Override
     public boolean create(RequestModel input) {
-        this.editGateway.editByName(this.name, input.getPlayerBalance()[input.getCurrentPlayer()]);
+
+        String name = "player" + input.getCurrentPlayer();
+        this.editGateway.editByName(name, input.getPlayerBalance()[input.getCurrentPlayer()]);
 
         return leavePresenter.exitGame(false);
     }
