@@ -2,12 +2,11 @@ package admin_menu_use_case;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class AdminFileChecker implements AdminEditGateway {
 
-    private final ArrayList<String[]> accounts = new ArrayList<String[]>();
+    private final ArrayList<String[]> accounts = new ArrayList<>();
     private final File usersFile;
 
     /**
@@ -89,7 +88,11 @@ public class AdminFileChecker implements AdminEditGateway {
      */
     @Override
     public int getBalance(String user) {
-
+        try{
+            update();
+        }catch (Exception e){
+            return 0;
+        }
         for (String[] account: accounts){
             if (account[0].equals(user)){
                 return Integer.parseInt(account[3]);
@@ -111,7 +114,8 @@ public class AdminFileChecker implements AdminEditGateway {
             update();
         }catch (Exception e){
             return false;
-        }        for (String[] account: accounts){
+        }
+        for (String[] account: accounts){
             if (account[0].equals(name)){
                 account[3] = Integer.toString(balance);
 
@@ -138,7 +142,7 @@ public class AdminFileChecker implements AdminEditGateway {
 
     /**
      * Private helper method that updates the accounts instance variable
-     * @throws IOException
+     * @throws IOException If the file is unable to be found or scanned
      */
     private void update() throws IOException{
         accounts.clear();

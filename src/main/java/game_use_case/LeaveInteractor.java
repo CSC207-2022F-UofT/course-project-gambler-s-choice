@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * This class represents the case where the user leaves the game. This will create a new game state.
  */
-public class LeaveInteractor implements LeaveInputBoundary{
+public class LeaveInteractor implements LeaveInputBoundary {
 
     private final LeavePresenter leavePresenter;
 
@@ -22,8 +22,7 @@ public class LeaveInteractor implements LeaveInputBoundary{
         this.leavePresenter = leavePresenter;
         try {
             editGateway1 = new AdminFileChecker("src/main/users.txt");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             editGateway1 = null;
         }
 
@@ -33,14 +32,14 @@ public class LeaveInteractor implements LeaveInputBoundary{
     /**
      * Given the Request model, this method will extract relevant information, use it to update the player's balance,
      * and then return the boolean value false as a flag to exit the game screen
+     *
      * @param input the request model passed in as input
      * @return the
      */
     @Override
     public boolean create(RequestModel input) {
-
         String name = input.getUser();
-        int balance = editGateway.getBalance(name) - input.getPlayerBalance()[0];
+        int balance = editGateway.getBalance(name) - (100 - input.getPlayerBalance()[0]);
         this.editGateway.editByName(name, balance);
 
         return leavePresenter.exitGame(false);
