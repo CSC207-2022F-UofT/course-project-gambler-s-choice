@@ -215,7 +215,7 @@ public class GameScreen extends JPanel implements Screen {
      */
     private ImagePanel[] loadHiddenCards(){
         int players = card1.length * 2 - 2;
-        String cardBack = "images/game_entities.Card Back.png";
+        String cardBack = "images/Card Back.png";
         ImagePanel[] oppCards = new ImagePanel[players];
         for (int i = 0; i < players; i+=2){
             oppCards[i] = new ImagePanel(cardBack, 0, 0, CARD_WIDTH, CARD_HEIGHT);

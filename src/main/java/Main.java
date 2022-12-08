@@ -3,6 +3,8 @@ import javax.swing.*;
 import admin_menu_use_case.AdminEditInteractor;
 import admin_menu_use_case.AdminEditResponseFormatter;
 import admin_menu_use_case.AdminFileChecker;
+import game_entities.*;
+import game_use_case.*;
 import login_menu_entities.UserFactory;
 import login_menu_entities.UserInterfaceFactory;
 import login_menu_use_casee.*;
@@ -18,9 +20,10 @@ public class Main {
         boolean loggedIn = false;
         boolean inGame = false;
         boolean mainMenuInitiate = true;
+        boolean gameScreenInitiate = true;
         String usersfile = "src/main/users.txt";
 
-
+        //Initializing necessary JFrame
         JFrame application = new JFrame("Gambler's Choice");
         CardLayout cardLayout = new CardLayout();
         JPanel screens = new JPanel(cardLayout);
@@ -70,6 +73,27 @@ public class Main {
         MenuController menuController = new MenuController(menuInteractor);
         MainMenu menuScreen = new MainMenu(application, menuController, loginScreen.getUser());;
 
+
+        GameFactoryInterface gameFactory = new GameFactory();
+        CheckPresenter checkPresenter = new CheckResponseFormatter();
+        CheckInputBoundary checkInputBoundary = new CheckInteractor(checkPresenter, gameFactory);
+        CheckController checkController = new CheckController(checkInputBoundary);
+        BetPresenter betPresenter = new BetResponseFormatter();
+        BetInputBoundary betInputBoundary = new BetInteractor(betPresenter, gameFactory);
+        BetController betController = new BetController(betInputBoundary);
+        CallPresenter callPresenter = new CallResponseFormatter();
+        CallInputBoundary callInputBoundary = new CallInteractor(callPresenter, gameFactory);
+        CallController callController = new CallController(callInputBoundary);
+        FoldPresenter foldPresenter = new FoldResponseFormatter();
+        FoldInputBoundary foldInputBoundary = new FoldInteractor(foldPresenter, gameFactory);
+        FoldController foldController = new FoldController(foldInputBoundary);
+        NewGamePresenter newGamePresenter = new NewGameResponseFormatter();
+        NewGameInputBoundary newGameInputBoundary = new NewGameInteractor(newGamePresenter, gameFactory);
+        NewGameController newGameController = new NewGameController(newGameInputBoundary);
+
+        GameScreen gameScreen = new GameScreen(application,
+                checkController, betController, callController, foldController, newGameController);
+
         screens.add(loginScreen, "Login");
         application.pack();
         application.setSize(1000,800);
@@ -77,6 +101,9 @@ public class Main {
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setVisible(true);
 
+        /** Main Game Loop
+         *
+         */
         while (true) {
             if (!loggedIn)  {
                 loggedIn = loginScreen.isLoggedIn();
@@ -97,7 +124,6 @@ public class Main {
                     screens.add(menuScreen, "Menu");
                     mainMenuInitiate = false;
                 }
-
                 cardLayout.show(screens, "Menu");
                 if (loginScreen.getType().equals("admin")) {
                     loggedIn = adminMenuScreen.isLoggedIn();
@@ -112,9 +138,37 @@ public class Main {
                     screens.add(loginScreen, "Login");
                     mainMenuInitiate = false;
                 }
-
             } else if (inGame) {
-
+                if (gameScreenInitiate){
+                    gameScreen = new GameScreen(application,
+                            checkController, betController, callController, foldController, newGameController);
+                    screens.add(gameScreen, "Game");
+                    gameScreenInitiate = false;
+                }
+                if (gameScreen.isInteract()) {
+                    int currentPlayer = gameScreen.getCurrentPlayer();
+                    int firstPlayer = gameScreen.getFirstPlayer();
+                    int lastToBet = gameScreen.getLastToBet();
+                    int[] playerBalance = gameScreen.getPlayerBalance();
+                    String[] card1 = gameScreen.getCard1();
+                    String[] card2 = gameScreen.getCard2();
+                    String[] tableCard = gameScreen.getTableCard();
+                    String[] card1PNG = gameScreen.getCard1PNG();
+                    String[] card2PNG = gameScreen.getCard2PNG();
+                    String[] tableCardPNG = gameScreen.getTableCardPNG();
+                    int currentBet = gameScreen.getCurrentBet();
+                    boolean[] isActive = gameScreen.getIsActive();
+                    int[] playerBets = gameScreen.getPlayerBets();
+                    String[] deck = gameScreen.getDeck();
+                    gameScreen = new GameScreen(application,
+                            currentPlayer, firstPlayer, lastToBet, playerBalance,
+                            card1, card2, tableCard, card1PNG, card2PNG,
+                            tableCardPNG, currentBet, isActive, playerBets, deck,
+                            checkController, betController, callController, foldController);
+                    screens.add(gameScreen, "Game");
+                }
+                cardLayout.show(screens, "Game");
+                //inGame = gamescreen.isInGame();
             }
         }
     }
