@@ -68,12 +68,15 @@ public class GameScreenTest {
         FoldPresenter foldPresenter = new FoldResponseFormatter();
         FoldInputBoundary foldInputBoundary = new FoldInteractor(foldPresenter, gameFactory);
         FoldController foldController = new FoldController(foldInputBoundary);
+        LeavePresenter leavePresenter = new LeaveResponseFormatter();
+        LeaveInputBoundary leaveInputBoundary = new LeaveInteractor(leavePresenter);
+        LeaveController leaveController = new LeaveController(leaveInputBoundary);
 
         screens.add(new GameScreen(aaaa,
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController, betController, callController, foldController), "Game");
+                checkController, betController, callController, foldController, leaveController), "Game");
 
         aaaa.pack();
         aaaa.setSize(1000,800);

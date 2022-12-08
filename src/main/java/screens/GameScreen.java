@@ -23,6 +23,7 @@ public class GameScreen extends JPanel implements Screen {
     int[] playerBets;
     String[] deck;
     boolean isInteract = false;
+    boolean inGame = true;
 
     public boolean isInteract() {
         return isInteract;
@@ -82,6 +83,10 @@ public class GameScreen extends JPanel implements Screen {
 
     public String[] getDeck() {
         return deck;
+    }
+
+    public boolean getInGame() {
+        return this.inGame;
     }
 
     private final int CARD_WIDTH = 60;
@@ -359,7 +364,7 @@ public class GameScreen extends JPanel implements Screen {
                boolean response = lController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                        card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
                        deck, 0);
-
+                this.inGame = response;
            } catch (Exception ee) {
                JOptionPane.showMessageDialog(frame, ee.getMessage());
            }
