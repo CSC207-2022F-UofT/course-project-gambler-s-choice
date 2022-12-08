@@ -1,6 +1,6 @@
 package login_use_case_tests;
 
-import login_menu_use_casee.*;
+import login_menu_use_case.*;
 import login_menu_entities.UserFactory;
 import login_menu_entities.UserInterfaceFactory;
 import java.io.IOException;
