@@ -55,4 +55,10 @@ public class WinRoundTest {
         assert(results[4] == 1);
     }
 
+    @Test
+    void checkWinningsTest() {
+        Game g = new Game();
+
+    }
+
 }

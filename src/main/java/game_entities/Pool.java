@@ -22,6 +22,25 @@ public class Pool {
         this.resetBets();
     }
 
+    public Pool(PlayerInterface[] players, int[] bets) {
+        this.players = players;
+        this.bets = bets;
+
+    }
+
+    /**
+     * Returns the total amount in the pool
+     *
+     * @return the sum of values in the bets array
+     */
+    public int totalBets() {
+        int total = 0;
+        for (int i : this.bets) {
+            total += i;
+        }
+        return total;
+    }
+
     /**
      * Adds the money into the pool when a player makes a bet
      *
@@ -153,4 +172,26 @@ public class Pool {
         return smallestIndex;
     }
 
+    /**
+     * Getter for bets
+     *
+     * @return the list of bets players have made
+     */
+    public int[] getBets() {
+        return bets;
+    }
+
+    /**
+     * To string method
+     * Return the array of bets contained in pool
+     * @return array of bets as a string
+     */
+    @Override
+    public String toString() {
+        String toReturn = "[";
+        for (int i : this.bets) {
+            toReturn = toReturn + " " + i;
+        }
+        return toReturn + " ]";
+    }
 }

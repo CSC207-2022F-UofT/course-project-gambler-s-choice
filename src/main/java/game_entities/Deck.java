@@ -15,17 +15,22 @@ public class Deck {
         this.shuffle();
     }
 
+    public Deck(Card[] cards) {
+        this.deck = new Stack<>();
+        this.deck.addAll(List.of(cards));
+    }
+
     /**
      * Helper method used in the creation of the deck
      */
     private void createDeck() {
         // Format of cards
         // S = spades, H = hearts, C = clubs, D = diamonds
-        // A = ace, X = 10, J = jack, Q = queen, K = king
-        String[] cardsString = {"DA", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "DX", "DJ", "DQ", "DK",
-                "CA", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "CX", "CJ", "CQ", "CK",
-                "HA", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "HX", "HJ", "HQ", "HK",
-                "SA", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "SX", "SJ", "SQ", "SK"};
+        // A = ace, J = jack, Q = queen, K = king
+        String[] cardsString = {"DA", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "DJ", "DQ", "DK",
+                "CA", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "CJ", "CQ", "CK",
+                "HA", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "HJ", "HQ", "HK",
+                "SA", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "SJ", "SQ", "SK"};
         Card[] cards = new Card[52];
         for (int i = 0; i < 52; i++) {
             cards[i] = new Card(cardsString[i]);
@@ -58,5 +63,18 @@ public class Deck {
      */
     public Card getCard() {
         return this.deck.pop();
+    }
+
+    public String[] deckAsStringArray() {
+        int len = deck.size();
+        Card[] tempDeck = new Card[len];
+        String[] toReturn = new String[len];
+        for (int i = len - 1; i >= 0; i--) {
+            Card card = deck.pop();
+            tempDeck[i] = card;
+            toReturn[i] = card.toString();
+        }
+        this.deck.addAll(List.of(tempDeck));
+        return toReturn;
     }
 }
