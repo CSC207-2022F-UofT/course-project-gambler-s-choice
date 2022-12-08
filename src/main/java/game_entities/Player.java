@@ -2,6 +2,9 @@ package game_entities;
 
 import game_entities.Card;
 
+/**
+ *
+ */
 public class Player implements PlayerInterface {
     private int balance;
     private Card[] cards;
