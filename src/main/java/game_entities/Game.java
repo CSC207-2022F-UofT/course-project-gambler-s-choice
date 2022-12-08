@@ -8,8 +8,8 @@ import java.util.*;
 public class Game implements GameInterface{
     private final Player[] players;
     private final Pool pool;
-    private final Deck deck;
-    private final Card[] cards;
+    private Deck deck;
+    private Card[] cards;
 
     private int currentWager;
     private int currentPlayer;
@@ -147,15 +147,40 @@ public class Game implements GameInterface{
                 }
             }
         }
+
+        // Remove all folded players from contention
         for (int i = 0; i < rankings.length; i++) {
             if (!this.isActive[i] && this.players[i].getBalance() != 0) {
                 rankings[i] = rankings.length;
             }
         }
         //this can pass into the pool class later
-        pool.calculateWinnings(rankings);
-
+        pool.calculateWinnings(rankings); // Should also reset pool to 0
+        this.newGame(); // Start a new game
         return rankings;
+    }
+
+    /**
+     * Method used to generate a new game
+     */
+    public void newGame() {
+        int numberOfPlayers = this.players.length;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            this.isActive[i] = true;
+        }
+        this.currentWager = 0;
+        // Iterate the first player
+        this.firstPlayer++;
+        this.firstPlayer %= numberOfPlayers;
+        this.lastBet = this.firstPlayer;
+        this.currentPlayer = this.firstPlayer;
+        this.deck = new Deck();
+        this.cards = new Card[5];
+        for (Player player : this.players) {
+            Card card1 = deck.getCard();
+            Card card2 = deck.getCard();
+            player.setCards(card1, card2);
+        }
     }
 
     /**
@@ -606,30 +631,4 @@ public class Game implements GameInterface{
     public Player getCurrPlayerObj(){
         return players[currentPlayer];
     }
-
-
-    /**
-     * Returns the total amount of money bet in the game
-     *
-     * @return the total amount of money bet in the game
-     */
-    public int totalBet() {
-        return this.pool.totalBets();
-    }
-
-    public void changeCard() {
-        cards[0] = new Card("5", "D");
-    }
-
-    public void check() {
-        currentPlayer++;
-        currentPlayer %= players.length;
-        System.out.println(currentPlayer);
-    }
-
-    public int getCurrentPlayerAsInt() {
-        return currentPlayer;
-    }
-
-
 }

@@ -101,4 +101,15 @@ public class Player implements PlayerInterface {
     public int getBalance() {
         return balance;
     }
+
+    /**
+     * Method to distribute new cards to players
+     *
+     * @param card1 first card
+     * @param card2 second card
+     */
+    public void setCards(Card card1, Card card2) {
+        this.cards[0] = card1;
+        this.cards[1] = card2;
+    }
 }
