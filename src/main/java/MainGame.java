@@ -64,6 +64,9 @@ public class MainGame {
         FoldPresenter foldPresenter = new FoldResponseFormatter();
         FoldInputBoundary foldInputBoundary = new FoldInteractor(foldPresenter, gameFactory);
         FoldController foldController = new FoldController(foldInputBoundary);
+        LeavePresenter leavePresenter = new LeaveResponseFormatter();
+        LeaveInputBoundary leaveInputBoundary = new LeaveInteractor(leavePresenter);
+        LeaveController leaveController = new LeaveController(leaveInputBoundary);
 
         JFrame application = new JFrame("Gambler's Choice");
         CardLayout cardLayout = new CardLayout();
@@ -74,7 +77,7 @@ public class MainGame {
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController, betController, callController, foldController);
+                checkController, betController, callController, foldController, leaveController);
 
         screens.add(gameScreen, "Game");
         application.pack();
@@ -103,7 +106,7 @@ public class MainGame {
                         currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG,
                         tableCardPNG, currentBet, isActive, playerBets, deck,
-                        checkController, betController, callController, foldController);
+                        checkController, betController, callController, foldController, leaveController);
                 screens.add(gameScreen, "Game");
             }
 
