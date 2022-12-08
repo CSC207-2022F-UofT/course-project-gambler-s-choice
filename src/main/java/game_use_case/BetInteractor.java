@@ -3,6 +3,8 @@ package game_use_case;
 import game_entities.GameFactoryInterface;
 import game_entities.GameInterface;
 
+import java.util.Arrays;
+
 public class BetInteractor implements BetInputBoundary {
     final BetPresenter betPresenter;
     final GameFactoryInterface gameFactory;
@@ -48,6 +50,18 @@ public class BetInteractor implements BetInputBoundary {
         // If player has gone all in, set them inactive
         if (0 == game.getPlayers()[input.getCurrentPlayer()].getBalance()) {
             game.getActive()[input.getCurrentPlayer()] = false;
+        }
+
+        // Check if everyone is inactive
+        boolean allInactive = true;
+        for (boolean playerActive : game.getActive()) {
+            if (playerActive) {
+                allInactive = false;
+            }
+        }
+        // If everyone is inactive, force everyone back to active
+        if (allInactive) {
+            Arrays.fill(game.getActive(), true);
         }
 
         // Common method used to move onto next player
