@@ -2,6 +2,7 @@ package admin_menu_use_case;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class AdminFileChecker implements AdminEditGateway {
@@ -9,6 +10,10 @@ public class AdminFileChecker implements AdminEditGateway {
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
     private final File usersFile;
 
+    /**
+     * Adds the account information into this AdminFileCheck's accounts.
+     * @param txtPath the name of the users information file
+     */
     public AdminFileChecker(String txtPath) throws IOException{
         usersFile = new File(txtPath); //creates a File instance
 
@@ -28,6 +33,11 @@ public class AdminFileChecker implements AdminEditGateway {
      */
     @Override
     public boolean existsByName(String name) {
+        try{
+            update();
+        }catch (Exception e){
+            return false;
+        }
         for (String[] account: accounts){
             if (account[0].equals(name)){
                 return true;
@@ -36,8 +46,14 @@ public class AdminFileChecker implements AdminEditGateway {
         return false;
     }
 
+    /**
+     * Returns whether the balance is valid
+     * @param balance the balance of the user
+     * @return true iff the balance is valid
+     */
     @Override
     public boolean validBalance(String balance) {
+        try{update();}catch (Exception e){return false;}
         try {
             Integer.parseInt(balance);
             return true;
@@ -47,9 +63,18 @@ public class AdminFileChecker implements AdminEditGateway {
         }
     }
 
+    /**
+     * Return whether the account has sufficient balance
+     * @param user the given user
+     * @return true iff the account has sufficient balance
+     */
     @Override
     public boolean sufficientBalance(String user) {
-        for (String[] account: accounts){
+        try{
+            update();
+        }catch (Exception e){
+            return false;
+        }        for (String[] account: accounts){
             if (account[0].equals(user) && Integer.parseInt(account[3]) >= 100){
                 return true;
             }
@@ -57,8 +82,14 @@ public class AdminFileChecker implements AdminEditGateway {
         return false;
     }
 
+    /**
+     * Reports the balance of the use
+     * @param user the given user
+     * @return the balance of the given user
+     */
     @Override
     public int getBalance(String user) {
+
         for (String[] account: accounts){
             if (account[0].equals(user)){
                 Integer.parseInt(account[3]);
@@ -76,7 +107,11 @@ public class AdminFileChecker implements AdminEditGateway {
 
     @Override
     public boolean editByName(String name, int balance) {
-        for (String[] account: accounts){
+        try{
+            update();
+        }catch (Exception e){
+            return false;
+        }        for (String[] account: accounts){
             if (account[0].equals(name)){
                 account[3] = Integer.toString(balance);
 
@@ -102,6 +137,19 @@ public class AdminFileChecker implements AdminEditGateway {
         return false;
     }
 
-
+    /**
+     * Private helper method that updates the accounts instance variable
+     * @throws IOException
+     */
+    private void update() throws IOException{
+        accounts.clear();
+        Scanner scanner = new Scanner(usersFile);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] account = line.split(", ");
+            accounts.add(account);
+        }
+        scanner.close();
+    }
 
 }

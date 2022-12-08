@@ -11,6 +11,13 @@ public class MenuInteractor implements MenuInputBoundary{
         this.menuPresenter = menuPresenter;
     }
 
+    /**
+     * If the input is "Play", the system checks if the user has sufficient funds. If so, the user logs in to and enters the game
+     * If the input is "Log Out", the system logs the user out.
+     * If the input is "Help", the system displays the rules and sets the inGame status false
+     * @param menuRequestModel the given MenuRequestModel
+     * @return an MenuResponseModel
+     */
     @Override
     public MenuResponseModel create(MenuRequestModel menuRequestModel){
         if (menuRequestModel.getInput().equals("Play")){

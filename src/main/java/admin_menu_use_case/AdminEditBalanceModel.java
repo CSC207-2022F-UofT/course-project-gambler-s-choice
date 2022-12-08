@@ -16,18 +16,34 @@ public class AdminEditBalanceModel {
         this.rulesVisible = rulesVisible;
     }
 
+    /**
+     * Reports the username of the user
+     * @return the username of the user
+     */
     public String getUser(){
         return user;
     }
 
+    /**
+     * Reports the balance of the user
+     * @return the balance of the user
+     */
     public String getBalance() {
         return balance;
     }
 
+    /**
+     * Reports the input to the system
+     * @return the input to the system
+     */
     public String getInput(){
         return input;
     }
 
+    /**
+     * Returns whether the rules are visible
+     * @return true iff the rules are visible
+     */
     public boolean isRulesVisible() {
         return rulesVisible;
     }

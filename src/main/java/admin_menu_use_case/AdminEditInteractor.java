@@ -10,7 +10,15 @@ public class AdminEditInteractor implements AdminEditBalanceInputBoundary{
     }
 
 
-
+    /**
+     * If the input is "Play", the system checks if the user has sufficient funds. If so, the user logs in to the game.
+     * If the input is "Log Out", the system logs the user out.
+     * If the input is "Help", the system displays the rules and sets the inGame status false
+     * If the input is "Edit User", the system checks if the username exists in the database. If so, the admin edits
+     * the user's balance
+     * @param editBalanceModel the given AdminEditBalanceModel
+     * @return an AdminEditResponseModel
+     */
     @Override
     public AdminEditResponseModel create(AdminEditBalanceModel editBalanceModel) {
         if (editBalanceModel.getInput().equals("Play")){
@@ -28,7 +36,8 @@ public class AdminEditInteractor implements AdminEditBalanceInputBoundary{
             int balance = adminEditGateway.getBalance(username);
             return new AdminEditResponseModel(username,
                     balance, false, false, editBalanceModel.isRulesVisible());
-        } else if (editBalanceModel.getInput().equals("Help")){String username = editBalanceModel.getUser();
+        } else if (editBalanceModel.getInput().equals("Help")){
+            String username = editBalanceModel.getUser();
             int balance = adminEditGateway.getBalance(username);
             boolean rulesVisible = !editBalanceModel.isRulesVisible();
             return new AdminEditResponseModel(username,
