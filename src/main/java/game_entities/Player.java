@@ -3,7 +3,9 @@ package game_entities;
 import game_entities.Card;
 
 /**
- *
+ * This class represents a player.
+ * This will hold the cards and the balance of the player which
+ * will be used when playing the game.
  */
 public class Player implements PlayerInterface {
     private int balance;
@@ -11,46 +13,26 @@ public class Player implements PlayerInterface {
     private boolean fold;
     private boolean allIn;
 
-
+    /**
+     * Player Constructor
+     * @param balance the balance of the player
+     */
     public Player(int balance){
         this.balance = balance;
         this.cards = new Card[2];
         this.fold = false;
     }
 
+    /**
+     * Second PLayer Constructor
+     * This takes in two card objects
+     * @param card1 The first card the player takes
+     * @param card2 The second card the player takes
+     */
     public Player(Card card1, Card card2){
         this.cards = new Card[2];
         cards[0] = card1;
         cards[1] = card2;
-    }
-
-    public String makeDecision(int currentCall, int haveCalled){
-        String decision = "something";
-
-        //TODO: add a action listener of the button and alt the value of <decision>
-        // "F" for fold, "C" for call, "R300" for raise to 300 or "K" for check
-
-        // In the program, "check" is considered as raising to $0
-
-        //TODO: if <currentCall> is not 0, then Check button is disabled
-
-        if (decision.equals("F")){
-            this.fold = true;
-        } else if(decision.charAt(0) == 'C'){
-            while(currentCall - haveCalled > this.balance){
-                //TODO: raise insuffcient balance message and alt the <decision> again
-            }
-            balance -= currentCall;
-        } else if (decision.charAt(0) == 'R'){
-            int raise = Integer.parseInt(decision.substring(1));
-            while (raise - haveCalled > this.balance){
-                //TODO: raise insufficient balance message and alt the <decision> again
-            }
-            while (raise < 2 * currentCall){
-                //TODO: raise not doubling current call message and alt the <decision> again
-            }
-        }
-        return decision;
     }
 
     public void addMoney(int amount){
@@ -113,5 +95,34 @@ public class Player implements PlayerInterface {
     public void setCards(Card card1, Card card2) {
         this.cards[0] = card1;
         this.cards[1] = card2;
+    }
+
+    public String makeDecision(int currentCall, int haveCalled){
+        String decision = "something";
+
+        //TODO: add a action listener of the button and alt the value of <decision>
+        // "F" for fold, "C" for call, "R300" for raise to 300 or "K" for check
+
+        // In the program, "check" is considered as raising to $0
+
+        //TODO: if <currentCall> is not 0, then Check button is disabled
+
+        if (decision.equals("F")){
+            this.fold = true;
+        } else if(decision.charAt(0) == 'C'){
+            while(currentCall - haveCalled > this.balance){
+                //TODO: raise insuffcient balance message and alt the <decision> again
+            }
+            balance -= currentCall;
+        } else if (decision.charAt(0) == 'R'){
+            int raise = Integer.parseInt(decision.substring(1));
+            while (raise - haveCalled > this.balance){
+                //TODO: raise insufficient balance message and alt the <decision> again
+            }
+            while (raise < 2 * currentCall){
+                //TODO: raise not doubling current call message and alt the <decision> again
+            }
+        }
+        return decision;
     }
 }
