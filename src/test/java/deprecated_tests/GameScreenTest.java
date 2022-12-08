@@ -1,3 +1,5 @@
+package deprecated_tests;
+
 import game_entities.*;
 import game_use_case.*;
 import screens.*;
@@ -5,6 +7,7 @@ import screens.*;
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class GameScreenTest {
 
     public static void main(String[] args){
