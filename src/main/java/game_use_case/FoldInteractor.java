@@ -2,6 +2,11 @@ package game_use_case;
 
 import game_entities.*;
 
+/**
+ * Represents the 'Fold' action in poker. Also represents the Use Case interactor in clean architecture.
+ * Implements the FoldInputBoundary interface and implements the create() method which initalizes a new game
+ * with the correct attributes for the following action.
+ */
 public class FoldInteractor implements FoldInputBoundary{
 
     private final FoldPresenter foldPresenter;
@@ -14,7 +19,8 @@ public class FoldInteractor implements FoldInputBoundary{
     }
 
     /**
-     * Creates a response model with the updated game values after the input has been processed
+     * Creates a response model with the updated game values after the input has been processed.
+     * Will create the game with the assumption that the user folded.
      * @param input the inputted request model
      * @return a response model with the updated Game values
      */

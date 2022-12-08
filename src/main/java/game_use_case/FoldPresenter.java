@@ -1,5 +1,8 @@
 package game_use_case;
 
+/**
+ * Represents the presenter in clean architecture. Formats the correct view or if it fails passes a fail.
+ */
 public interface FoldPresenter {
     /**
      * This method will return a response model given the current response model

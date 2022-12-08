@@ -352,6 +352,9 @@ public class GameScreen extends JPanel implements Screen {
             }
 
         });
+        buttons[4].addActionListener(e -> {
+
+        });
         for (JButton button: buttons){
             button.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
             buttonPanel.add(button);

@@ -2,7 +2,10 @@ package game_use_case;
 
 import screens.GameFail;
 
-
+/**
+ * Implements the FoldPresenter interface. Is how the game state is communicated between the GameScreen and the Game.
+ * Use case layer
+ */
 public class FoldResponseFormatter implements FoldPresenter{
     /**
      * Returns a new ResponseModel with the updated Game data

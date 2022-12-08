@@ -2,17 +2,27 @@ package game_use_case;
 
 import game_entities.*;
 
+/**
+ *
+ */
 public class CheckInteractor implements CheckInputBoundary {
 
     final CheckPresenter checkPresenter;
     final GameFactoryInterface gameFactory;
 
-
+    /**
+     * Class constructor
+     */
     public CheckInteractor(CheckPresenter outputBoundary, GameFactoryInterface gameFactory) {
         this.checkPresenter = outputBoundary;
         this.gameFactory = gameFactory;
     }
 
+    /**
+     *
+     * @param input the inputted request model
+     * @return
+     */
     @Override
     public ResponseModel create(RequestModel input) {
 
