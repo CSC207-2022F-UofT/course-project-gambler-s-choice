@@ -25,7 +25,7 @@ public class NewGameController {
         RequestModel requestModel = new RequestModel(0, 0, 0, playerBalance,
                 card1, card2, new String[]{"SA", "SA", "SA", "SA", "SA"},
                 new String[numberOfPlayers], new String[numberOfPlayers], new String[5], 0,
-                new boolean[numberOfPlayers], new int[numberOfPlayers], new String[]{"SA"}, 0);
+                new boolean[numberOfPlayers], new int[numberOfPlayers], new String[]{"SA"}, "0");
         return input.create(requestModel);
     }
 }

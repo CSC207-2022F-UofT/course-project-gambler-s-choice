@@ -23,19 +23,27 @@ public class BetInteractor implements BetInputBoundary {
                 input.getCard1(), input.getCard2(), input.getTableCard(),
                 input.getCurrentBet(), input.getIsActive(), input.getPlayerBets(),
                 input.getDeck());
-
+        int bet = 0;
+        try {
+            bet = Integer.parseInt(input.getBet());
+        } catch (Exception e) {
+            return betPresenter.prepareFailView("Please enter a valid bet amount");
+        }
         // Logic goes here
-        if (input.getBet() <= input.getCurrentBet() &&
-                input.getBet() < game.getPlayers()[input.getCurrentPlayer()].getBalance()) {
+        if (bet <= 0) {
+            return betPresenter.prepareFailView("Please enter a positive bet amount");
+        }
+        if (bet <= input.getCurrentBet() &&
+                bet < game.getPlayers()[input.getCurrentPlayer()].getBalance()) {
             // Implies player has not gone all in
             return betPresenter.prepareFailView("Cannot bet less than previous bet");
         }
-        if (input.getBet() > game.getPlayers()[input.getCurrentPlayer()].getBalance()) {
+        if (bet > game.getPlayers()[input.getCurrentPlayer()].getBalance()) {
             return betPresenter.prepareFailView("Cannot bet more than balance");
         }
         // If the previous checks pass, the player is allowed to bet
-        game.getPlayers()[input.getCurrentPlayer()].bet(input.getBet());
-        game.getPool().addMoney(game.getPlayers()[input.getCurrentPlayer()], input.getBet());
+        game.getPlayers()[input.getCurrentPlayer()].bet(bet);
+        game.getPool().addMoney(game.getPlayers()[input.getCurrentPlayer()], bet);
 
         // If player has gone all in, set them inactive
         if (0 == game.getPlayers()[input.getCurrentPlayer()].getBalance()) {
@@ -60,7 +68,7 @@ public class BetInteractor implements BetInputBoundary {
         int currentPlayer = game.getCurrentPlayer();
         int firstPlayer = game.getFirstPlayer();
         int lastToBet = game.lastToBet();
-        int currentBet = input.getBet();
+        int currentBet = bet;
         for (int i = 0; i < length; i++) {
             card1[i] = game.getPlayers()[i].getCards()[0].toString();
             card2[i] = game.getPlayers()[i].getCards()[1].toString();

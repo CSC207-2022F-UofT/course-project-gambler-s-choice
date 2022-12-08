@@ -293,7 +293,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = cController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, 0);
+                        deck, "0");
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
@@ -317,7 +317,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = bController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, Integer.parseInt(betAmount.getText()));
+                        deck, betAmount.getText());
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
@@ -341,7 +341,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = aController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, 0);
+                        deck, "0");
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
@@ -365,7 +365,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = fController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, 0);
+                        deck, "0");
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
