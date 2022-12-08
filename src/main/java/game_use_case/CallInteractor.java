@@ -52,7 +52,23 @@ public class CallInteractor implements CallInputBoundary{
                 allInactive = false;
             }
         }
-        // If everyone is inactive, force everyone back to active
+        // If everyone is inactive, force everyone who has not folded back to active
+        if (allInactive) {
+            for (int i = 0; i < game.getActive().length; i++) {
+                if (game.getPlayers()[i].getBalance() == 0) {
+                    game.getActive()[i] = true;
+                }
+            }
+        }
+
+        // Check if everyone is inactive again
+        allInactive = true;
+        for (boolean playerActive : game.getActive()) {
+            if (playerActive) {
+                allInactive = false;
+            }
+        }
+        // If everyone is inactive, this implies everyone folded; force everyone back to active
         if (allInactive) {
             Arrays.fill(game.getActive(), true);
         }
