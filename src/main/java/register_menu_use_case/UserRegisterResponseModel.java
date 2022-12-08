@@ -20,15 +20,8 @@ public class UserRegisterResponseModel {
      * Reports this UserRegisterResponseModel's username
      * @return this UserRegisterResponseModel's username
      */
-    String getUser() {
+    public String getUser() {
         return user;
-    }
-
-    /**
-     * Sets this UserRegisterResponseModel's username
-     */
-    public void setUser(String user) {
-        this.user = user;
     }
 
     /**
@@ -37,13 +30,6 @@ public class UserRegisterResponseModel {
      */
     String getPassword() {
         return password;
-    }
-
-    /**
-     * Sets this UserRegisterResponseModel's password
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     /**

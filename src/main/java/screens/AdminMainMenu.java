@@ -3,17 +3,29 @@ package screens;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
-import menu_use_case.UserEditBalanceModel;
 
-public class AdminMainMenu implements Menu{
+import admin_menu_use_case.*;
+import menu_use_case.MenuResponseModel;
+
+public class AdminMainMenu extends JPanel implements Menu{
     /**
      * Creates a main menu with an extra option to edit user balances
      * @param frame the frame to be modified
      */
-    public AdminMainMenu(JFrame frame){
 
-        MenuController m = new MenuController();
+    private final JFrame frame;
+
+    private boolean loggedIn = true;
+    private boolean inGame = false;
+    private String user;
+
+    public AdminMainMenu(JFrame frame, AdminEditBalanceController controller, String user){
+    this.user = user;
+    this.frame = frame;
 
         JLabel background = new JLabel();
         background.setSize(1000,800);
@@ -28,43 +40,54 @@ public class AdminMainMenu implements Menu{
         JButton helpButton = new JButton("Help");
 
         JButton logoutButton = new JButton("Log Out");
-        JButton exitButton = new JButton("Exit game_entities.Game");
+        JButton exitButton = new JButton("Exit Game");
         JButton gameButton = new JButton("Play");
-        JButton editButton = new JButton("Edit login_menu_entities.User");
+        JButton editButton = new JButton("Edit User");
         JLabel userLabel = new JLabel("Username");
         JLabel balanceLabel = new JLabel("Balance");
         JTextField username = new JTextField("");
         JTextField balance = new JTextField("");
 
-
-        helpButton.addActionListener(e -> {
-            helpWindow.setVisible(!helpWindow.isVisible());
-            username.setVisible(!username.isVisible());
-            userLabel.setVisible(!userLabel.isVisible());
-            balance.setVisible(!balance.isVisible());
-            balanceLabel.setVisible(!balanceLabel.isVisible());
-
-        });
-        logoutButton.addActionListener(m);
-
-        //Also this just exits the system, don't think I would ever change this, so I think this should be fine to leave here.
-        exitButton.addActionListener(e -> {
-            System.exit(0);
-        });
-
-
-        gameButton.addActionListener(m);
-
-
-
-        editButton.addActionListener(e -> {
-            String userEntry = username.getText();
-            String balanceEntry = balance.getText();
-            username.setText("");
-            balance.setText("");
-            //FIXME this just extracts the text fields
-            JOptionPane.showMessageDialog(null,"Username: "+ userEntry + " New Balance: "+ balanceEntry);
-        });
+        JButton[] buttons= {logoutButton,exitButton,gameButton,editButton, helpButton};
+        String userfile = "src/main/users.txt";
+        for (JButton button: buttons) {
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed (ActionEvent evt){
+                    if (evt.getActionCommand().equals("Edit User")){
+                        String userEntry = username.getText();
+                        String balanceEntry = balance.getText();
+                        username.setText("");
+                        balance.setText("");
+                        try {
+                            AdminEditResponseModel response = controller.create(userEntry, balanceEntry, "Edit User", helpWindow.isVisible());
+                            loggedIn = response.isLoggedIn();
+                        } catch (Exception a) {
+                            JOptionPane.showMessageDialog(frame, a.getMessage());
+                        }
+                    } else if (evt.getActionCommand().equals("Log Out")) {
+                        AdminEditResponseModel response = controller.create(user, null, "Log Out", helpWindow.isVisible());
+                        loggedIn = response.isLoggedIn();
+                    } else if (evt.getActionCommand().equals("Exit Game")) {
+                        System.exit(0);
+                    } else if (evt.getActionCommand().equals("Help")) {
+                        AdminEditResponseModel response = controller.create(user, null, "Help", helpWindow.isVisible());
+                        helpWindow.setVisible(response.isRulesVisible());
+                        username.setVisible(!response.isRulesVisible());
+                        userLabel.setVisible(!response.isRulesVisible());
+                        balance.setVisible(!response.isRulesVisible());
+                        balanceLabel.setVisible(!response.isRulesVisible());
+                    } else if (evt.getActionCommand().equals("Play")) {
+                        try {
+                            AdminEditResponseModel response = controller.create(user, null, "Play", helpWindow.isVisible());
+                            inGame = response.isInGame();
+                        } catch (Exception e){
+                            JOptionPane.showMessageDialog(frame, e.getMessage());
+                        }
+                    }
+                }
+            });
+        }
 
         ArrayList <Rectangle> coords = calcCoord(10,10, 5, 100, 60, 10);
 
@@ -103,15 +126,12 @@ public class AdminMainMenu implements Menu{
         background.add(balanceLabel);
 
 
-        frame.add(background);
-
-        frame.setSize(1000,800);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-
-
-
+        this.add(background);
 
     }
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+    public boolean isInGame(){ return inGame;}
+
 }
