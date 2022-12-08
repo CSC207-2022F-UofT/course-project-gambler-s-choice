@@ -92,7 +92,7 @@ public class AdminFileChecker implements AdminEditGateway {
 
         for (String[] account: accounts){
             if (account[0].equals(user)){
-                Integer.parseInt(account[3]);
+                return Integer.parseInt(account[3]);
             }
         }
         return 0;
@@ -120,7 +120,6 @@ public class AdminFileChecker implements AdminEditGateway {
                     BufferedWriter writer;
                     writer = new BufferedWriter(new FileWriter(usersFile, false));
                     for (String[] acc : accounts) {
-
                         writer.write(String.join(", ", acc));
 
                         writer.newLine();

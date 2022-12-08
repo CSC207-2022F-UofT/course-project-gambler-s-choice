@@ -3,6 +3,8 @@ package game_use_case;
 import game_entities.GameFactoryInterface;
 import game_entities.GameInterface;
 
+import java.util.Arrays;
+
 public class CallInteractor implements CallInputBoundary{
     final CallPresenter callPresenter;
     final GameFactoryInterface gameFactory;
@@ -42,6 +44,17 @@ public class CallInteractor implements CallInputBoundary{
         } else {
             game.getPlayers()[input.getCurrentPlayer()].bet(amountToBet);
             game.getPool().addMoney(game.getPlayers()[input.getCurrentPlayer()], amountToBet);
+        }
+        // Check if everyone is inactive
+        boolean allInactive = true;
+        for (boolean playerActive : game.getActive()) {
+            if (playerActive) {
+                allInactive = false;
+            }
+        }
+        // If everyone is inactive, force everyone back to active
+        if (allInactive) {
+            Arrays.fill(game.getActive(), true);
         }
 
         // Common method used to move onto next player
@@ -89,7 +102,7 @@ public class CallInteractor implements CallInputBoundary{
 
         ResponseModel response = new ResponseModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets, deck,
-                true);
+                true, input.getUser());
         return callPresenter.prepareSuccessView(response);
     }
 }
