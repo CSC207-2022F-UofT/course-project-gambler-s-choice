@@ -2,9 +2,12 @@ package game_use_case;
 
 import game_entities.*;
 
+import java.util.Arrays;
+
 /**
  * This class represents the case where the user folds in the game. This will create a new game state.
  */
+
 public class FoldInteractor implements FoldInputBoundary{
 
     private final FoldPresenter foldPresenter;
@@ -34,12 +37,40 @@ public class FoldInteractor implements FoldInputBoundary{
 
         int foldedPlayer = input.getCurrentPlayer();
         // Don't let the player fold if they go first
-        if (game.getCurrentPlayer() == game.lastToBet()) {
+        if (game.getCurrentWager() == 0) {
             return foldPresenter.prepareFailView("Don't fold. You should check instead");
         }
 
         // Set player to inactive
         game.getActive()[input.getCurrentPlayer()] = false;
+
+        // Check if everyone is inactive
+        boolean allInactive = true;
+        for (boolean playerActive : game.getActive()) {
+            if (playerActive) {
+                allInactive = false;
+            }
+        }
+        // If everyone is inactive, force everyone who has not folded back to active
+        if (allInactive) {
+            for (int i = 0; i < game.getActive().length; i++) {
+                if (game.getPlayers()[i].getBalance() == 0) {
+                    game.getActive()[i] = true;
+                }
+            }
+        }
+
+        // Check if everyone is inactive again
+        allInactive = true;
+        for (boolean playerActive : game.getActive()) {
+            if (playerActive) {
+                allInactive = false;
+            }
+        }
+        // If everyone is inactive, this implies everyone folded; force everyone back to active
+        if (allInactive) {
+            Arrays.fill(game.getActive(), true);
+        }
 
         game.nextPlayer();
         if (game.getCurrentPlayer() == input.getLastToBet()) {
@@ -82,7 +113,7 @@ public class FoldInteractor implements FoldInputBoundary{
 
         ResponseModel response = new ResponseModel(currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets, deck,
-                true);
+                true, input.getUser());
         return foldPresenter.prepareSuccessView(response);
     }
 }

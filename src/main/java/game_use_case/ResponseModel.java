@@ -21,6 +21,7 @@ public class ResponseModel {
     int[] playerBets;
     String[] deck;
     boolean isInteract;
+    String user;
 
     /**
      * Response Constructor
@@ -28,7 +29,7 @@ public class ResponseModel {
     public ResponseModel(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
                          String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                          String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets,
-                         String[] deck, boolean isInteract) {
+                         String[] deck, boolean isInteract, String user) {
         this.currentPlayer = currentPlayer;
         this.firstPlayer = firstPlayer;
         this.lastToBet = lastToBet;
@@ -44,6 +45,7 @@ public class ResponseModel {
         this.playerBets = playerBets;
         this.deck = deck;
         this.isInteract = isInteract;
+        this.user = user;
     }
     public int getCurrentPlayer() {
         return currentPlayer;
@@ -159,5 +161,13 @@ public class ResponseModel {
 
     public boolean isInteract() {
         return isInteract;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

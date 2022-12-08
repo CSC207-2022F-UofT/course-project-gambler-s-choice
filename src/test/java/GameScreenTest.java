@@ -76,7 +76,7 @@ public class GameScreenTest {
                 currentPlayer, firstPlayer, lastToBet, playerBalance,
                 card1, card2, tableCard, card1PNG, card2PNG,
                 tableCardPNG, currentBet, isActive, playerBets, deck,
-                checkController, betController, callController, foldController, leaveController), "Game");
+                checkController, betController, callController, foldController, leaveController, "AAA"), "Game");
 
         aaaa.pack();
         aaaa.setSize(1000,800);

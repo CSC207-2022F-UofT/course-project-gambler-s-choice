@@ -22,7 +22,7 @@ public class AdminEditInteractor implements AdminEditBalanceInputBoundary{
     @Override
     public AdminEditResponseModel create(AdminEditBalanceModel editBalanceModel) {
         if (editBalanceModel.getInput().equals("Play")){
-            if (adminEditGateway.sufficientBalance(editBalanceModel.getUser())){
+            if (!adminEditGateway.sufficientBalance(editBalanceModel.getUser())){
                 return adminEditPresenter.prepareFailView("Insufficient Funds on Account");
             }
             else {

@@ -1,6 +1,9 @@
+package deprecated;
+
 import javax.swing.*;
 import java.awt.*;
 
+@Deprecated
 public class TextPanel extends JPanel{
 
     private JTextArea textArea;
