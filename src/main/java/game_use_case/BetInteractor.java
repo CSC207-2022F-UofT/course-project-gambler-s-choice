@@ -3,16 +3,29 @@ package game_use_case;
 import game_entities.GameFactoryInterface;
 import game_entities.GameInterface;
 
+/**
+ * This class is a use case that represents when the player chooses to call.
+ * This will create a new game state.
+ */
 public class BetInteractor implements BetInputBoundary {
     final BetPresenter betPresenter;
     final GameFactoryInterface gameFactory;
 
-
+    /**
+     * Bet Constructor
+     * creates an object with the inputted callPresenter and gameFactory
+     */
     public BetInteractor(BetPresenter outputBoundary, GameFactoryInterface gameFactory) {
         this.betPresenter = outputBoundary;
         this.gameFactory = gameFactory;
     }
 
+    /**
+     * This method will take a request model and apply the "bet" transformation
+     * This will output a response model with some changed values following the bet transformation
+     * @param input the inputted request model
+     * @return a response model with changed values
+     */
     @Override
     public ResponseModel create(RequestModel input) {
 

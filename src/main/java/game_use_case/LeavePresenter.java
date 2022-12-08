@@ -1,7 +1,8 @@
 package game_use_case;
 
 /**
- *
+ * This represents the presenter in clean architecture. This contains the signatures of the methods
+ * that will be used to return the view object.
  */
 public interface LeavePresenter {
     /**

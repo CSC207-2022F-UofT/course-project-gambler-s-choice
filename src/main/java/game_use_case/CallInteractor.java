@@ -3,16 +3,29 @@ package game_use_case;
 import game_entities.GameFactoryInterface;
 import game_entities.GameInterface;
 
+/**
+ * This class is a use case that represents when the player chooses to call.
+ * This will create a new game state.
+ */
 public class CallInteractor implements CallInputBoundary{
-    final CallPresenter callPresenter;
-    final GameFactoryInterface gameFactory;
+    private final CallPresenter callPresenter;
+    private final GameFactoryInterface gameFactory;
 
-
+    /**
+     * Call Constructor
+     * creates an object with the inputted callPresenter and gameFactory
+     */
     public CallInteractor(CallPresenter outputBoundary, GameFactoryInterface gameFactory) {
         this.callPresenter = outputBoundary;
         this.gameFactory = gameFactory;
     }
 
+    /**
+     * This method will take in a request model and apply a call transformation to its values.
+     * It will then output a response model with the changed values
+     * @param input the inputted request model
+     * @return the response model with new values
+     */
     @Override
     public ResponseModel create(RequestModel input) {
 
