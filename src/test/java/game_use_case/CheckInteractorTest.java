@@ -94,4 +94,36 @@ public class CheckInteractorTest {
         );
         interactor.create(input);
     }
+
+
+    /**
+     * Test case for invalid checking
+     */
+    @Test
+    void checkNotAllowed() {
+        CheckPresenter presenter = new CheckPresenter() {
+            @Override
+            public ResponseModel prepareSuccessView(ResponseModel outputData) {
+                fail("Use case success is unexpected");
+                return null;
+            }
+
+            @Override
+            public ResponseModel prepareFailView(String error) {
+                assertEquals("Cannot check when current wager is not 0", error);
+                return null;
+            }
+        };
+
+        GameFactoryInterface gameFactory = new GameFactory();
+        CheckInputBoundary interactor = new CheckInteractor(presenter, gameFactory);
+
+        RequestModel input = new RequestModel(
+                1, 0, 0, new int[]{75, 100},
+                new String[]{"SA", "HA"}, new String[]{"SK", "HK"}, new String[]{"DA", "DK", "DQ", null, null},
+                new String[2], new String[2], new String[5], 25, new boolean[]{true, true},
+                new int[]{25, 0}, new String[]{"CA", "CK", "CQ", "CJ", "C10"}, "0", ""
+        );
+        interactor.create(input);
+    }
 }
