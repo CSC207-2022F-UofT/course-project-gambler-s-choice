@@ -20,7 +20,7 @@ public class NewGameController {
         for (int i = 0; i < numberOfPlayers; i++) {
             card1[i] = "SA";
             card2[i] = "SA";
-            playerBalance[i] = 0;
+            playerBalance[i] = 100;
         }
         RequestModel requestModel = new RequestModel(0, 0, 0, playerBalance,
                 card1, card2, new String[]{"SA", "SA", "SA", "SA", "SA"},
