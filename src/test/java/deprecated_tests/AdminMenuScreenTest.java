@@ -1,8 +1,10 @@
+package deprecated_tests;
+
 import screens.AdminMainMenu;
 
 import javax.swing.*;
 
-
+@Deprecated
 public class AdminMenuScreenTest {
     public static void main(String[] args){
 
