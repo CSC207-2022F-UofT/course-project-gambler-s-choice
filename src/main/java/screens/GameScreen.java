@@ -148,6 +148,40 @@ public class GameScreen extends JPanel implements Screen {
 
     }
 
+    public GameScreen(JFrame frame,CheckController cController, BetController bController,
+                      CallController aController, FoldController fController, NewGameController nController) {
+
+        this.frame = frame;
+        this.cController = cController;
+        this.bController = bController;
+        this.aController = aController;
+        this.fController = fController;
+
+        int NUMBER_OF_PLAYERS = 4;
+
+        ResponseModel response = nController.create(NUMBER_OF_PLAYERS);
+
+        this.currentPlayer = response.getCurrentPlayer();
+        this.firstPlayer = response.getFirstPlayer();
+        this.lastToBet = response.getLastToBet();
+        this.playerBalance = response.getPlayerBalance();
+        this.card1 = response.getCard1();
+        this.card2 = response.getCard2();
+        this.tableCard = response.getTableCard();
+        this.card1PNG = response.getCard1PNG();
+        this.card2PNG = response.getCard2PNG();
+        this.tableCardPNG = response.getTableCardPNG();
+        this.currentBet = response.getCurrentBet();
+        this.isActive = response.getIsActive();
+        this.playerBets = response.getPlayerBets();
+        this.deck = response.getDeck();
+
+        this.setLayout(new BorderLayout());
+
+        this.add(loadBackground());
+        this.add(this.loadButtons(), BorderLayout.SOUTH);
+    }
+
     /**
      * Creates all the cards that are visible to the player and puts them into an array
      *
