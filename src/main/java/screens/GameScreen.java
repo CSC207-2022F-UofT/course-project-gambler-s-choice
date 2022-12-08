@@ -4,6 +4,7 @@ import game_use_case.ResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class GameScreen extends JPanel implements Screen {
 
@@ -272,8 +273,8 @@ public class GameScreen extends JPanel implements Screen {
                 this.currentBet = response.getCurrentBet();
                 this.isActive = response.getIsActive();
                 this.playerBets = response.getPlayerBets();
-                this.isInteract = response.isInteract();
                 this.deck = response.getDeck();
+                this.isInteract = response.isInteract();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
@@ -296,8 +297,8 @@ public class GameScreen extends JPanel implements Screen {
                 this.currentBet = response.getCurrentBet();
                 this.isActive = response.getIsActive();
                 this.playerBets = response.getPlayerBets();
-                this.isInteract = response.isInteract();
                 this.deck = response.getDeck();
+                this.isInteract = response.isInteract();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
@@ -320,8 +321,8 @@ public class GameScreen extends JPanel implements Screen {
                 this.currentBet = response.getCurrentBet();
                 this.isActive = response.getIsActive();
                 this.playerBets = response.getPlayerBets();
-                this.isInteract = response.isInteract();
                 this.deck = response.getDeck();
+                this.isInteract = response.isInteract();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
@@ -344,8 +345,8 @@ public class GameScreen extends JPanel implements Screen {
                 this.currentBet = response.getCurrentBet();
                 this.isActive = response.getIsActive();
                 this.playerBets = response.getPlayerBets();
-                this.isInteract = response.isInteract();
                 this.deck = response.getDeck();
+                this.isInteract = response.isInteract();
             } catch (Exception ee) {
                 JOptionPane.showMessageDialog(frame, ee.getMessage());
             }
