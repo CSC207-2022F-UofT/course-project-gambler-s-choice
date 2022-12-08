@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 
-import static org.junit.Assert.assertTrue;
-
-class combinationCheckerTest {
+class CombinationCheckerTest {
     Card da = new Card("DA");
     Card ha = new Card("HA");
     Card sa = new Card("SA");
@@ -27,32 +25,32 @@ class combinationCheckerTest {
 
     @Test
     void get_compare_ID() {
-        Assertions.assertEquals(5, combination_checker.get_compare_ID(Flush));
-        Assertions.assertEquals(9, combination_checker.get_compare_ID(RoyalFlush));
+        Assertions.assertEquals(5, combinationChecker.getCompareID(Flush));
+        Assertions.assertEquals(9, combinationChecker.getCompareID(RoyalFlush));
     }
 
     @Test
     void is_one_pairs() {
         Arrays.sort(Straight);
-        Assertions.assertTrue(combination_checker.is_one_pairs(APair));
+        Assertions.assertTrue(combinationChecker.is_one_pairs(APair));
     }
 
 
     @Test
     void is_three_of_one_kind() {
         Arrays.sort(ThreeOfAKind);
-        assertTrue(combination_checker.is_three_of_one_kind(ThreeOfAKind));
+        Assertions.assertTrue(combinationChecker.is_three_of_one_kind(ThreeOfAKind));
     }
 
     @Test
     void is_four_of_one_kind() {
-        assertTrue(combination_checker.is_four_of_one_kind(FourOfAKind));
+        Assertions.assertTrue(combinationChecker.is_four_of_one_kind(FourOfAKind));
     }
 
 
     @Test
     void isStraight2() {
         Arrays.sort(Straight);
-        assertTrue(combination_checker.isStraight2(Straight));
+        Assertions.assertTrue(combinationChecker.isStraight2(Straight));
     }
 }

@@ -1,27 +1,28 @@
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class Hint_for_chance{
+public class hintForChance implements HintInterface {
     private final Double win_rate;
 
 
-    /**Construct a hint that takes in two cards, that is player's private hands. the win rate
+    /**
+     * Construct a hint that takes in two cards, that is player's private hands. the win rate
      * is come from a hash-table that stores each initial card's win rate, calculated by millions of
      * simulations.
      *
      * @param player_hands two private cards of the player.
      */
-    public Hint_for_chance(Card[] player_hands){
+    public hintForChance(Card[] player_hands) {
         assert player_hands.length == 2;
         this.win_rate = initial_win_rate(convertor(player_hands));
     }
-
-    public Double get_win_rate(){
-        return this.win_rate;
+    @Override
+    public String GetHint() {
+        return "Your initial win rate for the starting hand is " + this.win_rate + "%";
     }
 
     private Double initial_win_rate(String converted_hands) {
-        Hashtable<String, Double> win_rate_table = new Hashtable<String, Double>();
+        Hashtable<String, Double> win_rate_table = new Hashtable<>();
         String[] starting_hand = {"NAA", "NKK", "NQQ", "NJJ", "NXX", "N99", "N88", "N77", "N66", "N55", "N44", "N33",
                 "N22", "SKA", "SQA", "SQK", "SJA", "SJK", "SJQ", "SXA", "SXK", "SXQ", "SXJ", "S9A", "S9K", "S9Q", "S9J",
                 "S9X", "S8A", "S8K", "S8Q", "S8J", "S8X", "S89", "S7A", "S7K", "S7Q", "S7J", "S7X", "S79", "S78", "S6A",
@@ -34,7 +35,7 @@ public class Hint_for_chance{
                 "N59", "N58", "N57", "N56", "N4A", "N4K", "N4Q", "N4J", "N4X", "N49", "N48", "N47", "N46", "N45", "N3A",
                 "N3K", "N3Q", "N3J", "N3X", "N39", "N38", "N37", "N36", "N35", "N34", "N2A", "N2K", "N2Q", "N2J", "N2X",
                 "N29", "N28", "N27", "N26", "N25", "N24", "N23"};
-        Double[] starting_win_rate ={31.0, 26.0, 22.0, 19.1, 16.8, 15.3, 14.2, 13.4, 12.8, 12.2, 11.9, 11.9,
+        Double[] starting_win_rate = {31.0, 26.0, 22.0, 19.1, 16.8, 15.3, 14.2, 13.4, 12.8, 12.2, 11.9, 11.9,
                 11.9, 20.2, 18.7, 18.1, 17.5, 17.1, 16.6, 16.6, 16.1, 15.8, 15.8, 14.6, 14.2, 13.8, 13.8,
                 14.1, 13.9, 12.8, 12.4, 12.5, 12.7, 12.6, 13.4, 12.2, 11.2, 11.1, 11.5, 11.7, 12.0, 13.0,
                 11.8, 10.9, 10.1, 10.3, 10.7, 11.2, 11.5, 13.4, 11.6, 10.6, 9.9, 9.2, 9.6, 10.1, 10.7,
@@ -48,26 +49,27 @@ public class Hint_for_chance{
                 4.5, 4.2, 4.0, 4.7, 5.6, 5.4, 5.0};
 
         for (int index = 0; index < starting_hand.length; index++) {
-            win_rate_table.put(starting_hand[index],starting_win_rate[index]);
+            win_rate_table.put(starting_hand[index], starting_win_rate[index]);
         }
         return win_rate_table.get(converted_hands);
     }
 
-    /**Convert two cards to a string form that is easier to be read by the hashmap.
+    /**
+     * Convert two cards to a string form that is easier to be read by the hashmap.
      *
      * @param two_cards - player_hands two private cards of the player.
      * @return S means suited, N means non-suited, for example, {"HA","HK"} will return "SKA".
      */
-    private String convertor(Card[] two_cards){
+    private String convertor(Card[] two_cards) {
         Arrays.sort(two_cards);
         boolean suited = two_cards[0].sameSuit(two_cards[1]);
         String ranks = two_cards[0].getRank() + two_cards[1].getRank();
-        if (suited){
+        if (suited) {
             return "S" + ranks;
+        } else {
+            return "N" + ranks;
         }
-        else{
-            return "N" + ranks;}
-        }
+    }
 
 
 }

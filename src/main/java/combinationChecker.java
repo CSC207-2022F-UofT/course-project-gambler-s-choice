@@ -1,25 +1,29 @@
 import java.util.Arrays;
 
-public class combination_checker{
-    public final int compare_ID;
+public class combinationChecker {
+    public final int compareID;
 
-    public combination_checker(Card[] cards){
+    /**
+     * For a set of 5 cards, identify the best combination it could form and initial an ID to represent it.
+     * The ID for Royal flush = 9, Straight flush = 8,  four of a kind = 7, full house = 6,
+     * flush = 5, Straight = 4, three of a kind = 3, two pair = 2, pair = 1, High card = 0.
+     * @param cards The set of cards that we would to check.
+     */
+    public combinationChecker(Card[] cards){
         if (cards.length != 5){
             throw new IllegalArgumentException("Checking combination takes exactly 5 cards, please check how many" +
                     "Cards been put in");
         }
-        this.compare_ID = get_compare_ID(cards);
+        this.compareID = getCompareID(cards);
     }
 
     /**
-     * Identity and return the cards best combination.
+     * Identity and return the card's best combination.
      * @param cards A set of 5 cards.
      * @return an ID that represent the type of combination of the set.
      */
-    public static int get_compare_ID(Card[] cards){
+    public static int getCompareID(Card[] cards){
         Arrays.sort(cards);
-        // Royal flush = 9, Straight flush = 8,  four of a kind = 7, full house = 6,
-        // flush = 5, Straight = 4, three of a kind = 3, two pair = 2, pair = 1, High card = 0
         if(isStraight2(cards) && isFlush(cards) && (cards[0].getRankAsInt() == 10)) {
             return 9;
         } else if (isFlush(cards) && isStraight2(cards)) {

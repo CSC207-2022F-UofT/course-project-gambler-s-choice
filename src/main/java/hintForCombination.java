@@ -3,19 +3,46 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
-public class Hint_for_comb2{
+public class hintForCombination implements HintInterface{
     private int[] CombinationCounts;
+    private int BestCombinationID;
 
-
-    public int[] GetCombinationCounts(){
-        return this.CombinationCounts;
-    }
-    public Hint_for_comb2(Card[] cards){
+    /**
+     * Construct the hint system, and generate the possible outcomes and store it in the private arguments.
+     * @param cards Player's hand and the public cards been draw.
+     */
+    public hintForCombination(Card[] cards){
         if (cards.length == 5){
             CombinationCounts = Hint_at_flop(cards);
         } else if (cards.length == 6) {
             CombinationCounts = Hint_at_Turn(cards);
+        } else if (cards.length == 7) {
+            BestCombinationID = find_best_comb(cards);
+        }
+    }
+
+    /**
+     * Show the Chance of the set of card form each of the combinations.
+     * If the set is seven card, just show the best combination it forms.
+     * @return the string that tells the best combination or chance for each combination.
+     */
+    @Override
+    public String GetHint() {
+        String[] CombinationByRank = {"High Card\n", "Pair\n", "Two Pair\n", "Three of a kind\n", "Straight\n",
+                "Flush\n", "Full House\n", "Four of a kind\n", "Straight Flush\n", "Royal Flush"};
+        if (this.CombinationCounts == null) {
+            return "The best combination is " + CombinationByRank[this.BestCombinationID];
+        } else {
+            double TotalOutcomes = Arrays.stream(CombinationCounts).sum();
+            StringBuilder ResultHint = new StringBuilder("The chance for each combinations are: ");
+            int[] CombCounts = this.CombinationCounts;
+            for (int i = 0; i < 10; i++) {
+                if (CombCounts[i] != 0) {
+                    double possibility = CombCounts[i] * 100 / TotalOutcomes;
+                    ResultHint.append(possibility).append("% ").append(CombinationByRank[i]);
+                }
+            }
+            return ResultHint.toString();
         }
     }
     /**
@@ -23,7 +50,7 @@ public class Hint_for_comb2{
      * which when there are 3 public cards reveled.
      *
      * @param existing_card A set of 5 Cards, which includes 2 cards from the player and 3 of the common cards.
-     * @return Return a list of int that represent how many outcomes for each combinations - out of all the possible
+     * @return Return a list of int that represent how many outcomes for each combination - out of all the possible
      * outcomes.   For example: [10][9][8][7][6][5][4][3][2][1], means it has 10 outcome is high card, 9 outcomes
      * are pair,..., 1 outcome of royal flush.
      */
@@ -50,7 +77,7 @@ public class Hint_for_comb2{
      * which when there are 4 public cards reveled.
      *
      * @param existing_cards A set of 6 Cards, which includes 2 cards from the player and 4 of the common cards.
-     * @return Return a list of int that represent how many outcomes for each combinations
+     * @return Return a list of int that represent how many outcomes for each combination
      */
     public int[] Hint_at_Turn(Card[] existing_cards) {
         assert existing_cards.length == 6;
@@ -70,7 +97,7 @@ public class Hint_for_comb2{
     /**
      * Get a deck of the remaining cards.
      * @param existing_cards cards that is already on the table.
-     * @return A array of Cards that could possibly be the next draw.
+     * @return An array of Cards that could possibly be the next draw.
      */
     public List<Card> get_remaining_deck(Card[] existing_cards) {
         Deck deck = new Deck();
@@ -101,7 +128,7 @@ public class Hint_for_comb2{
 
     /**
      * Find the best combinations of the current all cards, which is 2 private card and 5 public cards.
-     *
+     * methods are public for test purpose.
      * @param all_cards card[] of 7 cards.
      * @return card[] of 5 cards that forms the best combination.
      */
@@ -117,7 +144,7 @@ public class Hint_for_comb2{
                         possible_comb[added_cards++]=all_cards[k];
                     }
                 }
-                bestCombCount = Math.max(bestCombCount, combination_checker.get_compare_ID(possible_comb));
+                bestCombCount = Math.max(bestCombCount, combinationChecker.getCompareID(possible_comb));
             }
         }
         return bestCombCount;
