@@ -1,28 +1,24 @@
 package screens;
-//THIS IS THE UI LAYER
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import admin_menu_use_case.*;
-import menu_use_case.MenuResponseModel;
 
 public class AdminMainMenu extends JPanel implements Menu{
-    /**
-     * Creates a main menu with an extra option to edit user balances
-     * @param frame the frame to be modified
-     */
 
     private final JFrame frame;
-
     private boolean loggedIn = true;
     private boolean inGame = false;
     private String user;
 
+    /**
+     * Creates a main menu with an extra option to edit user balances
+     * @param frame the frame to be modified
+     */
     public AdminMainMenu(JFrame frame, AdminEditBalanceController controller, String user){
     this.user = user;
     this.frame = frame;
@@ -40,7 +36,7 @@ public class AdminMainMenu extends JPanel implements Menu{
         JButton helpButton = new JButton("Help");
 
         JButton logoutButton = new JButton("Log Out");
-        JButton exitButton = new JButton("Exit game_entities.Game");
+        JButton exitButton = new JButton("Exit Game");
         JButton gameButton = new JButton("Play");
         JButton editButton = new JButton("Edit User");
         JLabel userLabel = new JLabel("Username");
@@ -49,7 +45,6 @@ public class AdminMainMenu extends JPanel implements Menu{
         JTextField balance = new JTextField("");
 
         JButton[] buttons= {logoutButton,exitButton,gameButton,editButton, helpButton};
-        String userfile = "src/main/users.txt";
         for (JButton button: buttons) {
             button.addActionListener(new ActionListener() {
                 @Override
