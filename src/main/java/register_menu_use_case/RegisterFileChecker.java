@@ -12,6 +12,10 @@ public class RegisterFileChecker implements UserRegisterDSGateway{
     private final File usersFile;
     private final ArrayList<String[]> accounts = new ArrayList<String[]>();
 
+    /**
+     * Adds the account information into this RegisterFileChecker's accounts.
+     * @param txtPath the name of the users information file
+     */
     public RegisterFileChecker(String txtPath) throws IOException {
         usersFile = new File(txtPath);
 
@@ -26,7 +30,11 @@ public class RegisterFileChecker implements UserRegisterDSGateway{
         }
     }
 
-
+    /**
+     * Checks if the given username exists in the database.
+     * @param name the given username
+     * @return true iff the given username exists in the database.
+     */
     @Override
     public boolean existsByName(String name) {
         for (String[] account: accounts){
@@ -37,11 +45,21 @@ public class RegisterFileChecker implements UserRegisterDSGateway{
         return true;
     }
 
+    /**
+     * Checks if the first given password matches with the second given password
+     * @param pass1 the first given password
+     * @param pass2 the second given password
+     * @return true iff the first given password matches with the second given password
+     */
     @Override
     public boolean matchingPass(String pass1, String pass2) {
         return pass1.equals(pass2);
     }
 
+    /**
+     * Adds the given username, password from the request model and the default type and initial balance into this RegisterFileChecker's accounts
+     * @param requestModel a UserRegisterRequestModel
+     */
     @Override
     public void save(UserRegisterRequestModel requestModel) {
         accounts.add(new String[] {requestModel.getUser(), requestModel.getPassword(), "user", "100"});
