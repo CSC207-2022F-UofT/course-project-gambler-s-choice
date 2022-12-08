@@ -1,5 +1,8 @@
+package deprecated;
+
 import javax.swing.*;
 
+@Deprecated
 public class Menu {
 
     public void runLogin(){

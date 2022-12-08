@@ -8,9 +8,9 @@ public class User implements UserInterface{
 
     /**
      * Creates a login_menu_entities.User. The initial balance is 100.
-     * @param name name of the login_menu_entities.User
-     * @param password password of the login_menu_entities.User
-     * @param type type of this login_menu_entities.User (Admin or login_menu_entities.User)
+     * @param name name of the User
+     * @param password password of the User
+     * @param type type of this login_menu_entities.User (Admin or User)
      */
     public User(String name, String password, String type, int balance) {
         this.name = name;

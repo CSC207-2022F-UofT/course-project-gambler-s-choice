@@ -17,7 +17,7 @@ public class LeaveInteractor implements LeaveInputBoundary{
         AdminEditGateway editGateway1;
         this.leavePresenter = leavePresenter;
         try {
-            editGateway1 = new AdminFileChecker("users.txt");
+            editGateway1 = new AdminFileChecker("src/main/users.txt");
         }
         catch (IOException e) {
             editGateway1 = null;
@@ -29,8 +29,13 @@ public class LeaveInteractor implements LeaveInputBoundary{
     @Override
     public boolean create(RequestModel input) {
 
-        String name = "player" + input.getCurrentPlayer();
-        this.editGateway.editByName(name, input.getPlayerBalance()[input.getCurrentPlayer()]);
+        String name = input.getUser();
+        System.out.println(editGateway.getBalance(name));
+        int balance = editGateway.getBalance(name) - input.getPlayerBalance()[0];
+        System.out.println(balance);
+        System.out.println(name);
+
+        this.editGateway.editByName(name, balance);
 
         return leavePresenter.exitGame(false);
     }

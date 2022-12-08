@@ -1,3 +1,5 @@
+package future_features;
+
 import game_entities.Card;
 import game_entities.Deck;
 

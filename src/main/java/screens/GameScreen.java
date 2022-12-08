@@ -97,6 +97,7 @@ public class GameScreen extends JPanel implements Screen {
     private final FoldController fController;
     private final CallController aController;
     private final LeaveController lController;
+    private final String user;
 
     private final JTextField betAmount = new JTextField();
 
@@ -124,7 +125,7 @@ public class GameScreen extends JPanel implements Screen {
                       String[] card1, String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                       String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets, String[] deck,
                       CheckController cController, BetController bController,
-                      CallController aController, FoldController fController, LeaveController lController) {
+                      CallController aController, FoldController fController, LeaveController lController, String user) {
 
         this.frame = frame;
         this.cController = cController;
@@ -147,12 +148,49 @@ public class GameScreen extends JPanel implements Screen {
         this.isActive = isActive;
         this.playerBets = playerBets;
         this.deck = deck;
+        this.user = user;
 
         this.setLayout(new BorderLayout());
 
         this.add(loadBackground());
         this.add(this.loadButtons(), BorderLayout.SOUTH);
 
+    }
+
+    public GameScreen(JFrame frame,CheckController cController, BetController bController,
+                      CallController aController, FoldController fController, NewGameController nController, LeaveController lController, String user) {
+
+        this.frame = frame;
+        this.cController = cController;
+        this.bController = bController;
+        this.aController = aController;
+        this.fController = fController;
+        this.lController = lController;
+
+        int NUMBER_OF_PLAYERS = 4;
+
+        ResponseModel response = nController.create(NUMBER_OF_PLAYERS);
+
+        this.currentPlayer = response.getCurrentPlayer();
+        this.firstPlayer = response.getFirstPlayer();
+        this.lastToBet = response.getLastToBet();
+        this.playerBalance = response.getPlayerBalance();
+        this.card1 = response.getCard1();
+        this.card2 = response.getCard2();
+        this.tableCard = response.getTableCard();
+        this.card1PNG = response.getCard1PNG();
+        this.card2PNG = response.getCard2PNG();
+        this.tableCardPNG = response.getTableCardPNG();
+        this.currentBet = response.getCurrentBet();
+        this.isActive = response.getIsActive();
+        this.playerBets = response.getPlayerBets();
+        this.deck = response.getDeck();
+        this.user = user;
+
+        this.setLayout(new BorderLayout());
+
+        this.add(loadBackground());
+        this.add(this.loadButtons(), BorderLayout.SOUTH);
     }
 
     /**
@@ -188,7 +226,7 @@ public class GameScreen extends JPanel implements Screen {
      */
     private ImagePanel[] loadHiddenCards(){
         int players = card1.length * 2 - 2;
-        String cardBack = "images/game_entities.Card Back.png";
+        String cardBack = "images/Card Back.png";
         ImagePanel[] oppCards = new ImagePanel[players];
         for (int i = 0; i < players; i+=2){
             oppCards[i] = new ImagePanel(cardBack, 0, 0, CARD_WIDTH, CARD_HEIGHT);
@@ -266,7 +304,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = cController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, 0);
+                        deck, "0", user);
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
@@ -290,7 +328,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = bController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, Integer.parseInt(betAmount.getText()));
+                        deck, betAmount.getText(), user);
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
@@ -314,7 +352,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = aController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, 0);
+                        deck, "0", user);
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
@@ -338,7 +376,7 @@ public class GameScreen extends JPanel implements Screen {
             try {
                 ResponseModel response = fController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                         card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                        deck, 0);
+                        deck, "0", user);
                 this.currentPlayer = response.getCurrentPlayer();
                 this.firstPlayer = response.getFirstPlayer();
                 this.lastToBet = response.getLastToBet();
@@ -363,7 +401,7 @@ public class GameScreen extends JPanel implements Screen {
            try {
                boolean response = lController.create(currentPlayer, firstPlayer, lastToBet, playerBalance,
                        card1, card2, tableCard, card1PNG, card2PNG, tableCardPNG, currentBet, isActive, playerBets,
-                       deck, 0);
+                       deck, null, user);
                 this.inGame = response;
            } catch (Exception ee) {
                JOptionPane.showMessageDialog(frame, ee.getMessage());
