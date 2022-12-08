@@ -15,6 +15,16 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         this.userFactory = userFactory;
     }
 
+    /**
+     * Logs the user into the system.
+     * If the username and the password input are empty, the system returns "Please enter a username and password"
+     * If the input username does not exist in the database, the system returns "User not found."
+     * If the input username exists in the database but the password does not match with the input password, the system
+     * returns "Password does not match".
+     * Otherwise, an accountResponseModel is created
+     * @param loginRequestModel the username and password input
+     * @return a UserLoginResponseModel
+     */
     @Override
     public UserLoginResponseModel create(UserLoginRequestModel loginRequestModel) {
         if (loginRequestModel.getUser().isEmpty() || loginRequestModel.getPassword().isEmpty()){
