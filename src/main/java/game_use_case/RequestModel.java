@@ -1,5 +1,9 @@
 package game_use_case;
 
+/**
+ * Represents the request model. Contains the current game's state at the time in the form of primitives.
+ * This will be passed into several use case interactors to change the game instance.
+ */
 public class RequestModel {
     int currentPlayer;
     int firstPlayer;
@@ -17,6 +21,9 @@ public class RequestModel {
     String[] deck;
     int bet;
 
+    /**
+     * Request Model Constructor
+     */
     public RequestModel(int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance, String[] card1,
                         String[] card2, String[] tableCard, String[] card1PNG, String[] card2PNG,
                         String[] tableCardPNG, int currentBet, boolean[] isActive, int[] playerBets,
