@@ -15,6 +15,16 @@ public class UserRegisterInteractor implements UserRegisterInputBoundary{
         this.userFactory = userFactory;
     }
 
+    /**
+     * Registers the user into the system
+     * If the username and the password input are empty, the system returns "Please enter a username and password"
+     * If the input username already exists in the database, the system returns "Username already taken."
+     * If the second password field is empty, the system returns "Please confirm your password"
+     * If the first input password and second input password are empty, the system returns "Passwords do not match"
+     * Otherwise, an accountResponseModel is created.
+     * @param RegisterRequestModel the username and password input
+     * @return a UserRegisterResponseModel
+     */
     @Override
     public UserRegisterResponseModel create(UserRegisterRequestModel RegisterRequestModel) {
         if (RegisterRequestModel.getUser().isEmpty() || RegisterRequestModel.getPassword().isEmpty()){
