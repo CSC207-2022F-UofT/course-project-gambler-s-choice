@@ -1,19 +1,24 @@
 package screens;
 
+import menu_use_case.MenuInputBoundary;
+import menu_use_case.MenuRequestModel;
+import menu_use_case.MenuResponseModel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuController implements ActionListener {
+public class MenuController {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("Log Out")){
-            System.out.println("(TEMP MESSAGE) Resets the game object, and displays the log in screen");
-        } else if (e.getActionCommand().equals("Play")) {
-            System.out.println("(TEMP MESSAGE) Changes the screen to the game screen (does not change any data)");
-        }
-        else if (e.getActionCommand().equals("Edit User")){
-            System.out.println("(TEMP MESSAGE) edits the balance that the provided user has in the database");
-        }
+    final MenuInputBoundary userInput;
+
+    public MenuController(MenuInputBoundary menuGateway){
+        this.userInput = menuGateway;
     }
+
+    MenuResponseModel create(String user, String input, boolean rulesVisible){
+        MenuRequestModel requestModel = new MenuRequestModel(user, input, rulesVisible);
+
+        return userInput.create(requestModel);
+    }
+
 }

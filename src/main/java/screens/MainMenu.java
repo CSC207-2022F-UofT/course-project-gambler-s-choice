@@ -1,22 +1,29 @@
 package screens;
 //THIS IS THE UI LAYER
 
+import menu_use_case.MenuResponseModel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class MainMenu implements Menu {
+public class MainMenu extends JPanel implements Menu {
     /**
      * creates a main menu screen
      * This class does not work as of right now since we have yet to implement use cases, so there will be popup messages
      * that will display when corresponding buttons are clicked that denote what the button is supposed to do
      * @param frame The frame that MainMenu modifies
      */
-    public MainMenu(JFrame frame){
+    private final JFrame frame;
 
-        //Creates a new MenuController object
-        MenuController m = new MenuController();
+    private boolean loggedIn = true;
+    private boolean inGame = false;
+
+    public MainMenu(JFrame frame, MenuController controller, String user){
+        this.frame = frame;
 
         JLabel background = new JLabel();
         background.setSize(1000,800);
@@ -31,26 +38,37 @@ public class MainMenu implements Menu {
 
         JButton helpButton = new JButton("Help");
 
-        helpButton.addActionListener(e -> {
-            helpWindow.setVisible(!helpWindow.isVisible());
-        });
-
         JButton logoutButton = new JButton("Log Out");
 
-        logoutButton.addActionListener(m);
-
-        JButton exitButton = new JButton("Exit game_entities.Game");
-
-        exitButton.addActionListener(e -> {
-            System.exit(0);
-        });
+        JButton exitButton = new JButton("Exit Game");
 
         JButton gameButton = new JButton("Play");
 
-        gameButton.addActionListener(m);
+        JButton[] buttons = {logoutButton,exitButton,gameButton, helpButton};
 
-
-
+        for (JButton button: buttons) {
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed (ActionEvent evt){
+                    if (evt.getActionCommand().equals("Log Out")) {
+                        MenuResponseModel response = controller.create(user, "Log out", helpWindow.isVisible());
+                        loggedIn = response.isLoggedIn();
+                    } else if (evt.getActionCommand().equals("Exit Game")) {
+                        System.exit(0);
+                    } else if (evt.getActionCommand().equals("Help")) {
+                        MenuResponseModel response = controller.create(user, "Help", helpWindow.isVisible());
+                        helpWindow.setVisible(response.isRulesVisible());
+                    } else if (evt.getActionCommand().equals("Play")) {
+                        try {
+                            MenuResponseModel response = controller.create(user, "Play", helpWindow.isVisible());
+                            inGame = response.isInGame();
+                        }catch (Exception e){
+                            JOptionPane.showMessageDialog(frame, e.getMessage());
+                        }
+                    }
+                }
+            });
+        }
 
         ArrayList <Rectangle> coords = calcCoord(10,10, 4, 100, 60, 10);
 
@@ -67,15 +85,18 @@ public class MainMenu implements Menu {
         background.add(logoutButton);
 
         background.add(exitButton);
+
         background.add(helpWindow);
 
-
-        frame.add(background);
-
-        frame.setSize(1000,800);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-
+        this.add(background);
     }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
 }
