@@ -1,19 +1,21 @@
-package login_menu_use_casee;
+package login_menu_use_case;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Implementation of the LoginGateway which accesses the database and checks necessary values
+ */
 public class LoginFileChecker implements UserLoginDSGateway{
+
+    private final ArrayList<String[]> accounts = new ArrayList<String[]>();
+    private final File usersFile;
 
     /**
      * Adds the account information into this LoginFileCheck's accounts.
      * @param txtPath the name of the users information file
      */
-    private final ArrayList<String[]> accounts = new ArrayList<String[]>();
-
-    private final File usersFile;
     public LoginFileChecker(String txtPath) throws IOException{
         usersFile = new File(txtPath);
 

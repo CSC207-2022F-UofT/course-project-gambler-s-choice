@@ -1,14 +1,23 @@
-package login_menu_use_casee;
+package login_menu_use_case;
 
 import login_menu_entities.UserInterface;
 import login_menu_entities.UserInterfaceFactory;
 
+/**
+ * Implementation of an inputboundary which takes the inputs and performs the necessary reaction in the presenter
+ */
 public class UserLoginInteractor implements UserLoginInputBoundary {
 
     final UserLoginDSGateway userDSGateway;
     final UserLoginPresenter userPresenter;
     final UserInterfaceFactory userFactory;
 
+    /**
+     * Constructor of the interactor which properly assigns the necessary gateway, presenter and factory
+     * @param userLoginDSGateway The gateway needed to interact with the database
+     * @param userLoginPresenter The presenter needed to pass values to update the view
+     * @param userFactory The factory necessary to create the necessary entities
+     */
     public UserLoginInteractor(UserLoginDSGateway userLoginDSGateway, UserLoginPresenter userLoginPresenter, UserInterfaceFactory userFactory){
         this.userDSGateway = userLoginDSGateway;
         this.userPresenter = userLoginPresenter;

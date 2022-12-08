@@ -1,5 +1,8 @@
 package login_menu_entities;
 
+/**
+ * General User method outline
+ */
 public interface UserInterface {
 
     /**

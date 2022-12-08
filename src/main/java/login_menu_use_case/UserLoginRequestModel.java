@@ -1,5 +1,8 @@
-package login_menu_use_casee;
+package login_menu_use_case;
 
+/**
+ * Request model to hold all the values of the inputs
+ */
 public class UserLoginRequestModel {
 
     /**
@@ -9,6 +12,11 @@ public class UserLoginRequestModel {
     private final String user;
     private final String password;
 
+    /**
+     * Constructor of the requestmodel which assigns the necessary data
+     * @param user
+     * @param password
+     */
     public UserLoginRequestModel(String user, String password){
         this.user = user;
         this.password = password;

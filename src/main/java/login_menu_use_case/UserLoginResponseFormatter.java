@@ -1,7 +1,10 @@
-package login_menu_use_casee;
+package login_menu_use_case;
 
 import screens.LoginFail;
 
+/**
+ * Implementation of the presenter which prepares the successful view or error
+ */
 public class UserLoginResponseFormatter implements UserLoginPresenter{
 
     /**

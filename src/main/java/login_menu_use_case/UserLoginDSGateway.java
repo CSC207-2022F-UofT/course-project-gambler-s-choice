@@ -1,6 +1,8 @@
-package login_menu_use_casee;
+package login_menu_use_case;
 
-
+/**
+ * Interface of the Gateway which outlines the necessary methods needed
+ */
 public interface UserLoginDSGateway {
 
     /**
