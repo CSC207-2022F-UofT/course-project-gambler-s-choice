@@ -7,7 +7,7 @@ import game_entities.*;
 import game_use_case.*;
 import login_menu_entities.UserFactory;
 import login_menu_entities.UserInterfaceFactory;
-import login_menu_use_casee.*;
+import login_menu_use_case.*;
 import menu_use_case.*;
 import register_menu_use_case.*;
 import screens.*;
@@ -15,8 +15,13 @@ import screens.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * This is the main class of our game which makes any necessary objects for the screens to run and runs the game
+ * in a loop until the game is exited
+ */
 public class Main {
     public static void main(String[] args) {
+        //Initializing necessary variables to track which screen should be on
         boolean loggedIn = false;
         boolean inGame = false;
         boolean mainMenuInitiate = true;
@@ -30,6 +35,7 @@ public class Main {
         JPanel screens = new JPanel(cardLayout);
         application.add(screens);
 
+        //Initializing the Login Use Case classes and Controller
         UserLoginDSGateway user;
         try {
             user = new LoginFileChecker(usersfile);
@@ -40,6 +46,8 @@ public class Main {
         UserInterfaceFactory userFactory = new UserFactory();
         UserLoginInputBoundary loginInputBoundary = new UserLoginInteractor(user, presenter, userFactory);
         LoginController loginController = new LoginController(loginInputBoundary);
+
+        //Initializing the Register Use Case classes and Controller
         UserRegisterDSGateway user2;
         try {
             user2 = new RegisterFileChecker(usersfile);
@@ -50,8 +58,9 @@ public class Main {
         UserRegisterInputBoundary registerInputBoundary = new UserRegisterInteractor(user2, presenter1, userFactory);
         RegisterController registerController = new RegisterController(registerInputBoundary);
 
-        LoginScreen loginScreen = new LoginScreen(application, loginController, registerController);
+        LoginScreen loginScreen = new LoginScreen(application, loginController, registerController);    //Initializes the login screen
 
+        //Initializing the Admin Edit Balance Use Case classes and Controller
         AdminFileChecker adminFileChecker;
         try{
             adminFileChecker = new AdminFileChecker(usersfile);
@@ -63,6 +72,7 @@ public class Main {
         AdminEditBalanceController adminEditBalanceController = new AdminEditBalanceController(adminEditInteractor);
         AdminMainMenu adminMenuScreen = new AdminMainMenu(application, adminEditBalanceController, loginScreen.getUser());
 
+        //Initializing the Menu Screen Use Case classes and Controller
         MenuFileChecker menuUser;
         try {
             menuUser = new MenuFileChecker(usersfile);
@@ -72,9 +82,9 @@ public class Main {
         MenuResponseFormatter menuResponseFormatter = new MenuResponseFormatter();
         MenuInteractor menuInteractor = new MenuInteractor(menuUser, menuResponseFormatter);
         MenuController menuController = new MenuController(menuInteractor);
-        MainMenu menuScreen = new MainMenu(application, menuController, loginScreen.getUser());;
+        MainMenu menuScreen = new MainMenu(application, menuController, loginScreen.getUser());
 
-
+        //Initializing The necessary game Use Cases' Classes and Controllers
         GameFactoryInterface gameFactory = new GameFactory();
         CheckPresenter checkPresenter = new CheckResponseFormatter();
         CheckInputBoundary checkInputBoundary = new CheckInteractor(checkPresenter, gameFactory);
@@ -96,24 +106,24 @@ public class Main {
         LeaveController leaveController = new LeaveController(leaveInteractor);
 
         GameScreen gameScreen = new GameScreen(application,
-                checkController, betController, callController, foldController, newGameController, leaveController, null);
+                checkController, betController, callController, foldController, newGameController, leaveController, null);  //Initializing the game screen
 
-        screens.add(loginScreen, "Login");
+        screens.add(loginScreen, "Login");  //Adding the starting screen to be the login screen
+
+        //Necessary JFrame Settings
         application.pack();
         application.setSize(1000,800);
         application.setResizable(false);
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setVisible(true);
 
-        /** Main Game Loop
-         *
-         */
+        //Main Game Loop
         while (true) {
             if (!loggedIn)  {
                 loggedIn = loginScreen.isLoggedIn();
                 mainMenuInitiate = loggedIn;
                 cardLayout.show(screens, "Login");
-            } else if (loggedIn && !inGame) {
+            } else if (!inGame) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e){
@@ -143,7 +153,7 @@ public class Main {
                     screens.add(loginScreen, "Login");
                     mainMenuInitiate = false;
                 }
-            } else if (inGame) {
+            } else {
                 if (gameScreenInitiate){
                     gameScreen = new GameScreen(application,
                             checkController, betController,

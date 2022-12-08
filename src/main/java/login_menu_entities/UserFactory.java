@@ -1,9 +1,12 @@
 package login_menu_entities;
 
+/**
+ * Factory to make the necessary User/Admin Entities, implements the general UserInterfaceFactory
+ */
 public class UserFactory implements UserInterfaceFactory{
 
     /**
-     * Creates a new User or admin with the given information.
+     * Creates a new User or Admin with the given information.
      * @param name the name of the given user
      * @param password the password of the given user
      * @param type the type of the given user

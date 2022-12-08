@@ -1,5 +1,8 @@
 package game_use_case;
 
+/**
+ * This class is a presenter in clean architecture. It is used as input.
+ */
 public interface FoldPresenter {
     /**
      * This method will return a response model given the current response model

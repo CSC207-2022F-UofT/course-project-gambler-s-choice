@@ -2,39 +2,44 @@ package game_use_case;
 
 import admin_menu_use_case.AdminEditGateway;
 import admin_menu_use_case.AdminFileChecker;
-import admin_menu_use_case.AdminFileChecker.*;
-import game_entities.PlayerInterface;
-
 import java.io.IOException;
 
-public class LeaveInteractor implements LeaveInputBoundary{
+/**
+ * This class represents the case where the user leaves the game. This will create a new game state.
+ */
+public class LeaveInteractor implements LeaveInputBoundary {
 
     private final LeavePresenter leavePresenter;
 
     private final AdminEditGateway editGateway;
 
+    /**
+     * Constructor for the use case
+     * creates an object with the inputted callPresenter and gameFactory
+     */
     public LeaveInteractor(LeavePresenter leavePresenter) {
         AdminEditGateway editGateway1;
         this.leavePresenter = leavePresenter;
         try {
             editGateway1 = new AdminFileChecker("src/main/users.txt");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             editGateway1 = null;
         }
 
         this.editGateway = editGateway1;
     }
 
+    /**
+     * Given the Request model, this method will extract relevant information, use it to update the player's balance,
+     * and then return the boolean value false as a flag to exit the game screen
+     *
+     * @param input the request model passed in as input
+     * @return the
+     */
     @Override
     public boolean create(RequestModel input) {
-
         String name = input.getUser();
-        System.out.println(editGateway.getBalance(name));
-        int balance = editGateway.getBalance(name) - input.getPlayerBalance()[0];
-        System.out.println(balance);
-        System.out.println(name);
-
+        int balance = editGateway.getBalance(name) - (100 - input.getPlayerBalance()[0]);
         this.editGateway.editByName(name, balance);
 
         return leavePresenter.exitGame(false);

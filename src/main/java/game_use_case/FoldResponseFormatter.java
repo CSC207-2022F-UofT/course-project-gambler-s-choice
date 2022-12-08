@@ -2,7 +2,10 @@ package game_use_case;
 
 import screens.GameFail;
 
-
+/**
+ * This class formats the response object and returns the corresponding response model
+ * Implements FoldPresenter interface
+ */
 public class FoldResponseFormatter implements FoldPresenter{
     /**
      * Returns a new ResponseModel with the updated Game data
