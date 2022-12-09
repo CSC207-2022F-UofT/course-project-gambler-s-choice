@@ -1,7 +1,5 @@
 package screens;
 
-import login_menu_entities.UserFactory;
-import login_menu_entities.UserInterfaceFactory;
 import login_menu_use_case.*;
 import register_menu_use_case.UserRegisterResponseModel;
 
@@ -9,9 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Arrays;
 
+/**
+ * The view for the Login menu
+ */
 public class LoginScreen extends JPanel implements Screen {
     private final JTextField usernameField = new JTextField();
     private final JPasswordField passwordField = new JPasswordField(20);
@@ -24,8 +23,10 @@ public class LoginScreen extends JPanel implements Screen {
     private String type = null;
 
     /**
-     * Updates the current window to contain the necessary items in the game
-     * @param
+     * Creates the login screen on the frame
+     * @param frame The frame to be modified
+     * @param lcontroller The controller for the login use case
+     * @param rcontroller The controller for the register use case
      */
     public LoginScreen(JFrame frame, LoginController lcontroller, RegisterController rcontroller){
         usernameField.setText("");
