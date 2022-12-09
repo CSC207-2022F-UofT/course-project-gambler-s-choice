@@ -4,6 +4,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * Represents a deck used to store cards
+ * Uses the card class to store card information
+ */
 public class Deck {
     private Stack<Card> deck;
 
@@ -65,6 +69,10 @@ public class Deck {
         return this.deck.pop();
     }
 
+    /**
+     * Returns the deck as a string list
+     * @return String array of cards
+     */
     public String[] deckAsStringArray() {
         int len = deck.size();
         Card[] tempDeck = new Card[len];

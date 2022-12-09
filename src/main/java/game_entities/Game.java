@@ -5,6 +5,11 @@ import game_entities.Deck;
 
 import java.util.*;
 
+/**
+ * The game with the current state variables put in.
+ * Contains all the game variables that are required to run the game.
+ * Contains several methods that run the game as well
+ */
 public class Game implements GameInterface{
     private final Player[] players;
     private final Pool pool;
@@ -66,6 +71,9 @@ public class Game implements GameInterface{
         }
     }
 
+    /**
+     * Gets the next player in the turn order
+     */
     public void nextPlayer() {
         this.iteratePlayer();
         while(!this.isActive[this.currentPlayer]) {
@@ -77,11 +85,17 @@ public class Game implements GameInterface{
         }
     }
 
+    /**
+     * Iterator for next player
+     */
     private void iteratePlayer() {
         this.currentPlayer++;
         this.currentPlayer %= this.players.length;
     }
 
+    /**
+     * next round logic, deals cards, sets new player, checks winner if conditions are met
+     */
     public void nextRound() {
 //        if (this.firstPlayer <= this.players.length) {
 //            this.firstPlayer++;
