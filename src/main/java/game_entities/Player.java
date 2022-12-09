@@ -35,6 +35,27 @@ public class Player implements PlayerInterface {
         cards[1] = card2;
     }
 
+    public String makeDecision(int currentCall, int haveCalled){
+        String decision = "something";
+
+        // In the program, "check" is considered as raising to $0
+
+        if (decision.equals("F")){
+            this.fold = true;
+        } else if(decision.charAt(0) == 'C'){
+            while(currentCall - haveCalled > this.balance){
+            }
+            balance -= currentCall;
+        } else if (decision.charAt(0) == 'R'){
+            int raise = Integer.parseInt(decision.substring(1));
+            while (raise - haveCalled > this.balance){
+            }
+            while (raise < 2 * currentCall){
+            }
+        }
+        return decision;
+    }
+
     public void addMoney(int amount){
         this.balance += amount;
     }
@@ -47,15 +68,11 @@ public class Player implements PlayerInterface {
         return this.allIn;
     }
     public int betSmallBlind(){
-        //TODO: create a pop-up for input of small blind
         balance -= 1;
         return 1;
     }
 
     public int betBigBlind(int sb){
-        //TODO: create a pop-up for input of big blind
-
-        //TODO: raise not higher than small blind message and alt the <call> again
         balance -= 2;
         return 2;
     }
@@ -95,34 +112,5 @@ public class Player implements PlayerInterface {
     public void setCards(Card card1, Card card2) {
         this.cards[0] = card1;
         this.cards[1] = card2;
-    }
-
-    public String makeDecision(int currentCall, int haveCalled){
-        String decision = "something";
-
-        //TODO: add a action listener of the button and alt the value of <decision>
-        // "F" for fold, "C" for call, "R300" for raise to 300 or "K" for check
-
-        // In the program, "check" is considered as raising to $0
-
-        //TODO: if <currentCall> is not 0, then Check button is disabled
-
-        if (decision.equals("F")){
-            this.fold = true;
-        } else if(decision.charAt(0) == 'C'){
-            while(currentCall - haveCalled > this.balance){
-                //TODO: raise insuffcient balance message and alt the <decision> again
-            }
-            balance -= currentCall;
-        } else if (decision.charAt(0) == 'R'){
-            int raise = Integer.parseInt(decision.substring(1));
-            while (raise - haveCalled > this.balance){
-                //TODO: raise insufficient balance message and alt the <decision> again
-            }
-            while (raise < 2 * currentCall){
-                //TODO: raise not doubling current call message and alt the <decision> again
-            }
-        }
-        return decision;
     }
 }

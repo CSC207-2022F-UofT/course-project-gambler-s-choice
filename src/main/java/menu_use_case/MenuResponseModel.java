@@ -1,5 +1,8 @@
 package menu_use_case;
 
+/**
+ * A response model for the menu. Contains primitive values that the menu screen needs returned to it
+ */
 public class MenuResponseModel {
 
     private boolean inGame;
