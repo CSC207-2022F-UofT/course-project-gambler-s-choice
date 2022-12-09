@@ -1,5 +1,9 @@
 package game_entities;
 
+/**
+ * Interface for a game.
+ * Represents the game object that will be built by the GameFactory
+ */
 public interface GameInterface {
     void dealCards();
 

@@ -1,5 +1,9 @@
 package game_entities;
 
+/**
+ * Card class that contains the rank and suit of a card.
+ * Represents a regular playing card that also contains the image of the card
+ */
 public class Card implements Comparable<Card>{
     private final String rank;
     private final String suit;
