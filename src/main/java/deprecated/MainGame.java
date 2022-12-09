@@ -42,7 +42,7 @@ public class MainGame {
 
         screens.add(gameScreen, "Game");
         application.pack();
-        application.setSize(1000,800); // TODO reset height to 800
+        application.setSize(1000,800);
         application.setResizable(false);
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         application.setVisible(true);

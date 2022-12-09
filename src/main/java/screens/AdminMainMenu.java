@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 import admin_menu_use_case.*;
 
+/**
+ * The view for the Admin main menu
+ */
 public class AdminMainMenu extends JPanel implements Menu{
 
     private final JFrame frame;
@@ -16,8 +19,10 @@ public class AdminMainMenu extends JPanel implements Menu{
     private String user;
 
     /**
-     * Creates a main menu with an extra option to edit user balances
-     * @param frame the frame to be modified
+     * Creates a main menu with an extra option to edit user balances on the frame
+     * @param frame The frame to be modified
+     * @param controller The controller for the menu use case
+     * @param user The user that is logged in
      */
     public AdminMainMenu(JFrame frame, AdminEditBalanceController controller, String user){
     this.user = user;
@@ -124,9 +129,19 @@ public class AdminMainMenu extends JPanel implements Menu{
         this.add(background);
 
     }
+
+    /**
+     * Determine if the state of the screen should be on or not
+     * @return If it should be on the login screen or not
+     */
     public boolean isLoggedIn() {
         return loggedIn;
     }
+
+    /**
+     * Determine if the state of the screen should be on or not
+     * @return If it should be on the game screen or not
+     */
     public boolean isInGame(){ return inGame;}
 
 }

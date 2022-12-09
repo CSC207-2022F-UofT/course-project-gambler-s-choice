@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class ImagePanel extends JPanel{
 
     private BufferedImage image;

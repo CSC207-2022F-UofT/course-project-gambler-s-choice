@@ -4,8 +4,10 @@ import game_use_case.ResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
+/**
+ * The view/screen that is displayed when the game is displayed
+ */
 public class GameScreen extends JPanel implements Screen {
 
     int currentPlayer;
@@ -105,20 +107,26 @@ public class GameScreen extends JPanel implements Screen {
     /**
      * Updates the current window to contain the necessary items in the game
      * @param frame The current main window being used
-     * @param currentPlayer
-     * @param firstPlayer
-     * @param lastToBet
-     * @param playerBalance
-     * @param card1
-     * @param card2
-     * @param tableCard
-     * @param card1PNG
-     * @param card2PNG
-     * @param tableCardPNG
-     * @param currentBet
-     * @param isActive
-     * @param playerBets
-     * @param cController
+     * @param currentPlayer The player whose turn it currently is
+     * @param firstPlayer The player who will start the round
+     * @param lastToBet The player who will end the round
+     * @param playerBalance The balance of the players
+     * @param card1 The left card of the players
+     * @param card2 The right card of the players
+     * @param tableCard The cards that are displayed on the table at this state
+     * @param card1PNG The image link of the left card of the player
+     * @param card2PNG The image link of the right card of the player
+     * @param tableCardPNG The image links of the cards on the table
+     * @param currentBet The value the current bet is at
+     * @param isActive Whether the turn is active or not to decide when to update the screen
+     * @param playerBets The total bets from each player at the table
+     * @param deck The cards that have not been used yet
+     * @param cController The controller needed for the game to make decisions if the user checks
+     * @param bController The controller needed for the game to make decisions if the user bets
+     * @param aController The controller needed for the game to make decisions if the user calls
+     * @param fController The controller needed for the game to make decisions if the user folds
+     * @param lController The controller needed for the game to make decisions if the user leaves
+     * @param user The user who is logged in
      */
     public GameScreen(JFrame frame,
                       int currentPlayer, int firstPlayer, int lastToBet, int[] playerBalance,
@@ -157,6 +165,16 @@ public class GameScreen extends JPanel implements Screen {
 
     }
 
+    /**
+     * Initializes a default game screen on start of a new game
+     * @param frame The current main window being used
+     * @param cController The controller needed for the game to make decisions if the user checks
+     * @param bController The controller needed for the game to make decisions if the user bets
+     * @param aController The controller needed for the game to make decisions if the user calls
+     * @param fController The controller needed for the game to make decisions if the user folds
+     * @param lController The controller needed for the game to make decisions if the user leaves
+     * @param user The user who is logged in
+     */
     public GameScreen(JFrame frame,CheckController cController, BetController bController,
                       CallController aController, FoldController fController, NewGameController nController, LeaveController lController, String user) {
 

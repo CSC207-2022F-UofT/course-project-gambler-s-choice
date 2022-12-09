@@ -1,18 +1,29 @@
 package screens;
 
-import game_use_case.CheckInputBoundary;
 import game_use_case.NewGameInputBoundary;
 import game_use_case.RequestModel;
 import game_use_case.ResponseModel;
 
+/**
+ * Controller used by the New Game use case
+ */
 public class NewGameController {
 
     final NewGameInputBoundary input;
 
+    /**
+     * Constructor of the controller which initializes the necessary gateway
+     * @param input the input boundary for the bet
+     */
     public NewGameController(NewGameInputBoundary input) {
         this.input = input;
     }
 
+    /**
+     * Creates a newly initialized game
+     * @param numberOfPlayers The amount of players playing
+     * @return The response model that does the dependency inversion for the game entity
+     */
     ResponseModel create(int numberOfPlayers) {
         String[] card1 = new String[numberOfPlayers];
         String[] card2 = new String[numberOfPlayers];

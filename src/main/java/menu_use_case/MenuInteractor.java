@@ -6,6 +6,10 @@ public class MenuInteractor implements MenuInputBoundary{
     final MenuDSGateway menuDSGateway;
     final MenuPresenter menuPresenter;
 
+    /**
+     * Menu constructor
+     * creates an object with the inputted menuDsGateway and menuPresenter
+     */
     public MenuInteractor(MenuDSGateway menuDSGateway, MenuPresenter menuPresenter){
         this.menuDSGateway = menuDSGateway;
         this.menuPresenter = menuPresenter;

@@ -9,19 +9,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
+/**
+ * The view for regular User Main Menu
+ */
 public class MainMenu extends JPanel implements Menu {
-    /**
-     * creates a main menu screen
-     * This class does not work as of right now since we have yet to implement use cases, so there will be popup messages
-     * that will display when corresponding buttons are clicked that denote what the button is supposed to do
-     * @param frame The frame that MainMenu modifies
-     */
     private final JFrame frame;
 
     private boolean loggedIn = true;
     private boolean inGame = false;
 
+    /**
+     * Creates a normal main menu on the frame
+     * @param frame The frame to be modified
+     * @param controller The controller for the menu use case
+     * @param user The user that is logged in
+     */
     public MainMenu(JFrame frame, MenuController controller, String user){
         this.frame = frame;
 
