@@ -1,5 +1,8 @@
 package admin_menu_use_case;
 
+/**
+ * dataclass that stores what will need to be presented
+ */
 public class AdminEditResponseModel {
     private String user;
     private final int balance;

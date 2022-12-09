@@ -1,6 +1,9 @@
 package admin_menu_use_case;
 
-
+/**
+ * an interface for the application to use
+ * AdminFileChecker implements this
+ */
 public interface AdminEditGateway {
 
     boolean existsByName(String name);

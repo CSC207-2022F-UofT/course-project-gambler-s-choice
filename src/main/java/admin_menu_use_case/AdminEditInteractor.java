@@ -1,6 +1,10 @@
 package admin_menu_use_case;
 
+
 public class AdminEditInteractor implements AdminEditBalanceInputBoundary{
+    /**
+     * This class is the actual logic of the admin edit usecase
+     */
     final AdminEditGateway adminEditGateway;
     final AdminEditPresenter adminEditPresenter;
 

@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Admin edit file use case
+ */
 public class AdminFileChecker implements AdminEditGateway {
 
     private final ArrayList<String[]> accounts = new ArrayList<>();
