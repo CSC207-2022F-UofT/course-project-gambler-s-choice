@@ -4,7 +4,7 @@ import game_entities.Card;
 
 import java.util.Arrays;
 
-public class CombinationChecker {
+public class CombinationChecker implements Comparable<CombinationChecker>{
     public final int compareID;
 
     /**
@@ -19,6 +19,18 @@ public class CombinationChecker {
                     "Cards been put in");
         }
         this.compareID = getCompareID(cards);
+    }
+
+    /**Compare two set of 5 cards by their rank on combination.
+     * for example, two pair is greater than one pair. However, we only compare the
+     * combination, no card rank comparing.
+     *
+     * @param other_hands the object to be compared.
+     * @return negative means this has smaller rank than the param hand, positive otherwise, zero if it is even.
+     */
+    @Override
+    public int compareTo(CombinationChecker other_hands) {
+        return this.compareID - other_hands.compareID;
     }
 
     /**
