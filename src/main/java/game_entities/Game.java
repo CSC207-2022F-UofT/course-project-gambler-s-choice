@@ -26,7 +26,7 @@ public class Game implements GameInterface{
         this.cards = new Card[5];
         this.players = players;
 
-        //TODO Delete this
+
         Card card1 = new Card("10", "S");
         Card card2 = new Card("J", "S");
         Card card3 = new Card("K", "S");
@@ -530,7 +530,7 @@ public class Game implements GameInterface{
             }
         }
         int[] ranking = new int[activePlayerCount];
-        // TODO: find the rank of <activePlayer> and assign to <ranking>
+
         pool.calculateWinnings(ranking);
     }
 
